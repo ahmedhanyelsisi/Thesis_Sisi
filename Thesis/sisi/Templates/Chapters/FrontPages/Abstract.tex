@@ -1,0 +1,29 @@
+% Nomenclature 
+%\newpage
+%\addcontentsline{toc}{chapter}{Nomenclature}
+%\begin{center}
+%	\textbf{\large Nomenclature}
+%\end{center} 
+%You may include a list of alphabetically ordered symbols and abbreviations here.
+
+% Abstract 
+\newpage
+\addcontentsline{toc}{chapter}{Abstract}
+\begin{center}
+	\textbf{\large Abstract}
+\end{center} 
+
+% =======================
+% Abstract (revised)
+% =======================
+Permanent-magnet synchronous motors (PMSMs) enable efficient, high-density electric drives, but inverter non-linearities (dead time, and device drops) undermine low-speed, sensorless operation by injecting low-order harmonic distortion. This thesis examines three control strategies under that constraint. First, we implemented finite-control-set MPC (FCS–MPC) as a candidate solution. While conceptually simple, its single-vector, variable-frequency actuation yields a voltage shape that interacts unfavorably with the non-linear inverter biases, leading to elevated current THD and fragile low-speed behavior. To avoid variable frequency and reduce the sensitivity to those biases, we then adopted a MMPC that optimizes a continuous average voltage each sample and realizes it via space-vector modulation (SVM), fixing the switching frequency. Finally, we augmented MMPC with a harmonic-extraction (HE) stage that selectively cancels the dominant distortion components in the commanded average voltage to directly target the non-linearity footprint.
+
+A unified simulation campaign compares PI–FOC, FCS–MPC, MMPC, and the proposed MMPC-HE across steady state, low-speed operation, dynamic speed steps (10--50\% rated), load steps (10--100\% rated torque), and parameter variation ($R{+}25\%$, $L{-}25\%$), under both ideal and non-ideal inverter models. Under non-linearities, FCS is unstable at 5\% rated speed and retains high THD at 10\% (e.g., $\sim34\%$ at low load), while PI also struggles at 5\% and shows sizable distortion at 10\% (e.g., $\sim23\%$ at low load). In contrast, M2PC preserves fixed frequency and robust tracking with substantially lower THD (e.g., $\sim8\%$ at 1000~rpm low load; $\sim2\%$ at 1000~rpm medium load; $\sim6.6\%$ at 200~rpm low load; $\sim1.1\%$ at 100--200~rpm rated load). The proposed HE–M2PC further reduces distortion at the same operating points (e.g., $6.5\%$ at 1000~rpm low load and $0.8\%$ at 1000~rpm medium load; $2.8$--$2.9\%$ at 100--200~rpm low load) without degrading transients. Under worst-case parameter bias at 5\% rated speed, MMPC-HE maintains low distortion ($\sim4.6\%$ THD) and outperforms the baseline MMPC ($\sim8.7\%$), evidencing robustness even when the harmonic template is imperfect.
+
+Overall, the results show that the primary obstacle at low speed is the inverter’s non-linear voltage error; FCS’s voltage shape and variable frequency exacerbate its effect, whereas MMPC mitigates it by commanding a continuous average voltage at fixed frequency. Adding harmonic extraction directly counters the non-linearities’ harmonic imprint, yielding the best spectral cleanliness and dynamic behavior among the studied controllers while remaining computationally light for embedded deployment.
+\medskip
+
+\noindent\textbf{Keywords:} PMSM drives; model predictive control; space-vector modulation; inverter non-linearities; harmonic extraction; sliding-mode observer; sensorless control; fixed-frequency PWM; THD; torque ripple.
+
+
+

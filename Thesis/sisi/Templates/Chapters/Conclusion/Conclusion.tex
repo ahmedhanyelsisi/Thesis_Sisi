@@ -1,0 +1,36 @@
+\let\cleardoublepage\clearpage
+\label{ch:conclusion}
+
+\section*{Summary of the thesis}
+This thesis set out to mitigate inverter non\-linearities in PMSM drives using MMPC current control while preserving fixed switching frequency and sensorless operation at low speed. The work progressed from first principles to system-level validation: (i) a physics-based PMSM model was derived from the three-phase $(a,b,c)$ variables to the $dq$ frame, with torque and power relations, (ii) a sensorless pipeline was built around a SMO and a two-stage adaptive low-pass filter whose cut-off tracks electrical speed to guarantee $\approx90^\circ$ net phase at the fundamental, (iii) speed and current PI controllers were designed in series form via explicit plant-pole cancellation, yielding transparent bandwidth targets, (iv) forward-Euler discrete models were adopted for prediction, (v) three control baselines were implemented—PI–FOC, (FCS–MPC), and a MMPC that optimizes a continuous average voltage and realizes it by SVM—and (vi) a proposed enhancement introduced harmonic extraction to cancel dominant low-order distortion in the commanded average voltage. Practical parameter identification was carried out and reused throughout: $R_{\mathrm{LL}}=2.67~\Omega$ (lead-inclusive), $L_d=2.87~\mathrm{mH}$, $L_q=2.58~\mathrm{mH}$, $\lambda=0.1227~\mathrm{Wb}$, $J=0.00636~\mathrm{kg\,m^2}$, and $B=0.004775~\mathrm{N\,m\,s/rad}$.
+
+\section*{Key quantitative findings}
+Under ideal conditions, PI–FOC delivers clean steady state at mid-speed (e.g., $\approx0.8\%$ THD at $1000~\mathrm{rpm}$) and well-damped dynamics; FCS–MPC exhibits the expected staircase-voltage penalty (e.g., $\approx8\%$ THD at $1000~\mathrm{rpm}$; up to $32\%$ at $100~\mathrm{rpm}$ and low load), while MMPC achieves low ripple (down to $0.4\%$ THD at $100~\mathrm{rpm}$, rated load) with overshoot $<10\%$. Parameter-mismatch tests highlighted model sensitivity: MPC-FCS degraded markedly ($32\%\!\to\!41\%$ THD at $100~\mathrm{rpm}$, low load), PI rose slightly ($1.3\%\!\to\!1.7\%$), and MMPC was essentially invariant ($\approx0.3\%$).
+
+With inverter non-linearities (dead time, device drops), PI’s harmonic floor rose sharply at light load and low speed (e.g., $16.4\%$ at $1000~\mathrm{rpm}$ low load; $23.2\%$ at $200~\mathrm{rpm}$ low load) and it became unstable at $100~\mathrm{rpm}$. FCS–MPC stabilized from $200~\mathrm{rpm}$ upward but retained high ripple (e.g., $17\%$ at $1000~\mathrm{rpm}$, $34\%$ at $200~\mathrm{rpm}$ low load) and failed certain step-down transients. In contrast, MMPC preserved fixed switching frequency and delivered much lower THD (e.g., $8\%$ at $1000~\mathrm{rpm}$ low load; $1.1\%$ at $100$–$200~\mathrm{rpm}$ rated load), with overshoot $<10\%$. The MMPC-HE further reduced distortion at the same operating points (e.g., $6.5\%$ and $0.8\%$ THD at $1000~\mathrm{rpm}$ low/medium load) and at very low speeds (e.g., $2.8\%$ at $100~\mathrm{rpm}$ low load; $2.9\%$ at $200~\mathrm{rpm}$ low load). Under the worst $\pm25\%$ $R$–$L$ bias with non-linearities at $100~\mathrm{rpm}$, the proposed scheme still outperformed the basic MMPC (e.g., $4.6\%$ vs.\ $8.7\%$ THD), evidencing robustness even when the harmonic template is imperfect.
+
+\section*{What the comparisons say}
+Three clear lessons emerged:
+\begin{itemize}
+  \item \textbf{Actuation matters:} fixing the switching frequency and optimizing a continuous average voltage (MMPC) is the dominant lever for ripple reduction; single-vector FCS-MPC is intrinsically disadvantaged at low-voltage points, especially with sensorless operation.
+  \item \textbf{Model quality matters differently across schemes:} MPC-FCS decisions hinge on one-step predictions for a single vector, so $R$–$L$ errors directly misrank candidates; PI tolerates modest plant shifts but cannot reject additive harmonic bias; MMPC is largely insensitive to moderate $R$–$L$ errors because SVM realizes the optimizer’s average voltage every sample.
+  \item \textbf{Structured compensation helps:} MMPC-HE targets the low-order odd components introduced by non-ideal switching, lowering THD further without altering closed-loop dynamics.
+\end{itemize}
+
+\section*{Practical design takeaways}
+A pragmatic path for PMSM drives that must operate sensorlessly and quietly at low speed is: (i) identify $R_{\mathrm{LL}},L_d,L_q,\lambda,J,B$ with simple lab procedures and reuse them across all controllers; (ii) if a PI baseline is required, design series PI loops by explicit plant-pole cancellation and keep bandwidth moderate; expect limited benefit against additive voltage distortion; (iii) prefer MMPC for low ripple and predictable EMI; and (iv) when non-linearities dominate, add harmonic extraction on the commanded average voltage to shave the remaining low-order content with negligible dynamic cost.
+
+\section*{Limitations}
+All dynamic and steady-state results were obtained in simulation. Core non-idealities (dead time, device drops, computation delay) were modeled as effective voltage biases, but additional phenomena—magnetic saturation/cross-saturation, spatial harmonics, temperature drift of $R$ and magnet flux, inverter latency jitter, ADC quantization/latency, and PWM nonlinearity beyond the nominal bias model—were not exhaustively covered. The harmonic-extraction stage relies on a model-referenced template; large parameter drifts or saliency-dependent harmonic phasing can leave residuals.
+
+\section*{Future work}
+Immediate extensions include: hardware-in-the-loop and bench validation of MMPC and the harmonic-extraction stage; online adaptation of the harmonic template using measured current spectra; joint estimation of $R$, $L_d$, $L_q$, and $\lambda$ to maintain model fidelity; inclusion of saturation and cross-coupling in the predictor; extension to field-weakening and MTPA; and embedded implementation aspects (fixed-point arithmetic, scheduler co-design with PWM/ADC timing) to preserve the assumed one-sample prediction horizon. Exploring multi-objective MPC that explicitly trades THD, switching loss, and acoustic metrics at runtime is also promising.
+
+\section*{Closing remark}
+Overall, the thesis demonstrates that MMPC—particularly with harmonic extraction—offers a practical, robust, and low-ripple route to mitigating inverter non-linearities in sensorless PMSM drives across the operating envelope, improving spectral cleanliness and dynamic behavior beyond PI–FOC and FCS–MPC while keeping the computational footprint modest.
+
+
+
+
+
+

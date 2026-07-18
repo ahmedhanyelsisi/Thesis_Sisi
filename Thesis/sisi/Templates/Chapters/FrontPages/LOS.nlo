@@ -1,0 +1,54 @@
+\nomenclatureentry{S$f_{\text{osc}}$@[{$f_{\text{osc}}$}]\begingroup Oscillation frequency of the system\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$\Delta f_{\text{osc}}$@[{$\Delta f_{\text{osc}}$}]\begingroup Bandwidth of the oscillation frequency\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$Q_R$@[{$Q_R$}]\begingroup Resonance quality factor\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$Z_{\text{VIR}}(s)$@[{$Z_{\text{VIR}}(s)$}]\begingroup Virtual impedance in the system\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$Z_{\text{in}}(s)$@[{$Z_{\text{in}}(s)$}]\begingroup Input impedance of the system\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$Z_{\text{out}}(s)$@[{$Z_{\text{out}}(s)$}]\begingroup Output impedance of the system\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$V_{\text{bus}}$@[{$V_{\text{bus}}$}]\begingroup DC bus voltage\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$P_{\text{cpl}}$@[{$P_{\text{cpl}}$}]\begingroup Power of the constant power load\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$K$@[{$K$}]\begingroup Controller gain constant\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$\omega_{\text{sys}}$@[{$\omega_{\text{sys}}$}]\begingroup System frequency\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$\omega_{\text{bw}}$@[{$\omega_{\text{bw}}$}]\begingroup Bandwidth of the system\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$\lambda$@[{$\lambda$}]\begingroup Flux linkage of the motor\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$I_{\text{bus}}$@[{$I_{\text{bus}}$}]\begingroup Current flowing through the DC bus\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$I_q$@[{$I_q$}]\begingroup Quadrature axis current\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$V_q$@[{$V_q$}]\begingroup Quadrature axis voltage\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$I_d$@[{$I_d$}]\begingroup Direct axis current\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$V_d$@[{$V_d$}]\begingroup Direct axis voltage\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$D_q$@[{$D_q$}]\begingroup Quadrature axis duty cycle\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$D_d$@[{$D_d$}]\begingroup Direct axis duty cycle\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$L_q$@[{$L_q$}]\begingroup Quadrature axis inductance\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$r$@[{$r$}]\begingroup Resistance of the motor windings\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$T_{\text{op}}$@[{$T_{\text{op}}$}]\begingroup Open-loop transfer function\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$G_c$@[{$G_c$}]\begingroup Controller transfer function gain\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$M(s)$@[{$M(s)$}]\begingroup Mechanical transfer function of the motor\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$\hat{i}_{\text{dc}}$@[{$\hat{i}_{\text{dc}}$}]\begingroup AC component of the DC current\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$\hat{v}_{\text{bus}}$@[{$\hat{v}_{\text{bus}}$}]\begingroup AC component of the DC bus voltage\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$Z_n$@[{$Z_n$}]\begingroup Equivalent impedance of the system\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$T(s)$@[{$T(s)$}]\begingroup Transfer function of the feedback system\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$\hat{\omega}_e$@[{$\hat{\omega}_e$}]\begingroup Electrical angular velocity\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$\hat{\omega}_{\text{mech}}$@[{$\hat{\omega}_{\text{mech}}$}]\begingroup Mechanical angular velocity\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$S_n$@[{$S_n$}]\begingroup Sensitivity function of the system\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$R_M$@[{$R_M$}]\begingroup Measurement resistor in the circuit\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$R_1$@[{$R_1$}]\begingroup Series resistor for voltage sensing\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$C_{\text{filter}}$@[{$C_{\text{filter}}$}]\begingroup Filter capacitance\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$R_{\text{filter}}$@[{$R_{\text{filter}}$}]\begingroup Filter resistance\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$I_\text{in}$@[{$I_\text{in}$}]\begingroup Input current of the voltage sensor\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$V_\text{out}$@[{$V_\text{out}$}]\begingroup Output voltage of the voltage sensor\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$V_\text{max}$@[{$V_\text{max}$}]\begingroup Maximum permissible input voltage\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$I_\text{max}$@[{$I_\text{max}$}]\begingroup Maximum permissible input current\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$\omega_x$@[{$\omega_x$}]\begingroup Frequency of the zero in the transfer function\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$\omega_{\text{res}}$@[{$\omega_{\text{res}}$}]\begingroup Resonance frequency of the filter\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$a_0, a_1, a_2$@[{$a_0, a_1, a_2$}]\begingroup Numerator coefficients of the transfer function\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$b_0, b_1, b_2$@[{$b_0, b_1, b_2$}]\begingroup Denominator coefficients of the transfer function\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$T_{\text{PLL}}$@[{$T_{\text{PLL}}$}]\begingroup Adaptive phase-locked loop tracking frequency\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$I_\text{peak}$@[{$I_\text{peak}$}]\begingroup Peak current through the measurement resistor\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$V_\text{ADC}$@[{$V_\text{ADC}$}]\begingroup Voltage output of the ADC channel\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$\Delta T$@[{$\Delta T$}]\begingroup Time step size in dynamic calculations\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$R_{\text{TVS}}$@[{$R_{\text{TVS}}$}]\begingroup TVS diode clamping resistance\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$I_q^{\text{ref}}$@[{$I_q^{\text{ref}}$}]\begingroup Quadrature axis reference current\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$V_q^{\text{ref}}$@[{$V_q^{\text{ref}}$}]\begingroup Quadrature axis reference voltage\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$I_d^{\text{ref}}$@[{$I_d^{\text{ref}}$}]\begingroup Direct axis reference current\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$V_d^{\text{ref}}$@[{$V_d^{\text{ref}}$}]\begingroup Direct axis reference voltage\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$Z_d$@[{$Z_d$}]\begingroup Input impedance of the system with damping\nomeqref {0}|nompageref}{}
+\nomenclatureentry{S$S_d$@[{$S_d$}]\begingroup Sensitivity function with damping compensation\nomeqref {0}|nompageref}{}

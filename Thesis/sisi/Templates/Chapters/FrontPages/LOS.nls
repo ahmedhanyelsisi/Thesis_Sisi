@@ -1,0 +1,59 @@
+
+\begin{thenomenclature} 
+\nomgroup{S}
+  \item [{$\Delta f_{\text{osc}}$}]\begingroup Bandwidth of the oscillation frequency\nomeqref {1.0}\nompageref{1}
+  \item [{$\Delta T$}]\begingroup Time step size in dynamic calculations\nomeqref {1.0}\nompageref{1}
+  \item [{$\hat{\omega}_e$}]\begingroup Electrical angular velocity\nomeqref {1.0}\nompageref{1}
+  \item [{$\hat{\omega}_{\text{mech}}$}]\begingroup Mechanical angular velocity\nomeqref {1.0}\nompageref{1}
+  \item [{$\hat{i}_{\text{dc}}$}]\begingroup AC component of the DC current\nomeqref {1.0}\nompageref{1}
+  \item [{$\hat{v}_{\text{bus}}$}]\begingroup AC component of the DC bus voltage\nomeqref {1.0}\nompageref{1}
+  \item [{$\lambda$}]\begingroup Flux linkage of the motor\nomeqref {1.0}\nompageref{1}
+  \item [{$\omega_x$}]\begingroup Frequency of the zero in the transfer function\nomeqref {1.0}\nompageref{1}
+  \item [{$\omega_{\text{bw}}$}]\begingroup Bandwidth of the system\nomeqref {1.0}\nompageref{1}
+  \item [{$\omega_{\text{res}}$}]\begingroup Resonance frequency of the filter\nomeqref {1.0}\nompageref{1}
+  \item [{$\omega_{\text{sys}}$}]\begingroup System frequency\nomeqref {1.0}\nompageref{1}
+  \item [{$a_0, a_1, a_2$}]\begingroup Numerator coefficients of the transfer function\nomeqref {1.0}\nompageref{1}
+  \item [{$b_0, b_1, b_2$}]\begingroup Denominator coefficients of the transfer function\nomeqref {1.0}\nompageref{1}
+  \item [{$C_{\text{filter}}$}]\begingroup Filter capacitance\nomeqref {1.0}\nompageref{1}
+  \item [{$D_d$}]\begingroup Direct axis duty cycle\nomeqref {1.0}\nompageref{1}
+  \item [{$D_q$}]\begingroup Quadrature axis duty cycle\nomeqref {1.0}\nompageref{1}
+  \item [{$f_{\text{osc}}$}]\begingroup Oscillation frequency of the system\nomeqref {1.0}\nompageref{1}
+  \item [{$G_c$}]\begingroup Controller transfer function gain\nomeqref {1.0}\nompageref{1}
+  \item [{$I_\text{in}$}]\begingroup Input current of the voltage sensor\nomeqref {1.0}\nompageref{1}
+  \item [{$I_\text{max}$}]\begingroup Maximum permissible input current\nomeqref {1.0}\nompageref{1}
+  \item [{$I_\text{peak}$}]\begingroup Peak current through the measurement resistor\nomeqref {1.0}\nompageref{1}
+  \item [{$I_d$}]\begingroup Direct axis current\nomeqref {1.0}\nompageref{1}
+  \item [{$I_d^{\text{ref}}$}]\begingroup Direct axis reference current\nomeqref {1.0}\nompageref{1}
+  \item [{$I_q$}]\begingroup Quadrature axis current\nomeqref {1.0}\nompageref{1}
+  \item [{$I_q^{\text{ref}}$}]\begingroup Quadrature axis reference current\nomeqref {1.0}\nompageref{1}
+  \item [{$I_{\text{bus}}$}]\begingroup Current flowing through the DC bus\nomeqref {1.0}\nompageref{1}
+  \item [{$K$}]\begingroup Controller gain constant\nomeqref {1.0}\nompageref{1}
+  \item [{$L_q$}]\begingroup Quadrature axis inductance\nomeqref {1.0}\nompageref{1}
+  \item [{$M(s)$}]\begingroup Mechanical transfer function of the motor\nomeqref {1.0}\nompageref{1}
+  \item [{$P_{\text{cpl}}$}]\begingroup Power of the constant power load\nomeqref {1.0}\nompageref{1}
+  \item [{$Q_R$}]\begingroup Resonance quality factor\nomeqref {1.0}\nompageref{1}
+  \item [{$r$}]\begingroup Resistance of the motor windings\nomeqref {1.0}\nompageref{1}
+  \item [{$R_1$}]\begingroup Series resistor for voltage sensing\nomeqref {1.0}\nompageref{1}
+  \item [{$R_M$}]\begingroup Measurement resistor in the circuit\nomeqref {1.0}\nompageref{1}
+  \item [{$R_{\text{filter}}$}]\begingroup Filter resistance\nomeqref {1.0}\nompageref{1}
+  \item [{$R_{\text{TVS}}$}]\begingroup TVS diode clamping resistance\nomeqref {1.0}\nompageref{1}
+  \item [{$S_d$}]\begingroup Sensitivity function with damping compensation\nomeqref {1.0}\nompageref{1}
+  \item [{$S_n$}]\begingroup Sensitivity function of the system\nomeqref {1.0}\nompageref{1}
+  \item [{$T(s)$}]\begingroup Transfer function of the feedback system\nomeqref {1.0}\nompageref{1}
+  \item [{$T_{\text{op}}$}]\begingroup Open-loop transfer function\nomeqref {1.0}\nompageref{1}
+  \item [{$T_{\text{PLL}}$}]\begingroup Adaptive phase-locked loop tracking frequency\nomeqref {1.0}\nompageref{1}
+  \item [{$V_\text{ADC}$}]\begingroup Voltage output of the ADC channel\nomeqref {1.0}\nompageref{1}
+  \item [{$V_\text{max}$}]\begingroup Maximum permissible input voltage\nomeqref {1.0}\nompageref{1}
+  \item [{$V_\text{out}$}]\begingroup Output voltage of the voltage sensor\nomeqref {1.0}\nompageref{1}
+  \item [{$V_d$}]\begingroup Direct axis voltage\nomeqref {1.0}\nompageref{1}
+  \item [{$V_d^{\text{ref}}$}]\begingroup Direct axis reference voltage\nomeqref {1.0}\nompageref{1}
+  \item [{$V_q$}]\begingroup Quadrature axis voltage\nomeqref {1.0}\nompageref{1}
+  \item [{$V_q^{\text{ref}}$}]\begingroup Quadrature axis reference voltage\nomeqref {1.0}\nompageref{1}
+  \item [{$V_{\text{bus}}$}]\begingroup DC bus voltage\nomeqref {1.0}\nompageref{1}
+  \item [{$Z_d$}]\begingroup Input impedance of the system with damping\nomeqref {1.0}\nompageref{1}
+  \item [{$Z_n$}]\begingroup Equivalent impedance of the system\nomeqref {1.0}\nompageref{1}
+  \item [{$Z_{\text{in}}(s)$}]\begingroup Input impedance of the system\nomeqref {1.0}\nompageref{1}
+  \item [{$Z_{\text{out}}(s)$}]\begingroup Output impedance of the system\nomeqref {1.0}\nompageref{1}
+  \item [{$Z_{\text{VIR}}(s)$}]\begingroup Virtual impedance in the system\nomeqref {1.0}\nompageref{1}
+
+\end{thenomenclature}

@@ -1,0 +1,240 @@
+\documentclass[a4paper,12pt,twoside,openright]{report}
+% to make lins space single 
+%\usepackage{setspace}
+%% to remove page numbers from blanck pages 
+\usepackage{emptypage} 
+% to adjust margins 
+\usepackage[margin=1in,left=35.4mm]{geometry} 
+% to use times new roman font 
+\usepackage{times} 
+% to use math library 
+\usepackage{amsmath, amsthm, amssymb,mathrsfs}  
+\usepackage{comment}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{ragged2e}
+\usepackage{changepage}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage[american]{circuitikz}
+\usetikzlibrary{shapes, arrows.meta, positioning, calc, backgrounds}
+%----------------------------------
+% to add list of abbriviation and symbols 
+%\usepackage[intoc]{nomencl}
+%\renewcommand{\nomname}{List of Abbreviations}
+%\makenomenclature
+%%%https://tex.stackexchange.com/questions/86666/how-to-create-both-list-of-abbreviations-and-list-of-nomenclature-using-nomencl/87223
+%% This removes the main title:
+%\renewcommand{\nomname}{}
+%% this modifies item separation:
+%\setlength{\nomitemsep}{8pt}
+%% this part defines the groups:
+%\usepackage{etoolbox}
+%\renewcommand\nomgroup[1]{%
+%	\item[\Large\bfseries
+%	\ifstrequal{#1}{A}{List of Abbreviations}{%
+%	\ifstrequal{#1}{S}{List of Symbols}{}}%
+%	]\vspace{10pt}} % this is to add vertical space between the groups.
+%----------------------------------------------
+%\numberwithin{figure}{chapter}
+%\numberwithin{equation}{chapter}  % to number with chapter
+\usepackage{graphicx} 
+% to make captions bold
+\usepackage[labelfont=bf,font=bf,justification=centering]{caption} %{labelsep=space}  
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float} % to adjust some figures positions with control letter H
+
+%\graphicspath{{./Chapters/Introduction/Pictures/}}
+%table packages and text wraping 
+%https://stackoverflow.com/questions/790932/how-to-wrap-text-in-latex-tables
+\usepackage{tabularx}
+\usepackage{array}
+\newcolumntype{L}{>{\centering\arraybackslash}m{5cm}}
+\usepackage{multirow}
+% hyperlinks within document 
+\usepackage[hidelinks]{hyperref} 
+% references 
+%\usepackage{cite} 
+\usepackage[backend=bibtex,style=numeric,sorting=none,citestyle=numeric-comp]{biblatex}
+% ------- to remove all italics in cittion names
+\makeatletter
+\renewrobustcmd*{\mkbibemph}{}
+\protected\long\def\blx@imc@mkbibemph#1{#1}
+\makeatother
+% -------
+\DeclareFieldFormat{labelnumberwidth}{#1\adddot} % to make list of references DOTs instead of [ ]
+\addbibresource{BIB_AD.bib} 
+%----------------------------------------------%
+%https://tex.stackexchange.com/questions/246744/cant-print-bibliography/246745
+%----------------------------------------------%
+\usepackage[titletoc]{appendix}
+% to import pdfs 
+\usepackage{pdfpages}
+% to add euro symbole  
+\usepackage{eurosym} 
+% to capitiliza first letter. 
+\usepackage{titlecaps} 
+\Addlcwords{before and after}  % excluded words 
+% https://tex.stackexchange.com/questions/335990/is-there-a-command-to-make-first-letter-upper-case  
+% 
+\setlength{\parindent}{12pt}   % first-line indent
+\setlength{\parskip}{0.5em}    % vertical space between paragraphs
+% to adjust spacing before and after toc, lof and lot 
+%https://tex.stackexchange.com/questions/62125/how-to-remove-top-margin-above-tableofcontents 
+\usepackage{tocloft}
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{36pt}
+\setlength{\cftbeforeloftitleskip}{0pt}
+\setlength{\cftafterloftitleskip}{36pt}
+\setlength{\cftbeforelottitleskip}{0pt}
+\setlength{\cftafterlottitleskip}{36pt}
+\renewcommand \cftchapdotsep{4.5}
+%to change the default naming of toc,lof and lot
+\renewcommand{\contentsname}{\hspace{3.5cm} Table of Contents}
+\renewcommand{\cftchappresnum}{CHAPTER } % CHAPTER before number in ToC
+\newlength{\mylen} % a scratch length
+\settowidth{\mylen}{\bfseries\cftchappresnum\cftchapaftersnum} % extra space
+\addtolength{\cftchapnumwidth}{\mylen} % add the extra space
+
+
+\renewcommand{\cftlottitlefont}{\hspace*{\fill}\Huge\bfseries}
+\renewcommand{\cftafterlottitle}{\hspace*{\fill}}
+\renewcommand{\cftloftitlefont}{\hspace*{\fill}\Huge\bfseries}
+\renewcommand{\cftafterloftitle}{\hspace*{\fill}}
+\renewcommand{\cftchapaftersnum}{:}
+\renewcommand{\cftfigpresnum}{Figure\ }
+\renewcommand{\cfttabpresnum}{Table\ }
+% set space betwwenfigure word and caption in toc
+\newlength{\mylenf}
+\settowidth{\mylenf}{\cftfigpresnum}
+\setlength{\cftfignumwidth}{\dimexpr\mylenf+2em}
+\setlength{\cfttabnumwidth}{\dimexpr\mylenf+2em}
+%https://tex.stackexchange.com/questions/20337/adding-word-table-before-each-entry-in-list-of-tables
+
+
+
+%%page layout frames 
+%\usepackage{showframe} % to show layout frams 
+%\renewcommand\ShowFrameLinethickness{0.15pt}
+%\renewcommand*\ShowFrameColor{\color{red}}
+
+% to adjust chapter naming spacing 
+% https://tex.stackexchange.com/questions/25030/chapter-number-and-chapter-title-in-one-line
+% https://tex.stackexchange.com/questions/310205/is-there-a-way-to-center-align-chapter-titles
+
+
+
+
+
+\usepackage{titlesec}
+\usepackage{tocloft}
+
+% Center the chapter titles
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries\filcenter} % Centering the chapter title
+{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+% Define subsubsubsection
+\titleclass{\subsubsubsection}{straight}[\subsubsection]
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\titleformat{\subsubsubsection}
+{\normalfont\normalsize\itshape}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}
+{0pt}{0.5em}{0.5em}
+
+% Enable subsubsubsection in TOC
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+% Define subsubsubsection for tocloft with proper spacing
+\makeatletter
+\newcommand{\l@subsubsubsection}{\@dottedtocline{4}{4.5em}{3.8em}}
+\makeatother
+
+
+
+% Change chapter title format to centered "Chapter X: Title"
+% Define chapter title format in one line and centered
+\titleformat{\chapter}[block]
+{\normalfont\fontsize{18}{22}\bfseries\centering} % Sets font size to 18pt
+{Chapter \thechapter:}{0.5em}{} % Chapter number with colon and space for title
+[]
+
+%\titleformat{\chapter}[block]
+%{\normalfont\huge\bfseries\centering} % Centered and bold
+%{Chapter \thechapter:}{0.5em}{} % Chapter number with colon and space for title
+%[]
+\titleformat{\section}
+{\normalfont\fontsize{16}{20}\bfseries} % Sets font size to 16pt, bold
+{\thesection}{1em}{} % Keeps section numbering and spacing
+
+
+
+
+\begin{document}
+	%	\singlespacing
+	% import cover pages till Acknowledgments
+	%\includepdf[pages={1-4}]{Chapters/FrontPages/CUFEThesisTemplate.pdf} --> To be uncommented in final version
+	
+	\setcounter{page}{1}
+	\pagenumbering{roman}
+	%\includepdf[pages={5-6},pagecommand={}]{Chapters/FrontPages/CUFEThesisTemplate.pdf} --> To be uncommented in final version
+	
+	\clearpage
+	\tableofcontents
+	%\addcontentsline{toc}{chapter}{Table of Contents}
+	
+	\clearpage
+	\listoftables
+	%\cleardoublepage
+	%\phantomsection
+	\addcontentsline{toc}{chapter}{List of Tables}
+	%\let\cleardoublepage\clearpage
+	\clearpage
+	\listoffigures
+	%\cleardoublepage
+	%\phantomsection
+	\addcontentsline{toc}{chapter}{List of Figures}
+	
+	%	\input{Chapters/FrontPages/Nomenclature}
+	\clearpage
+	%\includepdf[pages={1},pagecommand={\thispagestyle{plain}}]{Chapters/FrontPages/LOA.pdf}
+	\addcontentsline{toc}{chapter}{List of Abbreviations}
+	
+	\clearpage
+	%\includepdf[pages={1-2},pagecommand={\thispagestyle{plain}}]{Chapters/FrontPages/LOS.pdf}
+	\addcontentsline{toc}{chapter}{List of Symbols}
+	% include abstract directly 
+	\newpage
+	%\chapter*{Abstract}
+	\input{Chapters/FrontPages/Abstract}
+	
+	\newpage
+	\setcounter{page}{1}
+	\pagenumbering{arabic}
+	\titlespacing{\chapter}{0pt}{24pt}{36pt}
+\chapter{Introduction}
+\input{Chapters/CH1/CH1}
+\chapter{Ideal System Modeling and Simulation} \label{chap:modeling}
+\input{Chapters/CH2/CH2}
+\chapter{Model Predictive Control in Motor Drives} \label{chap:mpc}
+\input{Chapters/CH3/CH3} 
+\chapter{Non-idealities Modeling and Simulation} \label{chap:results}
+\input{Chapters/CH4/CH4}
+\chapter{Proposed Controller} \label{chap:proposed}
+\input{Chapters/CH5/CH5}
+\chapter{Conclusion and Future Work} \label{chap:conclusion}
+\input{Chapters/Conclusion/Conclusion}
+
+% to change default biblography naming 
+\renewcommand\bibname{References} 
+%%\bibliography{Thesis}
+%%\bibliographystyle{IEEEtran}
+%\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{References}
+\printbibliography
+%\includepdf[pages={23-27}]{Chapters/FrontPages/CUFEThesisTemplate.pdf}
+\end{document}

@@ -1,0 +1,25 @@
+\nomenclatureentry{ASPMSM@[{SPMSM}]\begingroup Surface Permanent Magnet Synchronous Motor\nomeqref {0}|nompageref}{}
+\nomenclatureentry{ACPL@[{CPL}]\begingroup Constant Power Load\nomeqref {0}|nompageref}{}
+\nomenclatureentry{ADTC@[{DTC}]\begingroup Direct Torque Control\nomeqref {0}|nompageref}{}
+\nomenclatureentry{APLL@[{PLL}]\begingroup Phase-Locked Loop\nomeqref {0}|nompageref}{}
+\nomenclatureentry{ARVC@[{RVC}]\begingroup Reference-Voltage Compensator\nomeqref {0}|nompageref}{}
+\nomenclatureentry{AADC@[{ADC}]\begingroup Analog-to-Digital Converter\nomeqref {0}|nompageref}{}
+\nomenclatureentry{ADC@[{DC}]\begingroup Direct Current\nomeqref {0}|nompageref}{}
+\nomenclatureentry{AAC@[{AC}]\begingroup Alternating Current\nomeqref {0}|nompageref}{}
+\nomenclatureentry{APWM@[{PWM}]\begingroup Pulse Width Modulation\nomeqref {0}|nompageref}{}
+\nomenclatureentry{ARMS@[{RMS}]\begingroup Root Mean Square\nomeqref {0}|nompageref}{}
+\nomenclatureentry{APID@[{PID}]\begingroup Proportional-Integral-Derivative\nomeqref {0}|nompageref}{}
+\nomenclatureentry{AVFD@[{VFD}]\begingroup Variable Frequency Drive\nomeqref {0}|nompageref}{}
+\nomenclatureentry{ABPF@[{BPF}]\begingroup Band-Pass Filter\nomeqref {0}|nompageref}{}
+\nomenclatureentry{AEMF@[{EMF}]\begingroup Electromotive Force\nomeqref {0}|nompageref}{}
+\nomenclatureentry{ARPM@[{RPM}]\begingroup Revolutions Per Minute\nomeqref {0}|nompageref}{}
+\nomenclatureentry{AOP@[{OP}]\begingroup Operating Point\nomeqref {0}|nompageref}{}
+\nomenclatureentry{AFOC@[{FOC}]\begingroup Field-Oriented Control\nomeqref {0}|nompageref}{}
+\nomenclatureentry{API@[{PI}]\begingroup Proportional-Integral\nomeqref {0}|nompageref}{}
+\nomenclatureentry{AESR@[{ESR}]\begingroup Equivalent Series Resistance\nomeqref {0}|nompageref}{}
+\nomenclatureentry{ATVS@[{TVS}]\begingroup Transient Voltage Suppression\nomeqref {0}|nompageref}{}
+\nomenclatureentry{ASPWM@[{SPWM}]\begingroup Sinusoidal Pulse Width Modulation\nomeqref {0}|nompageref}{}
+\nomenclatureentry{AMCU@[{MCU}]\begingroup Microcontroller Unit\nomeqref {0}|nompageref}{}
+\nomenclatureentry{AIGBT@[{IGBT}]\begingroup Insulated-Gate Bipolar Transistor\nomeqref {0}|nompageref}{}
+\nomenclatureentry{AMOSFET@[{MOSFET}]\begingroup Metal-Oxide-Semiconductor Field-Effect Transistor\nomeqref {0}|nompageref}{}
+\nomenclatureentry{AVbus@[{Vbus}]\begingroup DC Bus Voltage\nomeqref {0}|nompageref}{}

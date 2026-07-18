@@ -1,0 +1,30 @@
+
+\begin{thenomenclature} 
+\nomgroup{A}
+  \item [{AC}]\begingroup Alternating Current\nomeqref {1.0}\nompageref{1}
+  \item [{ADC}]\begingroup Analog-to-Digital Converter\nomeqref {1.0}\nompageref{1}
+  \item [{BPF}]\begingroup Band-Pass Filter\nomeqref {1.0}\nompageref{1}
+  \item [{CPL}]\begingroup Constant Power Load\nomeqref {1.0}\nompageref{1}
+  \item [{DC}]\begingroup Direct Current\nomeqref {1.0}\nompageref{1}
+  \item [{DTC}]\begingroup Direct Torque Control\nomeqref {1.0}\nompageref{1}
+  \item [{EMF}]\begingroup Electromotive Force\nomeqref {1.0}\nompageref{1}
+  \item [{ESR}]\begingroup Equivalent Series Resistance\nomeqref {1.0}\nompageref{1}
+  \item [{FOC}]\begingroup Field-Oriented Control\nomeqref {1.0}\nompageref{1}
+  \item [{IGBT}]\begingroup Insulated-Gate Bipolar Transistor\nomeqref {1.0}\nompageref{1}
+  \item [{MCU}]\begingroup Microcontroller Unit\nomeqref {1.0}\nompageref{1}
+  \item [{MOSFET}]\begingroup Metal-Oxide-Semiconductor Field-Effect Transistor\nomeqref {1.0}\nompageref{1}
+  \item [{OP}]\begingroup Operating Point\nomeqref {1.0}\nompageref{1}
+  \item [{PI}]\begingroup Proportional-Integral\nomeqref {1.0}\nompageref{1}
+  \item [{PID}]\begingroup Proportional-Integral-Derivative\nomeqref {1.0}\nompageref{1}
+  \item [{PLL}]\begingroup Phase-Locked Loop\nomeqref {1.0}\nompageref{1}
+  \item [{PWM}]\begingroup Pulse Width Modulation\nomeqref {1.0}\nompageref{1}
+  \item [{RMS}]\begingroup Root Mean Square\nomeqref {1.0}\nompageref{1}
+  \item [{RPM}]\begingroup Revolutions Per Minute\nomeqref {1.0}\nompageref{1}
+  \item [{RVC}]\begingroup Reference-Voltage Compensator\nomeqref {1.0}\nompageref{1}
+  \item [{SPMSM}]\begingroup Surface Permanent Magnet Synchronous Motor\nomeqref {1.0}\nompageref{1}
+  \item [{SPWM}]\begingroup Sinusoidal Pulse Width Modulation\nomeqref {1.0}\nompageref{1}
+  \item [{TVS}]\begingroup Transient Voltage Suppression\nomeqref {1.0}\nompageref{1}
+  \item [{Vbus}]\begingroup DC Bus Voltage\nomeqref {1.0}\nompageref{1}
+  \item [{VFD}]\begingroup Variable Frequency Drive\nomeqref {1.0}\nompageref{1}
+
+\end{thenomenclature}

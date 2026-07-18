@@ -1,0 +1,137 @@
+\begin{tikzpicture}[
+    x=1cm,
+    y=1cm,
+    font=\small,
+    >=Stealth,
+    line cap=round,
+    line join=round,
+    signal/.style={->, line width=0.95pt},
+    bus/.style={->, line width=1.05pt, double distance=1.15pt},
+    plain/.style={line width=0.95pt},
+    block/.style={draw, thick, fill=white, minimum width=2.45cm, minimum height=1.2cm, align=center},
+    tallblock/.style={draw, thick, fill=white, minimum width=1.5cm, minimum height=2.35cm, inner sep=0pt},
+    bubble/.style={circle, draw, thick, fill=white, minimum size=0.72cm, inner sep=0pt}
+]
+
+\definecolor{sensorpurple}{RGB}{233,222,236}
+\definecolor{sensorblue}{RGB}{215,232,241}
+\definecolor{svstroke}{RGB}{87,58,106}
+
+\node[block, minimum width=2.15cm, minimum height=1.5cm] (speed) at (1.6,2.3) {Speed\\controller\\(PI)};
+
+\node[bubble] (dqref) at (4.2,2.3) {$\mathit{dq}$};
+
+\node[block, minimum width=2.95cm, minimum height=1.15cm] (qpi) at (6.35,3.1) {$q$-axis current\\controller (PI)};
+\node[block, minimum width=2.95cm, minimum height=1.15cm] (dpi) at (6.35,1.5) {$d$-axis current\\controller (PI)};
+
+\node[tallblock] (invpark) at (9.1,2.3) {};
+\node[block, minimum width=2.4cm, minimum height=2.2cm] (svpwm) at (11.8,2.3) {};
+\node[block, minimum width=1.85cm, minimum height=1.95cm] (inverter) at (14.6,2.3) {};
+
+\node[circle, draw, thick, fill=white, minimum size=1.85cm, align=center] (pmsm) at (17.3,2.3) {PMSM};
+
+\node[tallblock] (parkfb) at (9.1,-1.4) {};
+\node[tallblock] (clarke) at (12.2,-1.4) {};
+\node[bubble] (dqfb) at (5.6,-1.4) {$\mathit{dq}$};
+
+\node[block, minimum width=2.85cm, minimum height=1.45cm] (observer) at (12.25,-3.7) {Position\\observer};
+
+\begin{scope}[on background layer]
+    \fill[sensorpurple] (4.55,4.05) rectangle (13.25,0.45);
+    \fill[sensorblue] (4.15,0.25) rectangle (18.55,-4.55);
+    \draw[black!25, thick] (4.55,4.05) rectangle (13.25,0.45);
+    \draw[black!25, thick] (4.15,0.25) rectangle (18.55,-4.55);
+\end{scope}
+
+\draw[thick] (invpark.south west) -- (invpark.north east);
+\node[anchor=north west] at ([xshift=2pt,yshift=-2pt]invpark.north west) {$\alpha\beta$};
+\node[anchor=south east] at ([xshift=-2pt,yshift=2pt]invpark.south east) {$dq$};
+
+\draw[thick] (parkfb.south west) -- (parkfb.north east);
+\node[anchor=north west] at ([xshift=2pt,yshift=-2pt]parkfb.north west) {$dq$};
+\node[anchor=south east] at ([xshift=-2pt,yshift=2pt]parkfb.south east) {$abc$};
+
+\draw[thick] (clarke.south west) -- (clarke.north east);
+\node[anchor=north west] at ([xshift=2pt,yshift=-2pt]clarke.north west) {$\alpha\beta$};
+\node[anchor=south east] at ([xshift=-2pt,yshift=2pt]clarke.south east) {$abc$};
+
+\begin{scope}[shift={(svpwm.center)}]
+    \draw[thick, svstroke] (0,0.2) circle (0.43);
+    \draw[thick, svstroke] (30:0.62)
+        -- (90:0.62)
+        -- (150:0.62)
+        -- (210:0.62)
+        -- (270:0.62)
+        -- (330:0.62)
+        -- cycle;
+    \draw[thick, svstroke] (-0.53,-0.16) -- (0.53,0.56);
+    \draw[thick, svstroke] (0.53,-0.16) -- (-0.53,0.56);
+\end{scope}
+\node[font=\small] at ($(svpwm.center)+(0,-0.68)$) {SVPWM};
+
+\begin{scope}[shift={(inverter.center)}, line width=0.95pt]
+    \draw (-0.55,0.68) -- (-0.55,-0.68);
+    \draw (-0.90,0.00) -- (-0.55,0.00);
+    \draw (-0.55,0.35) -- (0.10,0.78);
+    \draw[-Stealth] (-0.55,-0.35) -- (0.10,-0.78);
+    \draw (0.55,0.68) -- (0.55,-0.68);
+    \draw (0.18,0.16) -- (0.88,0.16) -- (0.55,-0.25) -- cycle;
+    \draw (0.18,-0.16) -- (0.88,-0.16);
+\end{scope}
+\node[font=\scriptsize, below=2pt of inverter] {Inverter};
+
+\draw[thick] (pmsm.east) -- ++(0.7,0);
+\draw[thick, ->] ($(pmsm.center)+(0.20,0.36)$) arc[start angle=25,end angle=-280,radius=0.50];
+\node[font=\scriptsize, right] at ($(pmsm.east)+(0.8,0.35)$) {$\omega_r$};
+
+\draw[signal] ($(speed.west)+(-1.2,0.35)$) node[left] {$\omega^{\ast}$} -- ($(speed.west)+(0,0.35)$);
+\draw[signal] (speed.east) -- node[above] {$i_q^{\ast}$} (dqref.west);
+
+\draw[signal] (dqref.east) -| ($(qpi.west)+(0,0.18)$);
+\draw[signal] (dqref.east) -| ($(dpi.west)+(0,0.18)$);
+\node[font=\scriptsize, anchor=west] at ($(dpi.west)+(-0.15,0.55)$) {$i_d^{\ast}=0$};
+
+\draw[signal] (qpi.east) -| ($(invpark.west)+(0,0.35)$);
+\draw[signal] (dpi.east) -| ($(invpark.west)+(0,-0.35)$);
+\node[font=\scriptsize, anchor=south] at ($(qpi.east)!0.55!(invpark.west)+(0,0.18)$) {$v_q^{\ast}$};
+\node[font=\scriptsize, anchor=north] at ($(dpi.east)!0.55!(invpark.west)+(0,-0.18)$) {$v_d^{\ast}$};
+
+\coordinate (vabmid) at ($(invpark.east)!0.5!(svpwm.west)$);
+\draw[signal] (invpark.east) -- node[above] {$v_{\alpha},v_{\beta}$} (svpwm.west);
+
+\draw[signal] ($(svpwm.east)+(0,0.22)$) -- ($(inverter.west)+(0,0.22)$);
+\draw[signal] ($(svpwm.east)+(0,-0.22)$) -- ($(inverter.west)+(0,-0.22)$);
+
+\draw[bus] (inverter.east) -- (pmsm.west);
+
+\coordinate (meastop) at ($(inverter.east)!0.60!(pmsm.west)$);
+\coordinate (measbot) at ($(meastop |- clarke.east)$);
+
+\draw[line width=1.0pt] (meastop) -- (measbot);
+\draw[line width=1.0pt] ($(meastop)+(0.14,0)$) -- ($(measbot)+(0.14,0)$);
+\node[font=\scriptsize, anchor=west] at ($(meastop)+(0.22,0.28)$) {$i_a,i_b,i_c$};
+
+\draw[bus] (measbot) -- (clarke.east);
+\draw[bus] (clarke.west) -- node[above] {$i_{\alpha},i_{\beta}$} (parkfb.east);
+\draw[bus] (parkfb.west) -- node[above] {$i_d,i_q$} (dqfb.east);
+
+\draw[signal] (dqfb.east) -| ($(qpi.west)+(0,-0.18)$);
+\draw[signal] (dqfb.east) -| ($(dpi.west)+(0,-0.18)$);
+
+\draw[signal] ($(clarke.south)+(0,-0.02)$) -- node[right, font=\scriptsize] {$i_{\alpha},i_{\beta}$} ($(observer.north)+(0,0.03)$);
+\draw[signal] (vabmid) |- node[pos=0.38, right, font=\scriptsize] {$v_{\alpha},v_{\beta}$} ($(observer.north east)+(-0.25,0)$);
+
+\coordinate (thetal) at (2.25,-3.7);
+\coordinate (thetahub) at (9.1,-3.7);
+\coordinate (thetaup) at (2.25,4.25);
+\coordinate (thetatop) at (8.05,4.25);
+
+\draw[plain] (observer.west) -- (thetal);
+\node[font=\small] at ($(observer.west)!0.40!(thetal)+(0,0.27)$) {$\theta$};
+
+\draw[signal] (thetahub) -- (parkfb.south);
+\draw[plain] (thetal) -- (thetaup) -- (thetatop);
+\draw[signal] (thetatop) |- (invpark.south);
+\draw[signal] (thetal) |- node[pos=0.72, left] {$\hat{\omega}$} ($(speed.south west)+(0.05,0.18)$);
+
+\end{tikzpicture}

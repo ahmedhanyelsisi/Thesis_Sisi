@@ -1,0 +1,99 @@
+\contentsline {chapter}{List of Tables}{iv}{Doc-Start}%
+\contentsline {chapter}{List of Figures}{viii}{Doc-Start}%
+\contentsline {chapter}{List of Abbreviations}{ix}{Doc-Start}%
+\contentsline {chapter}{List of Symbols}{ix}{Doc-Start}%
+\contentsline {chapter}{Abstract}{ix}{Doc-Start}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivation and context}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Problem statement}{1}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Technical challenges}{1}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Approach and scope}{2}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Research questions}{2}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Methodology overview}{3}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Contributions}{3}{section.1.7}%
+\contentsline {section}{\numberline {1.8}Scope and limitations}{4}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Organization of the thesis}{4}{section.1.9}%
+\contentsline {section}{\numberline {1.10}Expected impact}{4}{section.1.10}%
+\contentsline {chapter}{\numberline {2}Ideal System Modeling and Simulation}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Active Front End Rectifier Modeling}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}System Characterestics}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Vector Oriented Control (VOC)}{8}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Sliding-Mode Observer (SMO) in the $\alpha \beta $ Frame}{9}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Speed Estimation from the Estimated Electrical Angle}{12}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}Transfer functions and System Parameters}{13}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Series PI Current Controller by Pole Cancellation}{13}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Series PI DC-Link Voltage Controller by Pole Cancellation}{16}{subsection.2.4.2}%
+\contentsline {section}{\numberline {2.5}Modeling and Simulations}{17}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Steady State Operation}{17}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Unbalanced Grid Operation}{18}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Dynamic Performance}{19}{subsection.2.5.3}%
+\contentsline {subsection}{\numberline {2.5.4}Parameter Variation}{20}{subsection.2.5.4}%
+\contentsline {subsection}{\numberline {2.5.5}Load Variation}{20}{subsection.2.5.5}%
+\contentsline {chapter}{\numberline {3}Model Predictive Control in Motor Drives}{22}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Overview and Categorization}{22}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Overview}{22}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Categorization of MPC Approaches}{22}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Finite-Control-Set MPC for a Two-Level Inverter}{23}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Methodology}{23}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Algorithm Summary}{26}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Modeling and Simulations}{26}{subsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.3.1}Steady State Operation}{27}{subsubsection.3.2.3.1}%
+\contentsline {subsubsection}{\numberline {3.2.3.2}Low Speed Operation}{27}{subsubsection.3.2.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.3.3}Dynamic Performance}{28}{subsubsection.3.2.3.3}%
+\contentsline {subsubsection}{\numberline {3.2.3.4}Parameter Variation}{29}{subsubsection.3.2.3.4}%
+\contentsline {subsubsection}{\numberline {3.2.3.5}Load Variation}{29}{subsubsection.3.2.3.5}%
+\contentsline {section}{\numberline {3.3}Modulated Model Predictive Control}{30}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Methodology}{30}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Algorithm Summary}{33}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Modeling and Simulations}{33}{subsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.3.1}Steady State Operation}{33}{subsubsection.3.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.3.2}Low Speed Operation}{33}{subsubsection.3.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3.3}Dynamic Performance}{34}{subsubsection.3.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.3.4}Parameter Variation}{35}{subsubsection.3.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.3.5}Load Variation}{36}{subsubsection.3.3.3.5}%
+\contentsline {chapter}{\numberline {4}Non-idealities Modeling and Simulation}{37}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Overview}{37}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Motor Parameters Measurement}{37}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Motor Stator Resistance Measurement}{37}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Motor Stator Inductance Measurement}{38}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Motor Flux Linkage Measurement}{39}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Viscous Friction Measurement}{40}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Motor Inertia Measurement}{40}{subsection.4.2.5}%
+\contentsline {section}{\numberline {4.3}Inverter Non-Linearities Average Model for a Two-Level VSI}{41}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Analytical Modeling}{41}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}PI Controller Simulation Modeling Under Inverter-Nonlinearities Effects}{43}{subsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.2.1}Steady State Operation}{43}{subsubsection.4.3.2.1}%
+\contentsline {subsubsection}{\numberline {4.3.2.2}Low Speed Operation}{44}{subsubsection.4.3.2.2}%
+\contentsline {subsubsection}{\numberline {4.3.2.3}Dynamic Performance}{45}{subsubsection.4.3.2.3}%
+\contentsline {subsubsection}{\numberline {4.3.2.4}Parameter Variation}{46}{subsubsection.4.3.2.4}%
+\contentsline {subsubsection}{\numberline {4.3.2.5}Load Variation}{46}{subsubsection.4.3.2.5}%
+\contentsline {subsection}{\numberline {4.3.3}Finite Control Set Model Predictive Simulation Modeling Under Inverter-Nonlinearities Effects}{47}{subsection.4.3.3}%
+\contentsline {subsubsection}{\numberline {4.3.3.1}Steady State Operation}{47}{subsubsection.4.3.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.3.2}Low Speed Operation}{48}{subsubsection.4.3.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.3.3}Dynamic Performance}{48}{subsubsection.4.3.3.3}%
+\contentsline {subsubsection}{\numberline {4.3.3.4}Parameter Variation}{49}{subsubsection.4.3.3.4}%
+\contentsline {subsubsection}{\numberline {4.3.3.5}Load Variation}{50}{subsubsection.4.3.3.5}%
+\contentsline {subsection}{\numberline {4.3.4}Modulated Model Predictive Controller Simulation Modeling Under Inverter-Nonlinearities Effects}{50}{subsection.4.3.4}%
+\contentsline {subsubsection}{\numberline {4.3.4.1}Steady State Operation}{50}{subsubsection.4.3.4.1}%
+\contentsline {subsubsection}{\numberline {4.3.4.2}Low Speed Operation}{52}{subsubsection.4.3.4.2}%
+\contentsline {subsubsection}{\numberline {4.3.4.3}Dynamic Performance}{52}{subsubsection.4.3.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.4.4}Parameter Variation}{53}{subsubsection.4.3.4.4}%
+\contentsline {subsubsection}{\numberline {4.3.4.5}Load Variation}{54}{subsubsection.4.3.4.5}%
+\contentsline {chapter}{\numberline {5}Proposed Controller}{55}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Harmonic Extraction Methodology}{55}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Harmonic Sources in PMSM: Inverter Non-Linearities Effects}{56}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Hybrid Modulated Model Predictive Controller with Non-Linearities Harmonics Prediction}{58}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Control Algorithm Summary}{62}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Simulation Modeling}{63}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Steady State Operation}{63}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Low Speed Operation}{64}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Dynamic Performance}{65}{subsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.5.4}Parameter Variation}{65}{subsection.5.5.4}%
+\contentsline {subsection}{\numberline {5.5.5}Load Variation}{66}{subsection.5.5.5}%
+\contentsline {section}{\numberline {5.6}Experimental Validation}{67}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Steady-State Performance}{67}{subsection.5.6.1}%
+\contentsline {subsection}{\numberline {5.6.2}Dynamic Response}{69}{subsection.5.6.2}%
+\contentsline {subsection}{\numberline {5.6.3}Parameter Variation}{71}{subsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.6.4}CPU Load Consumption}{71}{subsection.5.6.4}%
+\contentsline {chapter}{\numberline {6}Conclusion and Future Work}{73}{chapter.6}%
+\contentsline {chapter}{References}{75}{section*.63}%

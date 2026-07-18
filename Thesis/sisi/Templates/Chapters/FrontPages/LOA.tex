@@ -1,0 +1,64 @@
+% If ypu need to edit the list of symboles, you need to complile with chapetr and some line of words and comment the "`gobble"' package, then remove them. 
+
+
+\documentclass[12pt,a4paper]{report}
+\usepackage{nomencl}
+
+\usepackage[margin=1in,left=35.4mm]{geometry}
+\usepackage{times}
+
+
+\usepackage{nomencl}\makenomenclature
+\renewcommand{\nomname}{\makebox[\linewidth]{List of Abbreviations}}
+
+\usepackage{etoolbox}
+
+\pagenumbering{gobble}
+
+
+
+
+
+
+
+
+\begin{document}
+
+%\chapter{Introduction}
+%Based on the size and lamellarity (number of bilayers), liposomes are mainly classified into four groups, i.e., small unilamellar vesicles (SUVs, < 100 nm), large unilamellar vesicles (LUVs, > 100 nm), giant unilamellar vesicles (GUVs, > 1000 nm), and multilamellar vesicles (MLVs, > 500 nm).  
+
+\makenomenclature
+\nomenclature[A]{SPMSM}{Surface Permanent Magnet Synchronous Motor}
+\nomenclature[A]{CPL}{Constant Power Load}
+\nomenclature[A]{DTC}{Direct Torque Control}
+\nomenclature[A]{PLL}{Phase-Locked Loop}
+\nomenclature[A]{RVC}{Reference-Voltage Compensator}
+\nomenclature[A]{ADC}{Analog-to-Digital Converter}
+\nomenclature[A]{DC}{Direct Current}
+\nomenclature[A]{AC}{Alternating Current}
+\nomenclature[A]{PWM}{Pulse Width Modulation}
+\nomenclature[A]{RMS}{Root Mean Square}
+\nomenclature[A]{PID}{Proportional-Integral-Derivative}
+\nomenclature[A]{VFD}{Variable Frequency Drive}
+\nomenclature[A]{BPF}{Band-Pass Filter}
+\nomenclature[A]{EMF}{Electromotive Force}
+\nomenclature[A]{RPM}{Revolutions Per Minute}
+\nomenclature[A]{OP}{Operating Point}
+\nomenclature[A]{FOC}{Field-Oriented Control}
+\nomenclature[A]{PI}{Proportional-Integral}
+\nomenclature[A]{ESR}{Equivalent Series Resistance}
+\nomenclature[A]{TVS}{Transient Voltage Suppression}
+\nomenclature[A]{SPWM}{Sinusoidal Pulse Width Modulation}
+\nomenclature[A]{MCU}{Microcontroller Unit}
+\nomenclature[A]{IGBT}{Insulated-Gate Bipolar Transistor}
+\nomenclature[A]{MOSFET}{Metal-Oxide-Semiconductor Field-Effect Transistor}
+\nomenclature[A]{Vbus}{DC Bus Voltage}
+
+
+
+% to remove vertical spaces 
+\let\oldvspace\vspace
+\renewcommand{\vspace}[2]{\let\vspace\oldvspace}
+\printnomenclature[2cm] % columns space
+
+\end{document}

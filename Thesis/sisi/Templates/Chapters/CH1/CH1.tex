@@ -1,0 +1,66 @@
+\graphicspath{{./Chapters/CH1/Pictures/}}
+\label {ch:Intro}
+\let\cleardoublepage\clearpage
+\label{ch:introduction}
+
+\section{Motivation and context}
+Permanent magnet synchronous motors (PMSMs) have become the default choice in high performance electric drives due to their high power density, efficiency, and wide constant torque region. These advantages, however, come with a control challenge: at low speeds and light loads the back–EMF is small, the signal-to-noise ratio of sensorless observers deteriorates, and the drive becomes sensitive to inverter non\-linearities such as dead time, device conduction drops, sampling/computation delay, and finite PWM resolution. In such regimes, even a well-tuned field-oriented PI controller can exhibit elevated current distortion, audible noise, and limited disturbance rejection. Meanwhile, classic finite-control-set MPC (FCS–MPC) applies a single switching vector per sample and inevitably introduces staircase voltages and torque ripple, especially when the commanded average voltage is small. These well-known pain points motivate a predictive, fixed-frequency control strategy that explicitly accounts for the plant and inverter realities while remaining computationally lightweight for embedded execution.
+
+\section{Problem statement}
+This thesis addresses the following problem: design and validate a fixed-frequency, sensorless, model-predictive current controller for PMSM drives that mitigates inverter non-linearities and reduces current/torque ripple across the operating envelope, with particular emphasis on low-speed operation. The controller should
+(i) retain the look-ahead nature of MPC,
+(ii) realize the commanded average voltage with a modulation scheme (to avoid FCS staircase ripple),
+(iii) integrate practical non-idealities as effective voltage biases or compensable terms, and
+(iv) remain robust to moderate parameter mismatch and observer imperfections.
+
+\section{Technical challenges}
+Achieving these goals requires confronting several coupled challenges:
+\begin{itemize}
+  \item \textbf{Low-speed sensorless operation.} When the electrical speed is small, back–EMF and saliency cues weaken, degrading angle estimation and amplifying the effect of quantization and switching ripple. Sliding-mode observers alleviate this but require careful filtering to avoid phase lag.
+  \item \textbf{Inverter non-idealities.} Dead time and device drops inject polarity-dependent voltage errors that project into low-order odd harmonics (notably 5th/7th), which are not easily rejected by PI loops limited to moderate bandwidth.
+  \item \textbf{Model fidelity vs.\ complexity.} MPC benefits from accurate prediction, but detailed models increase computation; pragmatic abstractions (e.g., effective voltage biases, one-sample delay) are needed to stay real-time.
+  \item \textbf{Fixed switching frequency.} FCS–MPC yields variable switching frequency. For EMI/acoustic compliance and thermal predictability, a modulated scheme at a fixed carrier is preferred.
+\end{itemize}
+
+\section{Approach and scope}
+The thesis develops a modulated model predictive controller (M2PC) for the PMSM electrical subsystem. At each sample, a one-step forward–Euler prediction in the $dq$ frame is used to compute the continuous average voltage that minimizes a current\-tracking cost. That average is realized by space-vector modulation (SVM), which fixes the switching frequency by construction and concentrates spectral energy at the carrier. Inverter non-idealities (dead time, device drops, computation delay) are modeled as effective voltage biases that can be included in the prediction and compensated in the commanded average voltage.
+
+To further suppress the characteristic low-order distortion under non-idealities, the M2PC is augmented with harmonic extraction: dominant harmonic components predicted (or measured) in the current/voltage are selectively canceled in the average-voltage command without altering the closed-loop dynamics. Throughout, sensorless operation is provided by a sliding-mode back–EMF observer with a two-stage adaptive low-pass filter whose cut-off tracks the electrical speed to maintain an approximate $90^\circ$ net phase shift at the fundamental.
+
+\section{Research questions}
+The work is organized around four questions:
+\begin{enumerate}
+  \item Can a modulated MPC (continuous average voltage realized by SVM) deliver lower THD and torque ripple than PI–FOC and FCS–MPC while preserving fixed switching frequency?
+  \item How do inverter non\-idealities map into predictable voltage biases/harmonics, and how effectively can they be compensated within the predictive framework?
+  \item What is the sensitivity of PI, FCS, and modulated MPC to parameter errors (e.g., $\pm25\%$ in $R$ and $L$) and observer limitations at low speed?
+  \item Does harmonic extraction improve spectral cleanliness without degrading transient performance (rise, overshoot, damping)?
+\end{enumerate}
+
+\section{Methodology overview}
+The methodology combines analytical modeling, controller synthesis, and simulation campaigns:
+\begin{enumerate}
+  \item \textbf{Modeling.} A physics-based PMSM model is derived from phase flux linkages to the $dq$ frame, including torque and power expressions. The discrete-time predictor uses a forward–Euler step sized to the PWM period. Inverter non-idealities are captured as effective voltage biases and an input delay, consistent with standard drive practice.
+  \item \textbf{Sensorless estimation.} A sliding-mode observer estimates back–EMF; the electrical angle is computed via $\arctan$ and differentiated for speed. Two cascaded adaptive first-order low-pass filters maintain an approximate $90^\circ$ net phase at the fundamental while suppressing switching ripple.
+  \item \textbf{Baselines and proposed schemes.} Three baselines are implemented: PI–FOC designed in series form via explicit plant-pole cancellation; FCS–MPC with single-vector actuation and a classical quadratic current error cost; and modulated MPC (M2PC) with SVM realization. The proposed enhancement adds harmonic extraction on the average-voltage command.
+  \item \textbf{Parameter identification.} Practical measurements provide $R_{\mathrm{LL}}$, $L_d$, $L_q$, $\lambda_{f}$, $J$, and $B$ using bench procedures (RLC measurement, DC step response with rotor alignment, prime-mover back–EMF logging, spin-down inertia/friction tests), ensuring that comparisons reflect a consistent plant.
+  \item \textbf{Evaluation plan.} Controllers are compared under: steady state at mid-speed; low-speed operation at light/rated load; dynamic tests with speed steps; load variation steps; and parameter variation. Each scenario is run under both ideal and non-ideal inverter models. Metrics include phase-current THD, torque ripple, overshoot, settling time, steady-state error, and computational footprint.
+\end{enumerate}
+
+\section{Contributions}
+The thesis contributes:
+\begin{itemize}
+  \item \textbf{A fixed-frequency modulated MPC} for PMSM current control that retains the simplicity of one-step prediction while avoiding the staircase voltage inherent to FCS–MPC.
+  \item \textbf{A practical non-ideality integration} that treats dead time, device drops, and computation delay as effective voltage biases embedded in the prediction/command, improving fidelity with negligible computational cost.
+  \item \textbf{A harmonic-extraction augmentation} that selectively cancels dominant low-order distortion in the average voltage, reducing THD across loads and speeds without altering transient behavior.
+  \item \textbf{A low-speed sensorless pipeline} based on a sliding-mode observer and two-stage adaptive low-pass filtering that preserves angle phase consistency across speeds.
+  \item \textbf{A quantitative comparison} of PI–FOC, FCS–MPC, M2PC, and the proposed harmonic-extraction M2PC-HE under identical plant parameters, operating scenarios, and non-ideality models.
+\end{itemize}
+
+\section{Scope and limitations}
+The focus is the electrical subsystem and its interaction with a fixed-frequency inverter. Magnetic saturation, cross-coupling beyond the standard $dq$ model, temperature drift of $R$ and $\lambda_{f}$, and PWM nonlinearity beyond the effective-bias abstraction are not exhaustively modeled. Experimental validation is outlined as future work; all results herein are simulation-based but use parameters measured from an actual machine. The proposed methods are designed for implementation on embedded DSP/MCU hardware with a single-sample prediction horizon and do not rely on heavy optimization.
+
+\section{Organization of the thesis}
+Chapter~\ref{chap:modeling} develops the PMSM model from phase variables to $dq$ form, states the torque/power relations, and summarizes the sensorless observer and adaptive filtering. Chapter~\ref{chap:mpc} introduces model predictive control for power electronics: first the finite-control-set formulation, then the modulated formulation with SVM and its discrete predictor. Chapter~\ref{chap:results} models inverter non-linearities and details their integration/compensation in the predictive loop. Chapter~\ref{chap:results} presents the simulation campaign: steady state, low-speed operation, dynamic speed steps, load variation, and parameter variation, all under ideal and non\-ideal inverter models, comparing PI, FCS, and M2PC. Chapter~\ref{chap:proposed} describes the proposed controller M2PC-HE and shows the controller verification and validation under steady state, low-speed operation, dynamic response, load variation, and parameter variation . Chapter~\ref{ch:conclusion} closes with conclusions and directions for future work, including hardware validation and adaptive harmonic templates.
+
+\section{Expected impact}
+By combining one-step prediction with SVM realization and structured compensation of inverter non-idealities, the proposed approach delivers a practical route to low-ripple, fixed-frequency, sensorless PMSM drives. The controller remains simple enough for embedded deployment yet achieves spectral cleanliness and dynamic behavior that exceed PI–FOC and FCS–MPC baselines in regimes that typically matter most for acoustic comfort and efficiency: low speed, light load, and frequent speed/torque transients.

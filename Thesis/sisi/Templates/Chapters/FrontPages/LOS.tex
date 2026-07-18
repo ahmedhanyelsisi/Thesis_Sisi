@@ -1,0 +1,104 @@
+% If ypu need to edit the list of symboles,  you need to complile with chapetr and some line of words and comment the "`gobble"' pachage, then remove them. 
+
+
+\documentclass[a4paper,12pt]{report} 
+% to adjust margins 
+\usepackage[margin=1in,left=35.4mm]{geometry} 
+% to use times new roman font 
+\usepackage{Times} 
+% to use math library 
+\usepackage{amsmath, amsthm, amssymb,mathrsfs}  
+% to add list of abbriviation and symbols 
+
+\pagenumbering{gobble}
+
+\usepackage{nomencl}
+\makenomenclature
+
+\renewcommand{\nomname}{\makebox[\linewidth]{ List of Symbols}}%
+
+\usepackage{etoolbox}
+
+%\renewcommand{\nomgroup}[1]{%	
+%	\ifstrequal{#1}{V}{\item[\large\textbf{Vectors}]\vspace{5mm}}{
+%		\ifstrequal{#1}{G}{\item[\large\textbf{Greek}]\vspace{5mm}}{
+%			\ifstrequal{#1}{L}{\item[\large\textbf{Latin}]}{}
+%		}
+%	}
+%}
+
+\renewcommand\nomgroup[1]{%
+	\item[\Large\bfseries
+	\ifstrequal{#1}{G}{Greek}{%
+		\ifstrequal{#1}{L}{Latin}{
+			\ifstrequal{#1}{V}{Vectors}}}%
+	]\vspace{10pt}} % this is to add vertical space between the groups.
+
+
+
+\begin{document}
+%\chapter{Introduction}
+%Based on the size and lamellarity (number of bilayers), liposomes are mainly classified into four groups, i.e., small unilamellar vesicles (SUVs, < 100 nm), large unilamellar vesicles (LUVs, > 100 nm), giant unilamellar vesicles (GUVs, > 1000 nm), and multilamellar vesicles (MLVs, > 500 nm). 
+	
+
+\nomenclature[S]{$f_{\text{osc}}$}{Oscillation frequency of the system}
+\nomenclature[S]{$\Delta f_{\text{osc}}$}{Bandwidth of the oscillation frequency}
+\nomenclature[S]{$Q_R$}{Resonance quality factor}
+\nomenclature[S]{$Z_{\text{VIR}}(s)$}{Virtual impedance in the system}
+\nomenclature[S]{$Z_{\text{in}}(s)$}{Input impedance of the system}
+\nomenclature[S]{$Z_{\text{out}}(s)$}{Output impedance of the system}
+\nomenclature[S]{$V_{\text{bus}}$}{DC bus voltage}
+\nomenclature[S]{$P_{\text{cpl}}$}{Power of the constant power load}
+\nomenclature[S]{$K$}{Controller gain constant}
+\nomenclature[S]{$\omega_{\text{sys}}$}{System frequency}
+\nomenclature[S]{$\omega_{\text{bw}}$}{Bandwidth of the system}
+\nomenclature[S]{$\lambda$}{Flux linkage of the motor}
+\nomenclature[S]{$I_{\text{bus}}$}{Current flowing through the DC bus}
+\nomenclature[S]{$I_q$}{Quadrature axis current}
+\nomenclature[S]{$V_q$}{Quadrature axis voltage}
+\nomenclature[S]{$I_d$}{Direct axis current}
+\nomenclature[S]{$V_d$}{Direct axis voltage}
+\nomenclature[S]{$D_q$}{Quadrature axis duty cycle}
+\nomenclature[S]{$D_d$}{Direct axis duty cycle}
+\nomenclature[S]{$L_q$}{Quadrature axis inductance}
+\nomenclature[S]{$r$}{Resistance of the motor windings}
+\nomenclature[S]{$T_{\text{op}}$}{Open-loop transfer function}
+\nomenclature[S]{$G_c$}{Controller transfer function gain}
+\nomenclature[S]{$M(s)$}{Mechanical transfer function of the motor}
+\nomenclature[S]{$\hat{i}_{\text{dc}}$}{AC component of the DC current}
+\nomenclature[S]{$\hat{v}_{\text{bus}}$}{AC component of the DC bus voltage}
+\nomenclature[S]{$Z_n$}{Equivalent impedance of the system}
+\nomenclature[S]{$T(s)$}{Transfer function of the feedback system}
+\nomenclature[S]{$\hat{\omega}_e$}{Electrical angular velocity}
+\nomenclature[S]{$\hat{\omega}_{\text{mech}}$}{Mechanical angular velocity}
+\nomenclature[S]{$S_n$}{Sensitivity function of the system}
+\nomenclature[S]{$R_M$}{Measurement resistor in the circuit}
+\nomenclature[S]{$R_1$}{Series resistor for voltage sensing}
+\nomenclature[S]{$C_{\text{filter}}$}{Filter capacitance}
+\nomenclature[S]{$R_{\text{filter}}$}{Filter resistance}
+\nomenclature[S]{$I_\text{in}$}{Input current of the voltage sensor}
+\nomenclature[S]{$V_\text{out}$}{Output voltage of the voltage sensor}
+\nomenclature[S]{$V_\text{max}$}{Maximum permissible input voltage}
+\nomenclature[S]{$I_\text{max}$}{Maximum permissible input current}
+\nomenclature[S]{$\omega_x$}{Frequency of the zero in the transfer function}
+\nomenclature[S]{$\omega_{\text{res}}$}{Resonance frequency of the filter}
+\nomenclature[S]{$a_0, a_1, a_2$}{Numerator coefficients of the transfer function}
+\nomenclature[S]{$b_0, b_1, b_2$}{Denominator coefficients of the transfer function}
+\nomenclature[S]{$T_{\text{PLL}}$}{Adaptive phase-locked loop tracking frequency}
+\nomenclature[S]{$I_\text{peak}$}{Peak current through the measurement resistor}
+\nomenclature[S]{$V_\text{ADC}$}{Voltage output of the ADC channel}
+\nomenclature[S]{$\Delta T$}{Time step size in dynamic calculations}
+\nomenclature[S]{$R_{\text{TVS}}$}{TVS diode clamping resistance}
+\nomenclature[S]{$I_q^{\text{ref}}$}{Quadrature axis reference current}
+\nomenclature[S]{$V_q^{\text{ref}}$}{Quadrature axis reference voltage}
+\nomenclature[S]{$I_d^{\text{ref}}$}{Direct axis reference current}
+\nomenclature[S]{$V_d^{\text{ref}}$}{Direct axis reference voltage}
+\nomenclature[S]{$Z_d$}{Input impedance of the system with damping}
+\nomenclature[S]{$S_d$}{Sensitivity function with damping compensation}
+
+	% to remove vertical spaces 
+	\let\oldvspace\vspace
+	\renewcommand{\vspace}[2]{\let\vspace\oldvspace}
+	\printnomenclature[2cm] % columns space 
+	
+\end{document}
