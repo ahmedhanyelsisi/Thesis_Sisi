@@ -226,11 +226,15 @@ fprintf('  Current Fs : %.1f kHz -> cutoff %d Hz (%.0fx fundamental)\n\n', ...
 %  true grid frequency isn't exactly 50.000 Hz. THD sums harmonics 2
 %  through thdMaxHarmonic -- matched to the filter's ~40th-harmonic
 %  passband above so the two analyses stay consistent with each other.
+%
+%  computeTHD() also returns the underlying per-harmonic amplitude
+%  vector (harmAmp) for each phase. Section 7 reuses these amplitudes
+%  -- without recomputing the FFT -- to build THD_Corrected.
 thdMaxHarmonic = 40;
 
-thdIa = computeTHD(I_dec(:,1), Fs_i_actual, fundamentalFreq, thdMaxHarmonic);
-thdIb = computeTHD(I_dec(:,2), Fs_i_actual, fundamentalFreq, thdMaxHarmonic);
-thdIc = computeTHD(I_dec(:,3), Fs_i_actual, fundamentalFreq, thdMaxHarmonic);
+[thdIa, harmAmpIa] = computeTHD(I_dec(:,1), Fs_i_actual, fundamentalFreq, thdMaxHarmonic);
+[thdIb, harmAmpIb] = computeTHD(I_dec(:,2), Fs_i_actual, fundamentalFreq, thdMaxHarmonic);
+[thdIc, harmAmpIc] = computeTHD(I_dec(:,3), Fs_i_actual, fundamentalFreq, thdMaxHarmonic);
 
 fprintf('THD (harmonics 2-%d, %.0f Hz fundamental):\n', thdMaxHarmonic, fundamentalFreq);
 fprintf('  I_a : %.2f %%\n', thdIa);
@@ -238,7 +242,76 @@ fprintf('  I_b : %.2f %%\n', thdIb);
 fprintf('  I_c : %.2f %%\n\n', thdIc);
 
 %% ========================================================================
-%  7.  CALCULATE TOTAL POWER FACTOR (Vabc & Iabc, raw)
+%  7.  IDENTIFY NOMINAL-VOLTAGE PHASE & CALCULATE THD_CORRECTED
+%  ========================================================================
+%  Standard THD (Section 6) normalizes each phase's harmonic content
+%  against ITS OWN fundamental current. If one phase's fundamental
+%  reading is itself off (sensor error, unbalanced load, wiring fault,
+%  etc.), that phase's THD is distorted by a bad denominator even
+%  though the harmonic content itself may be fine.
+%
+%  THD_Corrected instead normalizes all three phase currents against a
+%  single common reference: the fundamental current of whichever phase
+%  has a nominal (120 V +/- 10 V RMS) line-to-neutral voltage. That
+%  phase's voltage being at nominal is taken as the indicator that its
+%  channel (and therefore its current fundamental) is trustworthy, and
+%  its current fundamental becomes the shared denominator for all three
+%  phases' THD_Corrected. Phase correspondence is by channel index
+%  (Va<->Ia, Vb<->Ib, Vc<->Ic).
+%
+%  Voltage RMS here is computed from the RAW voltage channels over the
+%  full captured record -- deliberately independent of the time-aligned
+%  overlap window used for the power-factor RMS values in Section 8,
+%  since this step is only about identifying which physical phase is
+%  near nominal, not about aligning V and I sample-for-sample.
+nominalVoltage = 85;   % V RMS, nominal line-to-neutral
+voltageTol     = 10;    % V, +/- tolerance band
+
+Vrms_full = sqrt(mean(V.^2, 1));   % [Vrms_a, Vrms_b, Vrms_c], raw & full-length
+phaseLabels = {'a', 'b', 'c'};
+
+fprintf('Phase voltage RMS (raw, full record):\n');
+for ch = 1:3
+    fprintf('  V_%s : %.2f V\n', phaseLabels{ch}, Vrms_full(ch));
+end
+
+isNominal = abs(Vrms_full - nominalVoltage) <= voltageTol;
+nominalIdx = find(isNominal);
+
+if isempty(nominalIdx)
+    error(['No phase voltage falls within the nominal band (%.0f +/- %.0f V). ' ...
+           'Measured: Va=%.2f V, Vb=%.2f V, Vc=%.2f V. Cannot determine a ' ...
+           'reference phase for THD_Corrected.'], ...
+           nominalVoltage, voltageTol, Vrms_full(1), Vrms_full(2), Vrms_full(3));
+elseif numel(nominalIdx) > 1
+    % More than one phase falls within tolerance -- take the one
+    % closest to nominal as the reference, but warn since the
+    % identification is meant to be unique.
+    [~, closest] = min(abs(Vrms_full(nominalIdx) - nominalVoltage));
+    nominalIdx = nominalIdx(closest);
+    warning(['Multiple phases fall within the nominal band (%.0f +/- %.0f V); ' ...
+             'using phase %s (closest to %.0f V) as the reference.'], ...
+             nominalVoltage, voltageTol, phaseLabels{nominalIdx}, nominalVoltage);
+end
+
+refPhaseLabel = phaseLabels{nominalIdx};
+harmAmpAll = {harmAmpIa, harmAmpIb, harmAmpIc};
+refFundAmp = harmAmpAll{nominalIdx}(1);
+
+fprintf('\nReference phase for THD_Corrected: %s  (V_%s = %.2f V, I fundamental = %.4f A)\n', ...
+        refPhaseLabel, refPhaseLabel, Vrms_full(nominalIdx), refFundAmp);
+
+thdIa_corr = 100 * sqrt(sum(harmAmpIa(2:end).^2)) / refFundAmp;
+thdIb_corr = 100 * sqrt(sum(harmAmpIb(2:end).^2)) / refFundAmp;
+thdIc_corr = 100 * sqrt(sum(harmAmpIc(2:end).^2)) / refFundAmp;
+
+fprintf('THD_Corrected (all phases normalized to I_%s fundamental):\n', refPhaseLabel);
+fprintf('  I_a : %.2f %%\n', thdIa_corr);
+fprintf('  I_b : %.2f %%\n', thdIb_corr);
+fprintf('  I_c : %.2f %%\n\n', thdIc_corr);
+
+%% ========================================================================
+%  8.  CALCULATE TOTAL POWER FACTOR (Vabc & Iabc, raw)
 %  ========================================================================
 %  True power factor (real power / apparent power), from the RAW,
 %  time-aligned V and I -- deliberate, so PF reflects the actual
@@ -268,7 +341,7 @@ fprintf('Total power factor:\n');
 fprintf('  P_total = %.3f W   S_total = %.3f VA   PF = %.4f\n\n', P_total, S_total, PF_total);
 
 %% ========================================================================
-%  8.  PLOT ALL 6 SIGNALS: RAW (LIGHT) + FILTERED (BOLD) OVERLAID
+%  9.  PLOT ALL 6 SIGNALS: RAW (LIGHT) + FILTERED (BOLD) OVERLAID
 %  ========================================================================
 fprintf('Plotting ...\n');
 
@@ -371,9 +444,9 @@ set(ax2, 'FontSize', 11, 'LineWidth', 0.6);
 % ---- Legend ----
 legend(ax1, [hVa hVb hVc hIa hIb hIc], ...
        {'V_{a} (CH1)', 'V_{b} (CH2)', 'V_{c} (CH3)', ...
-        sprintf('I_{a} (CH1)  THD = %.1f%%', thdIa), ...
-        sprintf('I_{b} (CH2)  THD = %.1f%%', thdIb), ...
-        sprintf('I_{c} (CH4)  THD = %.1f%%', thdIc)}, ...
+        sprintf('I_{a} (CH1)  THD=%.1f%%  THD_{corr}=%.1f%%', thdIa, thdIa_corr), ...
+        sprintf('I_{b} (CH2)  THD=%.1f%%  THD_{corr}=%.1f%%', thdIb, thdIb_corr), ...
+        sprintf('I_{c} (CH4)  THD=%.1f%%  THD_{corr}=%.1f%%', thdIc, thdIc_corr)}, ...
        'Location', 'northeast', 'FontSize', 10);
 
 % ---- Power factor label: large and prominent, in the empty right margin ----
@@ -384,17 +457,34 @@ annotation(fig, 'textbox', [0.865 0.42 0.12 0.14], ...
            'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle', ...
            'BackgroundColor', [1 1 0.85], 'EdgeColor', 'k', 'LineWidth', 1.5);
 
+% ---- THD_Corrected reference-phase note, below the PF box ----
+refNoteStr = sprintf('THD_{corr} ref:\nphase %s  (%.1f V)', refPhaseLabel, Vrms_full(nominalIdx));
+annotation(fig, 'textbox', [0.865 0.34 0.12 0.07], ...
+           'String', refNoteStr, ...
+           'FontSize', 9, 'FontWeight', 'normal', ...
+           'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle', ...
+           'BackgroundColor', [0.95 0.95 0.95], 'EdgeColor', 'k', 'LineWidth', 1);
+
 fprintf('Done.\n');
 
 %% ========================================================================
 %  Local functions
 %  ========================================================================
-function thdPct = computeTHD(x, Fs, f0, maxHarmonic)
-% Returns the Total Harmonic Distortion (%) of x relative to its
-% fundamental at f0, summing harmonics 2..maxHarmonic (capped at
-% Nyquist). Uses a Hann-windowed FFT and searches a small frequency
-% tolerance around each harmonic bin to tolerate slight deviations from
-% the nominal fundamental frequency and limited frequency resolution.
+function [thdPct, harmAmp] = computeTHD(x, Fs, f0, maxHarmonic)
+% Returns:
+%   thdPct  - Total Harmonic Distortion (%) of x relative to its own
+%             fundamental at f0, summing harmonics 2..maxHarmonic
+%             (capped at Nyquist).
+%   harmAmp - the underlying per-harmonic amplitude vector used to
+%             compute thdPct (harmAmp(1) = fundamental amplitude,
+%             harmAmp(2:end) = harmonics 2..maxHarmonic). Exposed so
+%             callers can reuse these amplitudes against a DIFFERENT
+%             reference fundamental (e.g. THD_Corrected, normalized to
+%             another phase's fundamental instead of this phase's own).
+%
+% Uses a Hann-windowed FFT and searches a small frequency tolerance
+% around each harmonic bin to tolerate slight deviations from the
+% nominal fundamental frequency and limited frequency resolution.
     x = x(:) - mean(x(:));           % remove DC offset
     N = length(x);
     w = hann(N, 'periodic');

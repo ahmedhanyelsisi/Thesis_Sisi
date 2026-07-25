@@ -164,7 +164,7 @@ fprintf('  New Fs            : %.2f MSa/s  (matches voltage)\n\n', 1/tInc_c_dec/
 %  factor / phase angle), not just shift a trend line in time.
 fundamentalFreq = 50;      % Hz - grid fundamental
 filterOrder     = 2;       % 2nd-order Butterworth
-cutoffFreq      = 1000;    % Hz - tune based on harmonics of interest vs. noise
+cutoffFreq      = 500;    % Hz - tune based on harmonics of interest vs. noise
 
 fprintf('Filtering all 6 signals (order-%d Butterworth, %d Hz cutoff, zero-phase)...\n', ...
         filterOrder, cutoffFreq);
@@ -273,13 +273,11 @@ fprintf('  P_total = %.3f W   S_total = %.3f VA   PF = %.4f\n\n', P_total, S_tot
 fprintf('Plotting ...\n');
 
 % --- Define distinct colors for each signal ---
-% IEEE-Transactions-style palette: voltages in a cool blue family,
-% currents in a warm red/orange family. Each phase is a distinct shade
-% within its family so V and I are told apart by hue group at a glance,
-% and by shade within the group. All muted/desaturated (no pure
-% RGB/CMY primaries) to match typical IEEE figure conventions and stay
-% legible when reproduced in grayscale.
-
+% MATLAB's default color order (R2014b+) -- the de-facto standard seen
+% in the overwhelming majority of published IEEE Transactions figures
+% (Power Electronics, Industrial Electronics, etc.), since most authors
+% never override it. It is also reasonably distinguishable under common
+% color vision deficiencies, so it doubles as an accessible choice.
 colVa = [0.0000 0.4470 0.7410];   % voltage phase A - blue        #0072BD
 colVb = [0.8500 0.3250 0.0980];   % voltage phase B - orange      #D95319
 colVc = [0.0000 0.0000 0.0000];   % voltage phase C - black       #000000
@@ -332,6 +330,7 @@ plot(ax1, t_c_dec*1e3, I_dec(:,2)*scale, '-', 'Color', colIb_u, 'LineWidth', 0.6
 plot(ax1, t_c_dec*1e3, I_dec(:,3)*scale, '-', 'Color', colIc_u, 'LineWidth', 0.6);
 
 % Filtered (bold shade) -- plotted in Volts / scaled Amps, on top of raw
+% LineWidths increased for a bolder, more prominent filtered trace.
 hVa = plot(ax1, t_v*1e3, V_filt(:,1), '-', 'Color', colVa, 'LineWidth', 2.5);
 hVb = plot(ax1, t_v*1e3, V_filt(:,2), '-', 'Color', colVb, 'LineWidth', 2.5);
 hVc = plot(ax1, t_v*1e3, V_filt(:,3), '-', 'Color', colVc, 'LineWidth', 2.5);

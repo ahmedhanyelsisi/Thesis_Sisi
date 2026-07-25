@@ -12,18 +12,6 @@
 %  from the current magnitude envelope, a zoomed figure is generated to
 %  highlight the transient, and ALL metric calculations (THD, PF) are
 %  restricted to a post-step steady-state window so they remain reliable.
-%
-%  NEW FEATURE (Section 2b): The user is asked whether the voltage scope
-%  capture has a known time-axis offset (e.g. the trigger position is not
-%  exactly centred on screen, so the scope's reported t0 does not
-%  correspond to true t = 0). If so, the user supplies the offset and the
-%  ENTIRE voltage time vector is rebuilt from the corrected t0 using the
-%  same t0 + n*tInc formula as before -- a pure, uniform shift. Sample
-%  values, their order, and their count are never touched, so the
-%  corrected trace is guaranteed continuous (no gaps, wraps, or
-%  duplicated/dropped samples). Everything downstream (plotting, the
-%  voltage/current overlap window, THD, PF, load-step detection) is
-%  computed from t_v, so it automatically inherits the correction.
 %  ========================================================================
 clc; clear; close all;
 
@@ -61,63 +49,7 @@ fprintf('  Samples  : %d\n',   Nv);
 fprintf('  V_CH1    : [%.1f, %.1f] V\n', min(V(:,1)), max(V(:,1)));
 fprintf('  Fs       : %.0f kSa/s\n', 1/tInc_v/1e3);
 fprintf('  Duration : %.3f ms\n', (Nv-1)*tInc_v*1e3);
-fprintf('  Time     : [%.3f, %.3f] ms  (as reported by scope, t0 = %.4f ms)\n\n', ...
-        t_v(1)*1e3, t_v(end)*1e3, t0_v*1e3);
-
-%% ========================================================================
-%  2b.  VOLTAGE TIME-AXIS OFFSET CORRECTION  (NEW)
-%  ========================================================================
-%  Some Rigol captures have a small timebase/trigger-position offset such
-%  that the horizontal centre of the screen (nominally t = 0) does not
-%  actually land on t = 0. If the user knows this offset, it is applied
-%  here as a constant shift of t0_v, and t_v is then rebuilt from scratch
-%  with the SAME t0 + n*tInc formula used above. Because it is the same
-%  formula over the same sample indices, the corrected time vector is
-%  just as continuous/monotonic as the original -- nothing is spliced,
-%  reordered, or wrapped, so the trace plots fully with no discontinuities.
-%  ========================================================================
-offsetAnswer = questdlg( ...
-    ['Does the VOLTAGE scope data have a known time-axis offset', newline, ...
-     '(e.g. the trigger position is not exactly centred, so t = 0', newline, ...
-     'on the plot does not line up with the true zero instant)?'], ...
-    'Voltage Time Offset', 'Yes', 'No', 'No');
-
-t0_v_raw      = t0_v;    %#ok<NASGU> % kept for reference/debugging
-timeOffset_ms = 0;
-
-if strcmp(offsetAnswer, 'Yes')
-    prompt   = {sprintf(['Enter the time offset to remove from the voltage axis [ms].\n' ...
-                          'Current scope-reported t0 = %.4f ms.\n\n' ...
-                          'A POSITIVE value shifts the trace EARLIER (subtracted from t0).\n' ...
-                          'A NEGATIVE value shifts the trace LATER.'], t0_v*1e3)};
-    dlgTitle = 'Voltage Time Offset Correction';
-    dims     = [1 60];
-    defVal   = {'0.000'};
-    userResp = inputdlg(prompt, dlgTitle, dims, defVal);
-
-    if isempty(userResp) || isnan(str2double(userResp{1}))
-        fprintf('  No valid offset entered -- proceeding without correction.\n\n');
-    else
-        timeOffset_ms = str2double(userResp{1});
-    end
-end
-
-if timeOffset_ms ~= 0
-    t0_v = t0_v - timeOffset_ms / 1e3;
-    t_v  = t0_v + (0:Nv-1).' * tInc_v;   % rebuilt in full -- continuous by construction
-
-    fprintf('  Applying voltage time-offset correction: %.4f ms\n', timeOffset_ms);
-    fprintf('  t0 corrected   : %.4f ms  ->  %.4f ms\n', t0_v_raw*1e3, t0_v*1e3);
-    fprintf('  Time (corrected): [%.3f, %.3f] ms\n', t_v(1)*1e3, t_v(end)*1e3);
-
-    if t0_v > 0 || (t0_v + (Nv-1)*tInc_v) < 0
-        warning(['After the offset correction, t = 0 falls outside the voltage ' ...
-                 'record entirely. Double-check the sign/magnitude of the offset.']);
-    end
-    fprintf('\n');
-else
-    fprintf('Voltage time offset correction: none applied (using scope-reported t0 as-is).\n\n');
-end
+fprintf('  Time     : [%.3f, %.3f] ms\n\n', t_v(1)*1e3, t_v(end)*1e3);
 
 %% ========================================================================
 %  3.  LOAD CURRENT DATA

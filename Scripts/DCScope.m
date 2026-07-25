@@ -1,14 +1,21 @@
 %% plot_scope_data.m
-% Reads an oscilloscope CSV export, runs an FFT-based ripple/harmonic
-% analysis on both DC signals (referenced to the known line and
-% converter switching frequencies), low-pass filters them for display,
-% and produces two figures:
-%   Figure 1 - Vdc and Iload, each as a stacked subplot (raw + filtered)
-%   Figure 2 - FFT amplitude spectrum of raw Vdc and raw Iload, with the
-%              line frequency, its low multiples (incl. 100 Hz), and the
-%              switching frequency marked
-%   CH1 -> DC link voltage   (raw CSV reading must be multiplied by 10)
-%   CH2 -> Load current      (DC value, used as-is, no scaling)
+% Reads an oscilloscope CSV export, optionally adds a user-supplied DC
+% offset to the V_dc (CH1) reading (a positive value adds to every
+% sample, a negative value removes from every sample), runs an
+% FFT-based ripple/harmonic analysis on the DC signals and their
+% product (referenced to the known line and converter switching
+% frequencies), low-pass filters them for display, and produces two
+% figures:
+%   Figure 1 - Vdc, Iload, and Power (Vdc*Iload), each as a stacked
+%              subplot (raw + filtered); the power traces are plotted
+%              in black/gray
+%   Figure 2 - FFT amplitude spectrum of raw Vdc, raw Iload, and raw
+%              Power, with the line frequency, its low multiples
+%              (incl. 100 Hz), and the switching frequency marked
+%   CH1   -> DC link voltage (raw CSV reading must be multiplied by 10,
+%            then an optional user-supplied DC offset is applied)
+%   CH2   -> Load current    (DC value, used as-is, no scaling)
+%   Power -> Vdc * Iload     (computed after any offset is applied)
 %
 % Expected CSV layout (typical scope "Waveform Data" export):
 %   Col 1 : Time for CH1 (s)
@@ -103,7 +110,55 @@ ch2_raw = data(:, 4);   % raw CH2 reading
 Vdc   = ch1_raw * 10;   % DC link voltage: every CH1 reading is x10
 Iload = ch2_raw;        % Load current: already correct, no scaling
 
-%% ---- 5. FFT-based ripple/harmonic analysis of Vdc and Iload ----
+%% ---- 4b. Optional DC offset for Vdc ----
+% Some setups need a DC offset applied to the CH1 (V_dc) measurement.
+% If the user says yes, the value they enter (in the same physical
+% units as V_dc, i.e. already at the x10 scale) is ADDED to every V_dc
+% sample right here, before anything else touches it:
+%   - a POSITIVE value is added on top of every reading
+%   - a NEGATIVE value effectively removes that much from every reading
+% This happens before the ripple/harmonic %%, the low-pass filtering,
+% both figures, and Power = Vdc*Iload -- so all of them use the
+% corrected voltage. If the user says no, V_dc is left exactly as read.
+offsetVdc = 0;   % default: no offset applied
+
+offsetAns = '';
+while isempty(offsetAns) || ~ismember(lower(offsetAns), {'y', 'n', 'yes', 'no'})
+    offsetAns = strtrim(input('Is there an offset you want to add to the V_dc (CH1) data? [y/n]: ', 's'));
+    if isempty(offsetAns) || ~ismember(lower(offsetAns), {'y', 'n', 'yes', 'no'})
+        fprintf('Please answer y or n.\n');
+    end
+end
+
+if ismember(lower(offsetAns), {'y', 'yes'})
+    validOffset = false;
+    while ~validOffset
+        offsetStr = strtrim(input(['Enter the V_dc offset value (V, at the x10 scale). ' ...
+                                    'Use a positive value to ADD an offset, ' ...
+                                    'or a negative value to REMOVE one: '], 's'));
+        offsetVdc = str2double(offsetStr);
+        if isnan(offsetVdc)
+            fprintf('"%s" is not a valid number. Please try again.\n', offsetStr);
+        else
+            validOffset = true;
+        end
+    end
+    Vdc = Vdc + offsetVdc;
+    if offsetVdc > 0
+        fprintf('Applying V_dc offset correction: adding %.4f V to every sample.\n', offsetVdc);
+    elseif offsetVdc < 0
+        fprintf('Applying V_dc offset correction: removing %.4f V from every sample.\n', abs(offsetVdc));
+    else
+        fprintf('Offset value entered was 0 V -- no change applied.\n');
+    end
+else
+    fprintf('No V_dc offset applied.\n');
+end
+
+Power = Vdc .* Iload;   % Instantaneous output power: P = Vdc * Iload
+                         % (computed AFTER the offset above)
+
+%% ---- 5. FFT-based ripple/harmonic analysis of Vdc, Iload, and Power ----
 % Vdc and Iload are still DC quantities -- there's no AC "fundamental"
 % to normalize against the way the grid script normalized against
 % 50 Hz, so every component below is still reported as a percentage of
@@ -141,9 +196,21 @@ end
 
 [freqVdc,   specVdc]   = singleSidedSpectrum(Vdc,   Fs);
 [freqIload, specIload] = singleSidedSpectrum(Iload, Fs);
+[freqPower, specPower] = singleSidedSpectrum(Power, Fs);
 
 dcVdc   = mean(Vdc,   'omitnan');
 dcIload = mean(Iload, 'omitnan');
+dcPower = mean(Power, 'omitnan');
+
+% This is the denominator every ripple/harmonic percentage below is
+% normalized against, so it's printed explicitly here -- it's what
+% explains why, e.g., a ripple that's several volts of raw amplitude
+% can still be a small percentage once a large offset has inflated
+% the DC mean it's divided by.
+fprintf('\n---- DC mean levels -------------------------------------------------\n');
+fprintf('  V_dc mean   : %10.4f V\n', dcVdc);
+fprintf('  I_load mean : %10.4f A\n', dcIload);
+fprintf('  Power mean  : %10.4f W\n', dcPower);
 
 % --- Named components of interest (dropping anything above Nyquist) ---
 compFreqs  = [lineFreq, 2*lineFreq, 3*lineFreq, 6*lineFreq, switchFreq];
@@ -159,26 +226,30 @@ tolHz   = max(3 * freqRes, 2);
 
 ampVdc   = zeros(1, numel(compFreqs));
 ampIload = zeros(1, numel(compFreqs));
+ampPower = zeros(1, numel(compFreqs));
 for k = 1:numel(compFreqs)
     ampVdc(k)   = peakNear(freqVdc,   specVdc,   compFreqs(k), tolHz);
     ampIload(k) = peakNear(freqIload, specIload, compFreqs(k), tolHz);
+    ampPower(k) = peakNear(freqPower, specPower, compFreqs(k), tolHz);
 end
 pctVdc   = 100 * ampVdc   / abs(dcVdc);
 pctIload = 100 * ampIload / abs(dcIload);
+pctPower = 100 * ampPower / abs(dcPower);
 
 % --- Overall ripple, all AC content combined (time-domain, exact) ---
 rippleVdc   = 100 * std(Vdc,   'omitnan') / abs(dcVdc);
 rippleIload = 100 * std(Iload, 'omitnan') / abs(dcIload);
+ripplePower = 100 * std(Power, 'omitnan') / abs(dcPower);
 
 fprintf('\n---- Ripple / harmonic content (%% of DC mean) --------------------\n');
 for k = 1:numel(compFreqs)
-    fprintf('  %-46s V_dc: %6.3f %%    I_load: %6.3f %%\n', ...
-            compLabels{k}, pctVdc(k), pctIload(k));
+    fprintf('  %-46s V_dc: %6.3f %%    I_load: %6.3f %%    Power: %6.3f %%\n', ...
+            compLabels{k}, pctVdc(k), pctIload(k), pctPower(k));
 end
-fprintf('  %-46s V_dc: %6.3f %%    I_load: %6.3f %%\n\n', ...
-        'TOTAL (all AC content)', rippleVdc, rippleIload);
+fprintf('  %-46s V_dc: %6.3f %%    I_load: %6.3f %%    Power: %6.3f %%\n\n', ...
+        'TOTAL (all AC content)', rippleVdc, rippleIload, ripplePower);
 
-%% ---- 6. Low-pass filter the DC signals (remove ripple/noise) ----
+%% ---- 6. Low-pass filter the DC signals and power (remove ripple/noise) ----
 % filtfilt() applies the filter forward and backward, giving zero phase
 % distortion (no time shift). That keeps the filtered trace correctly
 % aligned in time with the raw trace, which matters for a fair
@@ -195,15 +266,16 @@ end
 
 Vdc_filt   = filtfilt(b, a, Vdc);
 Iload_filt = filtfilt(b, a, Iload);
+Power_filt = filtfilt(b, a, Power);
 
 fprintf(['Sample rate detected: %.1f Hz. Low-pass filter: order %d Butterworth, ' ...
          'cutoff %d Hz, zero-phase (filtfilt).\n'], Fs, filterOrder, cutoffFreq);
 
-%% ---- 7. Plot raw vs. filtered signals as two stacked subplots ----
-figure('Name', 'DC Link Voltage & Load Current', 'Color', 'w');
+%% ---- 7. Plot raw vs. filtered signals as three stacked subplots ----
+figure('Name', 'DC Link Voltage, Load Current & Output Power', 'Color', 'w');
 
 % --- Top subplot: DC link voltage ---
-ax1 = subplot(2, 1, 1);
+ax1 = subplot(3, 1, 1);
 plot(time, Vdc, 'Color', [0.65 0.65 1], 'LineWidth', 0.8); hold on;
 plot(time, Vdc_filt, 'b-', 'LineWidth', 1.6);
 hold off;
@@ -213,46 +285,80 @@ legend({sprintf('Unfiltered  (Ripple = %.2f%%)', rippleVdc), ...
         sprintf('Filtered (%d Hz LPF)', cutoffFreq)}, 'Location', 'best');
 grid on;
 
-% Highlight the x10 scaling directly on the voltage plot so it can't be
-% missed when reading the y-axis
+% "DC MEAN" badge -- a compact, color-matched stat card in the corner
+% of the plot instead of a line drawn through the data
+text(ax1, 0.985, 0.06, {'DC MEAN', sprintf('%.4f V', dcVdc)}, ...
+     'Units', 'normalized', 'HorizontalAlignment', 'right', 'VerticalAlignment', 'bottom', ...
+     'FontWeight', 'bold', 'FontSize', 9, 'Color', [0 0.25 0.65], ...
+     'BackgroundColor', [0.87 0.92 1], 'EdgeColor', [0 0.25 0.65], 'Margin', 4);
+
+% Highlight the x10 scaling (and offset, if any) directly on the
+% voltage plot so it can't be missed when reading the y-axis
 xl = xlim(ax1); yl = ylim(ax1);
 xspan = xl(2) - xl(1);
 yspan = yl(2) - yl(1);
-text(xl(1) + 0.02*xspan, yl(2) - 0.06*yspan, ...
-     'Scale \times 10 applied to raw CH1 reading', ...
+if offsetVdc > 0
+    scaleNote = sprintf('Scale \\times10 applied to raw CH1 reading; %.4f V offset added', offsetVdc);
+elseif offsetVdc < 0
+    scaleNote = sprintf('Scale \\times10 applied to raw CH1 reading; %.4f V offset removed', abs(offsetVdc));
+else
+    scaleNote = 'Scale \times 10 applied to raw CH1 reading';
+end
+text(xl(1) + 0.02*xspan, yl(2) - 0.06*yspan, scaleNote, ...
      'FontWeight', 'bold', 'FontSize', 9, 'Color', [0.6 0 0], ...
      'BackgroundColor', [1 1 0.8], 'EdgeColor', 'k', ...
      'VerticalAlignment', 'top');
 
-% --- Bottom subplot: load current ---
-ax2 = subplot(2, 1, 2);
+% --- Middle subplot: load current ---
+ax2 = subplot(3, 1, 2);
 plot(time, Iload, 'Color', [1 0.65 0.65], 'LineWidth', 0.8); hold on;
 plot(time, Iload_filt, 'r-', 'LineWidth', 1.6);
 hold off;
-xlabel('Time (s)');
 ylabel('Load Current, I_{load} (A)');
 title('Load Current  (CH2, no scaling)');
 legend({sprintf('Unfiltered  (Ripple = %.2f%%)', rippleIload), ...
         sprintf('Filtered (%d Hz LPF)', cutoffFreq)}, 'Location', 'best');
 grid on;
 
-linkaxes([ax1, ax2], 'x');   % keep both time axes synced when zooming/panning
-sgtitle('DC Link Voltage and Load Current: Raw vs. Low-Pass Filtered');
+text(ax2, 0.985, 0.06, {'DC MEAN', sprintf('%.4f A', dcIload)}, ...
+     'Units', 'normalized', 'HorizontalAlignment', 'right', 'VerticalAlignment', 'bottom', ...
+     'FontWeight', 'bold', 'FontSize', 9, 'Color', [0.65 0 0], ...
+     'BackgroundColor', [1 0.9 0.9], 'EdgeColor', [0.65 0 0], 'Margin', 4);
+
+% --- Bottom subplot: output power (Vdc * Iload), plotted in black/gray ---
+ax3 = subplot(3, 1, 3);
+plot(time, Power, 'Color', [0.7 0.7 0.7], 'LineWidth', 0.8); hold on;
+plot(time, Power_filt, 'k-', 'LineWidth', 1.6);
+hold off;
+xlabel('Time (s)');
+ylabel('Output Power, P (W)');
+title('Output Power  (P = V_{dc} \times I_{load})');
+legend({sprintf('Unfiltered  (Ripple = %.2f%%)', ripplePower), ...
+        sprintf('Filtered (%d Hz LPF)', cutoffFreq)}, 'Location', 'best');
+grid on;
+
+text(ax3, 0.985, 0.06, {'DC MEAN', sprintf('%.4f W', dcPower)}, ...
+     'Units', 'normalized', 'HorizontalAlignment', 'right', 'VerticalAlignment', 'bottom', ...
+     'FontWeight', 'bold', 'FontSize', 9, 'Color', [0.15 0.15 0.15], ...
+     'BackgroundColor', [0.92 0.92 0.92], 'EdgeColor', [0.15 0.15 0.15], 'Margin', 4);
+
+linkaxes([ax1, ax2, ax3], 'x');   % keep all three time axes synced when zooming/panning
+sgtitle('DC Link Voltage, Load Current, and Output Power: Raw vs. Low-Pass Filtered');
 
 fprintf('Done. Plotted %d samples spanning %.4f s to %.4f s.\n', ...
         numel(time), time(1), time(end));
 
-%% ---- 8. Plot the FFT spectra of Vdc and Iload (separate figure) ----
+%% ---- 8. Plot the FFT spectra of Vdc, Iload, and Power (separate figure) ----
 % Raw (unfiltered) data only, for the same reason noted in Section 5:
 % this figure exists specifically to inspect ripple/harmonic content,
 % and the low-pass filter above would hide exactly that.
-figure('Name', 'Vdc & Iload FFT Spectra', 'Color', 'w');
+figure('Name', 'Vdc, Iload & Power FFT Spectra', 'Color', 'w');
 
 xUpper = min(nyquist, max(switchFreq, 6*lineFreq) * 1.5);   % focus on the meaningful range
 xLower = max(freqRes, 1);                                    % log axis can't start at 0
 
 % --- Top subplot: Vdc spectrum ---
-axf1 = subplot(2, 1, 1);
+axf1 = subplot(3, 1, 1);
 plot(axf1, freqVdc, specVdc, 'b-', 'LineWidth', 1);
 set(axf1, 'XScale', 'log');
 xlim(axf1, [xLower, xUpper]);
@@ -274,8 +380,8 @@ for k = 1:numel(compFreqs)
 end
 hold(axf1, 'off');
 
-% --- Bottom subplot: Iload spectrum ---
-axf2 = subplot(2, 1, 2);
+% --- Middle subplot: Iload spectrum ---
+axf2 = subplot(3, 1, 2);
 plot(axf2, freqIload, specIload, 'r-', 'LineWidth', 1);
 set(axf2, 'XScale', 'log');
 xlim(axf2, [xLower, xUpper]);
@@ -297,13 +403,36 @@ for k = 1:numel(compFreqs)
 end
 hold(axf2, 'off');
 
-linkaxes([axf1, axf2], 'x');
-sgtitle('Ripple / Harmonic Content — FFT of Raw V_{dc} and I_{load}');
+% --- Bottom subplot: Power spectrum, plotted in black ---
+axf3 = subplot(3, 1, 3);
+plot(axf3, freqPower, specPower, 'k-', 'LineWidth', 1);
+set(axf3, 'XScale', 'log');
+xlim(axf3, [xLower, xUpper]);
+xlabel('Frequency (Hz)');
+ylabel('Amplitude (W)');
+title('Power FFT Spectrum (raw data)');
+grid on; grid minor;
+hold(axf3, 'on');
+for k = 1:numel(compFreqs)
+    if compFreqs(k) == 2*lineFreq
+        xline(axf3, compFreqs(k), '--', compLabels{k}, 'Color', [0.85 0 0], ...
+              'LineWidth', 1.8, 'FontWeight', 'bold', 'FontSize', 8, ...
+              'LabelVerticalAlignment', 'top', 'LabelOrientation', 'horizontal');
+    else
+        xline(axf3, compFreqs(k), ':', compLabels{k}, 'Color', [0.4 0.4 0.4], ...
+              'LineWidth', 1, 'FontSize', 8, ...
+              'LabelVerticalAlignment', 'top', 'LabelOrientation', 'horizontal');
+    end
+end
+hold(axf3, 'off');
+
+linkaxes([axf1, axf2, axf3], 'x');
+sgtitle('Ripple / Harmonic Content — FFT of Raw V_{dc}, I_{load}, and Power');
 
 idx100 = find(compFreqs == 2*lineFreq, 1);
 if ~isempty(idx100)
-    fprintf('FFT figure plotted. 100 Hz component: V_dc = %.3f%%, I_load = %.3f%% of DC mean.\n', ...
-            pctVdc(idx100), pctIload(idx100));
+    fprintf('FFT figure plotted. 100 Hz component: V_dc = %.3f%%, I_load = %.3f%%, Power = %.3f%% of DC mean.\n', ...
+            pctVdc(idx100), pctIload(idx100), pctPower(idx100));
 else
     fprintf('FFT figure plotted. (100 Hz is above this capture''s Nyquist limit -- not resolvable.)\n');
 end
