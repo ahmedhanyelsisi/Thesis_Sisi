@@ -7,7 +7,7 @@
 %  The script decimates the high-rate current data to match the voltage
 %  sampling rate so both can be overlaid on one coherent time axis.
 %  ========================================================================
-clc; clear; close all;
+clc; clear; close all;  
 
 %% ========================================================================
 %  1.  SELECT FILES VIA DIALOG
