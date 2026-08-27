@@ -672,12 +672,16 @@
         async function loadDataFromDB() {
             try {
                 const response = await fetch('/api/data');
+                if (!response.ok) {
+                    throw new Error(`Failed to load data: ${response.status} ${response.statusText}`);
+                }
                 const result = await response.json();
                 if (result.status === "success" && result.data) return result.data;
             } catch(e) {
                 console.error("Backend fetch error, falling back to localStorage", e);
                 const backup = localStorage.getItem('afe_backup');
-                return backup ? JSON.parse(backup) : null;
+                if (backup) return JSON.parse(backup);
+                throw e; // Let init() catch it
             }
             return null;
         }
@@ -722,27 +726,33 @@
 
         // --- CORE LOGIC ---
         async function init() {
-            const stored = await loadDataFromDB();
-            if (stored) {
-                data = stored;
-                let needsSave = false;
-                data.tabs.forEach(tab => {
-                    tab.rows.forEach(row => {
-                        if (!row.plotImages) { row.plotImages = []; needsSave = true; }
-                        if (row.plotImage) {
-                            if (typeof row.plotImage === 'string') { row.plotImages.push(row.plotImage); }
-                            row.plotImage = null; needsSave = true;
-                        }
+            try {
+                const stored = await loadDataFromDB();
+                if (stored) {
+                    data = stored;
+                    let needsSave = false;
+                    data.tabs.forEach(tab => {
+                        tab.rows.forEach(row => {
+                            if (!row.plotImages) { row.plotImages = []; needsSave = true; }
+                            if (row.plotImage) {
+                                if (typeof row.plotImage === 'string') { row.plotImages.push(row.plotImage); }
+                                row.plotImage = null; needsSave = true;
+                            }
+                        });
                     });
-                });
-                if (needsSave) await saveDataToDB(data);
-            } else {
-                data = JSON.parse(JSON.stringify(initialData));
-                await saveDataToDB(data);
+                    if (needsSave) await saveDataToDB(data);
+                } else {
+                    data = JSON.parse(JSON.stringify(initialData));
+                    await saveDataToDB(data);
+                }
+                
+                setupLightboxEvents();
+                render();
+            } catch (e) {
+                console.error("Initialization failed:", e);
+                alert("Failed to load dashboard data. The file might be corrupted or the backend is unavailable. Please check the backend console.");
+                // Abort UI load
             }
-            
-            setupLightboxEvents();
-            render();
         }
 
         async function saveData() {
