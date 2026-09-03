@@ -10,7 +10,7 @@
 
 % Hello Antigravity!
 
-The Grid under the study in this subsection is assumed to be a balanced three-phase grid with sinusoidal grid voltages shifted with 120 degrees between each phase. The three phase grid is star connected to three inductors which are known as boost inductors referred to $L$. Symbols are summarized in Table~\ref{tab:spmsm-notation-narrative}; equation references are provided instead of inline formulas to keep the text readable.
+The electrical grid under study in this subsection is assumed to be a balanced three-phase grid with sinusoidal grid voltages shifted by 120 degrees between each phase. The three-phase grid is star connected to three inductors which are known as boost inductors referred to as $L$. Symbols are summarized in Table~\ref{tab:spmsm-notation-narrative}; equation references are provided instead of inline formulas to keep the text readable.
 
 
 
@@ -274,7 +274,7 @@ The Grid under the study in this subsection is assumed to be a balanced three-ph
 
 
 
-%\begin{figure}[h]
+%\begin{figure}[htbp]
 
 %	\centering
 
@@ -355,27 +355,18 @@ $Q$ & Three phase reactive power of the grid \\
 
 
 \begin{equation}
-
 \label{eq:narr-abc-phase}
-
 v_\ell - v_{conv\ell} = R\, i_\ell + L\frac{\mathrm di_\ell}{\mathrm d t} \,, \qquad \ell \in \{a,b,c\} .
-
 \end{equation}
 
 
 
 \begin{equation}
-
 \label{eq:narr-abc-vector}
-
 \begin{bmatrix} v_a \\ v_b \\ v_c \end{bmatrix} - 
-
 \begin{bmatrix} v_{conva} \\ v_{convb} \\ v_{convc} \end{bmatrix}
-
 = R \begin{bmatrix} i_a \\ i_b \\ i_c \end{bmatrix}
-
 + L\frac{\mathrm d}{\mathrm d t} \begin{bmatrix} i_a \\ i_b \\ i_c \end{bmatrix} .
-
 \end{equation}
 
 
@@ -389,41 +380,26 @@ Applying the power‑invariant Clarke transform to Equations~\eqref{eq:narr-abc-
 
 
 \begin{equation}
-
 \label{eq:narr-clarke}
-
 \begin{bmatrix} v_\alpha \\ v_\beta \end{bmatrix}
-
 = \tfrac{2}{3}
-
 \begin{bmatrix}
-
 1 & -\tfrac{1}{2} & -\tfrac{1}{2} \\
-
 0 & \tfrac{\sqrt 3}{2} & -\tfrac{\sqrt 3}{2}
-
 \end{bmatrix}
-
 \begin{bmatrix} v_a \\ v_b \\ v_c \end{bmatrix} .
-
 \end{equation}
 
 
 
 \begin{equation}
-
 \label{eq:add-ab-volt-a}
-
  v_\alpha = R \, i_\alpha + L \, \frac{\mathrm d i_\alpha}{\mathrm d t} + v_{conv\alpha} .
-
 \end{equation}
 
 \begin{equation}
-
 \label{eq:add-ab-volt-b}
-
  v_\beta = R \, i_\beta + L \, \frac{\mathrm d i_\beta}{\mathrm d t} + v_{conv\beta} .
-
 \end{equation}
 
 
@@ -433,29 +409,19 @@ The Park transform rotates the stationary axes so that one axis is aligned with 
 
 
 \begin{equation}
-
 \label{eq:narr-park-i}
-
 \begin{bmatrix} i_d \\ i_q \end{bmatrix}
-
 = \begin{bmatrix} \cos \theta & \sin \theta \\ -\sin \theta & \cos \theta \end{bmatrix}
-
 \begin{bmatrix} i_\alpha \\ i_\beta \end{bmatrix} .
-
 \end{equation}
 
 
 
 \begin{equation}
-
 \label{eq:narr-park-v}
-
 \begin{bmatrix} v_d \\ v_q \end{bmatrix}
-
 = \begin{bmatrix} \cos \theta & \sin \theta \\ -\sin \theta & \cos \theta \end{bmatrix}
-
 \begin{bmatrix} v_\alpha \\ v_\beta \end{bmatrix} .
-
 \end{equation}
 
 
@@ -465,21 +431,15 @@ In the rotating frame, The direct- and quadrature-axis voltage balances are list
 
 
 \begin{equation}
-
 \label{eq:narr-dq-vd}
-
 v_{sd} = R\, i_d + \frac{\mathrm d i_d}{\mathrm d t} - \omega L i_q + v_{convd}.
-
 \end{equation}
 
 
 
 \begin{equation}
-
 \label{eq:narr-dq-vq}
-
 v_{sq} = R\, i_q + \frac{\mathrm d i_q}{\mathrm d t} + \omega L i_d + v_{convq}.
-
 \end{equation}
 
 
@@ -489,21 +449,15 @@ Substituting the grid current derivative relations into the voltage balances lea
 
 
 \begin{equation}
-
 \label{eq:narr-dq-did}
-
 \dot{i}_d = \frac{1}{L} \Big( v_{sd} - R i_d + \omega L i_q - v_{convd}\Big) .
-
 \end{equation}
 
 
 
 \begin{equation}
-
 \label{eq:narr-dq-diq}
-
 \dot{i}_q = \frac{1}{L} \Big( v_{sq} - R i_q - \omega L i_d - v_{convq}\Big) .
-
 \end{equation}
 
 
@@ -511,21 +465,15 @@ Substituting the grid current derivative relations into the voltage balances lea
 The instantaneous three-phase electrical active power expressed in synchronous coordinates is a weighted inner product of voltage and current components, shown in Equation~\eqref{eq:narr-pe}. While The instantaneous three-phase electrical reactive power expressed in synchronous coordinates is a weighted inner product of voltage and current components, shown in Equation~\eqref{eq:narr-qe}.
 
 \begin{equation}
-
 \label{eq:narr-pe}
-
 P = \tfrac{3}{2} \big( v_{sd} i_d + v_{sq} i_q \big) .
-
 \end{equation}
 
 
 
 \begin{equation}
-
 \label{eq:narr-qe}
-
 Q = \tfrac{3}{2} \big( v_{sq} i_d - v_{sd} i_q \big) .
-
 \end{equation}
 
 
@@ -537,11 +485,8 @@ The above equations represent the instantaneous input active and reactive power 
 
 
 \begin{equation}
-
 \label{eq:narr-dclink}
-
 C\,\dot v_{dc} = \tfrac{3}{2} \big( S_d i_d + S_q i_q \big) - \frac{v_{dc}}{R_l} .
-
 \end{equation}
 
 
@@ -668,7 +613,7 @@ Vector oriented control applies Clarke and Park transformations to convert the m
 
 
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 
 	\centering
 
@@ -711,53 +656,35 @@ The SMO estimates rotor electrical angle and speed without mechanical sensors by
 The electrical dynamics in the stationary frame are
 
 \begin{equation}
-
 	\label{eq:smo-plant-alphabeta}
-
 	\begin{bmatrix} v_\alpha \\ v_\beta \end{bmatrix}
-
 	= R_s \begin{bmatrix} i_\alpha \\ i_\beta \end{bmatrix}
-
 	+ L_s \frac{\mathrm d}{\mathrm d t} \begin{bmatrix} i_\alpha \\ i_\beta \end{bmatrix}
-
 	+ \begin{bmatrix} e_\alpha \\ e_\beta \end{bmatrix} .
-
 \end{equation}
 
 The back-EMF components due to the permanent magnet are
 
 \begin{equation}
-
 	\label{eq:smo-emf-ab}
-
 	e_\alpha = -\lambda_f\,\omega_e\,\sin\theta_e\,,\qquad e_\beta = \lambda_f\,\omega_e\,\cos\theta_e\,.
-
 \end{equation}
 
 Dividing the two components and using the inverse tangent yields the electrical angle
 
 \begin{equation}
-
 	\label{eq:smo-angle-from-emf}
-
 	\theta_e = \operatorname{atan2}\big(-e_\alpha,\,e_\beta\big).
-
 \end{equation}
 
 Solving \eqref{eq:smo-plant-alphabeta} for the current derivatives gives
 
 \begin{equation}
-
 	\label{eq:smo-plant-dynamics}
-
 	\frac{\mathrm d}{\mathrm d t} \begin{bmatrix} i_\alpha \\ i_\beta \end{bmatrix}
-
 	= -\frac{R_s}{L_s} \begin{bmatrix} i_\alpha \\ i_\beta \end{bmatrix}
-
 	+ \frac{1}{L_s} \begin{bmatrix} v_\alpha \\ v_\beta \end{bmatrix}
-
 	- \frac{1}{L_s} \begin{bmatrix} e_\alpha \\ e_\beta \end{bmatrix} .
-
 \end{equation}
 
 
@@ -765,35 +692,22 @@ Solving \eqref{eq:smo-plant-alphabeta} for the current derivatives gives
 Define the current-estimation errors and sliding surfaces as
 
 \begin{equation}
-
 	\label{eq:smo-sliding-surfaces}
-
 	\tilde i_\alpha = i_\alpha - \hat i_\alpha\,,\qquad \tilde i_\beta = i_\beta - \hat i_\beta\,,\qquad S_\alpha=\tilde i_\alpha\,,\; S_\beta=\tilde i_\beta\,.
-
 \end{equation}
 
 The SMO injects a discontinuous term to drive \(S\to 0\). A practical implementation uses a boundary layer via \(\operatorname{sat}(\cdot)\) in place of \(\operatorname{sgn}(\cdot)\). The observer dynamics are
 
 \begin{equation}
-
 	\label{eq:smo-observer-dynamics}
-
 	\frac{\mathrm d}{\mathrm d t} \begin{bmatrix} \hat i_\alpha \\ \hat i_\beta \end{bmatrix}
-
 	= -\frac{R_s}{L_s} \begin{bmatrix} \hat i_\alpha \\ \hat i_\beta \end{bmatrix}
-
 	+ \frac{1}{L_s} \begin{bmatrix} v_\alpha \\ v_\beta \end{bmatrix}
-
 	+ \frac{\eta_0}{L_s}
-
 	\begin{bmatrix}
-
 		\operatorname{sgn}\!\left(\tfrac{\tilde i_\beta}{\varphi}\right) \\ 
-
 		\operatorname{sgn}\!\left(\tfrac{\tilde i_\beta}{\varphi}\right)
-
 	\end{bmatrix} ,
-
 \end{equation}
 
 where \(\eta_0>0\) is the switching gain.
@@ -803,45 +717,29 @@ where \(\eta_0>0\) is the switching gain.
 Subtracting \eqref{eq:smo-observer-dynamics} from \eqref{eq:smo-plant-dynamics} yields
 
 \begin{equation}
-
 	\label{eq:smo-error-dynamics}
-
 	\frac{\mathrm d}{\mathrm d t} \begin{bmatrix} \tilde i_\alpha \\ \tilde i_\beta \end{bmatrix}
-
 	= -\frac{R_s}{L_s} \begin{bmatrix} \tilde i_\alpha \\ \tilde i_\beta \end{bmatrix}
-
 	+ \frac{1}{L_s} \begin{bmatrix} e_\alpha \\ e_\beta \end{bmatrix}
-
 	- \frac{\eta_0}{L_s}
-
 	\begin{bmatrix}
-
 		\operatorname{sgn}(\tilde i_\alpha) \\ 
-
 		\operatorname{sgn}(\tilde i_\beta)
-
 	\end{bmatrix} .
-
 \end{equation}
 
 Using the Lyapunov candidate \(V = \tfrac{1}{2}(S_\alpha^2+S_\beta^2)\), the condition
 
 \begin{equation}
-
 	\label{eq:smo-sliding-condition}
-
 	S_\alpha\,\dot S_\alpha + S_\beta\,\dot S_\beta \le 0
-
 \end{equation}
 
 holds whenever the switching gain exceeds the worst-case mismatch in back-EMF estimation, i.e., when
 
 \begin{equation}
-
 	\label{eq:smo-eta-condition}
-
 	\eta_0 > \max\big\{\,|e_\alpha|,\; |e_\beta|\,\big\}\,.
-
 \end{equation}
 
 Under \eqref{eq:smo-eta-condition} and bounded inputs, the surfaces are reached in finite time.
@@ -851,31 +749,20 @@ Under \eqref{eq:smo-eta-condition} and bounded inputs, the surfaces are reached 
 The discontinuous term approximates the unknown disturbance vector \(\mathbf{e}\). Its components are
 
 \begin{equation}
-
 	\label{eq:smo-e-vector}
-
 	\mathbf{e} = \begin{bmatrix} e_\alpha \\ e_\beta \end{bmatrix} .
-
 \end{equation}
 
 A smooth estimate is obtained by low-pass filtering the switching action:
 
 \begin{equation}
-
 	\label{eq:smo-emf-estimate}
-
 	\begin{bmatrix} \hat e_\alpha \\ \hat e_\beta \end{bmatrix}
-
 	= \operatorname{LPF}\left\{\, \eta_0
-
 	\begin{bmatrix}
-
 		\operatorname{sgn}(\tilde i_\alpha) \\ 
-
 		\operatorname{sgn}(\tilde i_\beta)
-
 	\end{bmatrix}\,\right\} .
-
 \end{equation}
 
 A second-order low-pass filter is preferred to reduce ripple and phase lag at the switching frequency; a cutoff one decade below the PWM carrier and above the fundamental improves noise immunity while preserving dynamics.
@@ -885,11 +772,8 @@ A second-order low-pass filter is preferred to reduce ripple and phase lag at th
 The electrical angle is computed from the estimated back-EMF components as
 
 \begin{equation}
-
 	\label{eq:smo-angle-est}
-
 	\hat \theta_e = \operatorname{atan2}\big(-\hat e_\alpha,\,\hat e_\beta\big) .
-
 \end{equation}
 
 Speed may be obtained by differentiating \(\hat \theta_e\) or, more robustly, by a synchronous-frame PLL driven by the quadrature back-EMF component; both methods are compatible with the observer.
@@ -907,38 +791,29 @@ The SMO proceeds as follows: integrate \eqref{eq:smo-observer-dynamics} each sam
 To guarantee a constant phase relationship between the estimated back-EMF and the fundamental, two adaptive first-order low-pass filters are cascaded with identical cutoff frequencies scheduled from the instantaneous electrical speed. The phase of a first-order LPF at angular frequency is
 
 \begin{equation}
-
 	\label{eq:smo-lpf-phase}
-
 	\phi(\omega) = -\arctan\!\left(\frac{\omega}{\omega_c}\right).
-
 \end{equation}
 
 Choosing the cutoff equal to the electrical speed enforces a fixed per-stage phase at the fundamental:
 
 \begin{equation}
-
 	\label{eq:smo-lpf-choice}
-
 	\omega_c = |\omega_e|.
-
 \end{equation}
 
 Evaluating \eqref{eq:smo-lpf-phase} at the electrical frequency gives
 
 \begin{equation}
-
 	\label{eq:smo-lpf-45}
-
 	\phi(\omega_e) = -\arctan(1) = -45^{\circ}.
-
 \end{equation}
 
 Therefore, the cascade produces approximately a $-90^{\circ}$ total phase shift at the fundamental as shown Figure \ref{fig:FilterResponse} in while continuing to attenuate switching ripple.
 
 
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 
 	\centering
 
@@ -955,17 +830,11 @@ Therefore, the cascade produces approximately a $-90^{\circ}$ total phase shift 
 Let the switching action be
 
 \[
-
 \mathbf s = \eta_0\,
-
 \begin{bmatrix}
-
 	\operatorname{sgn}(\tilde i_\alpha) \\ 
-
 	\operatorname{sgn}(\tilde i_\beta)
-
 \end{bmatrix}.
-
 \]
 
 
@@ -973,37 +842,25 @@ Let the switching action be
 The cascaded filters are
 
 \begin{equation}
-
 	\label{eq:smo-lpf1}
-
 	\dot{\mathbf z}_1 = -2\pi\, f_c(\omega_e)\, \mathbf z_1 + 2\pi\, f_c(\omega_e)\, \mathbf s ,
-
 \end{equation}
 
 \begin{equation}
-
 	\label{eq:smo-lpf2}
-
 	\dot{\mathbf z}_2 = -2\pi\, f_c(\omega_e)\, \mathbf z_2 + 2\pi\, f_c(\omega_e)\, \mathbf z_1 ,
-
 \end{equation}
 
 \begin{equation}
-
 	\label{eq:smo-ehat-cascade}
-
 	\begin{bmatrix} \hat e_\alpha \\ \hat e_\beta \end{bmatrix} = \mathbf z_2 .
-
 \end{equation}
 
 The speed-scheduled cutoff is
 
 \begin{equation}
-
 	\label{eq:smo-fc-omega}
-
 	f_c(\omega_e) = \operatorname{clip}\!\Big( \tfrac{|\omega_e|}{2\pi} ,\; f_{\min} ,\; \min\{ f_{\max} ,\, f_{\mathrm{PWM}}/10 \} \Big) .
-
 \end{equation}
 
 
@@ -1053,21 +910,15 @@ This subsection computes electrical and mechanical speed from the estimated elec
 The estimator assumes a uniformly sampled angle sequence with sampling period shown in \eqref{eq:spdS-Ts}.
 
 \begin{equation}
-
 	\label{eq:spdS-Ts}
-
 	T_s > 0 .
-
 \end{equation}
 
 The wrapped electrical angles are denoted in \eqref{eq:spdS-theta}.
 
 \begin{equation}
-
 	\label{eq:spdS-theta}
-
 	\hat\theta_e[k] \in (-\pi,\,\pi] ,\qquad k=0,1,2,\dots
-
 \end{equation}
 
 
@@ -1077,11 +928,8 @@ The wrapped electrical angles are denoted in \eqref{eq:spdS-theta}.
 Let the raw sample–to–sample angle difference be
 
 \begin{equation}
-
 	\label{eq:spd-dtheta-raw}
-
 	\Delta\theta_{\mathrm{raw}}[k] = \hat\theta_e[k] - \hat\theta_e[k-1] .
-
 \end{equation}
 
 To suppress the $\pm 2\pi$ wrap, compare $\Delta\theta_{\mathrm{raw}}[k]$ with a limit
@@ -1089,43 +937,28 @@ To suppress the $\pm 2\pi$ wrap, compare $\Delta\theta_{\mathrm{raw}}[k]$ with a
 $\Delta\theta_{\lim}\in(\tfrac{\pi}{2},\,\pi]$ and correct as
 
 \begin{equation}
-
 	\label{eq:spd-dtheta-limited}
-
 	\Delta\theta_e[k] =
-
 	\begin{cases}
-
 		\Delta\theta_{\mathrm{raw}}[k] - 2\pi, & \Delta\theta_{\mathrm{raw}}[k] > \Delta\theta_{\lim},\\[4pt]
-
 		\Delta\theta_{\mathrm{raw}}[k] + 2\pi, & \Delta\theta_{\mathrm{raw}}[k] < -\,\Delta\theta_{\lim},\\[4pt]
-
 		\Delta\theta_{\mathrm{raw}}[k], & \text{otherwise.}
-
 	\end{cases}
-
 \end{equation}
 
 The electrical speed estimate then is
 
 \begin{equation}
-
 	\label{eq:spd-omega-from-dtheta}
-
 	\hat\omega_e[k] = \frac{\Delta\theta_e[k]}{T_s}.
-
 \end{equation}
 
 the sampling period satisfies
 
 \begin{equation}
-
 	\label{eq:spd-sampling-bound}
-
 	T_s < \frac{\Delta\theta_{\lim}}{\omega_{e,\max}}
-
 	\quad\Big(\text{equivalently } f_s > \omega_{e,\max}/\Delta\theta_{\lim}\Big),
-
 \end{equation}
 
 so that genuine inter-sample motion never exceeds the limit and only wrap events are corrected.
@@ -1139,11 +972,8 @@ so that genuine inter-sample motion never exceeds the limit and only wrap events
 The raw electrical speed estimate is then
 
 \begin{equation}
-
 	\label{eq:spdS-omega-raw}
-
 	\hat\omega_e[k] = \frac{\Delta\theta_e[k]}{T_s} .
-
 \end{equation}
 
 
@@ -1153,29 +983,20 @@ The raw electrical speed estimate is then
 The raw speed \(\hat\omega_e[k]\) is smoothed by a single-coefficient recursion as in \eqref{eq:spdS-simple-lpf}. This is the discrete first-order low-pass filter you requested ("\(Y[k]=G\,Y[k-1]+(1-G)U[k]\)") with input \(U[k]=\hat\omega_e[k]\) and output \(Y[k]=\omega_{e,f}[k]\).
 
 \begin{equation}
-
 	\label{eq:spdS-simple-lpf}
-
 	\omega_{e,f}[k] = G\; \omega_{e,f}[k-1] + (1-G)\; \hat\omega_e[k] .
-
 \end{equation}
 
 Two equivalent expressions for the filter coefficient are commonly used:
 
 \begin{equation}
-
 	\label{eq:spdS-G-exact}
-
 	G = e^{-\omega_c T_s} ,
-
 \end{equation}
 
 \begin{equation}
-
 	\label{eq:spdS-G-approx}
-
 	G \approx \frac{1}{1 + \omega_c T_s} \quad \text{for small } \omega_c T_s .
-
 \end{equation}
 
 Equation \eqref{eq:spdS-G-exact} is the exact zero-order-hold discretization of a first-order lag with cutoff \(\omega_c\); Equation \eqref{eq:spdS-G-approx} is a convenient algebraic approximation giving nearly identical factors when \(\omega_c T_s\ll 1\).
@@ -1185,19 +1006,13 @@ Equation \eqref{eq:spdS-G-exact} is the exact zero-order-hold discretization of 
 Mechanical speed and revolutions per minute follow from \eqref{eq:spdS-omegam} and \eqref{eq:spdS-rpm} using the number of pole pairs \(p\).
 
 \begin{equation}
-
 	\label{eq:spdS-omegam}
-
 	\hat\omega_m[k] = \frac{\omega_{e,f}[k]}{p} .
-
 \end{equation}
 
 \begin{equation}
-
 	\label{eq:spdS-rpm}
-
 	\hat n[k] = \frac{60}{2\pi} \, \hat\omega_m[k] .
-
 \end{equation}
 
 
@@ -1265,21 +1080,15 @@ For control design and analysis, the inverter is represented by an average model
 
 
 \begin{equation}
-
 	\label{eq:idcurr-dq}
-
 	L\frac{\mathrm d i_d}{\mathrm d t} = (R\, + Rce) i_d + v^{*}_{d}.
-
 \end{equation}
 
 
 
 \begin{equation}
-
 	\label{eq:iqcurr-dq}
-
 	L\frac{\mathrm d i_q}{\mathrm d t} = (R\, + Rce) i_q + v^{*}_{q}.
-
 \end{equation}
 
 
@@ -1293,11 +1102,8 @@ From equations \eqref{eq:narr-dq-vd} and \eqref{eq:narr-dq-vq}, the transfer fun
 
 
 \begin{equation}
-
 	\label{eq:cur-Gp}
-
 	G_i(s) \;=\; \frac{I(s)}{U(s)} \;=\; \frac{1}{L\, s + (R\, + Rce)} .
-
 \end{equation}
 
 
@@ -1305,31 +1111,22 @@ From equations \eqref{eq:narr-dq-vd} and \eqref{eq:narr-dq-vq}, the transfer fun
 Use the series PI topology on both axes:
 
 \begin{equation}
-
 	\label{eq:cur-C}
-
 	C(s) \;=\; k_p \left( 1 + \frac{k_i}{s} \right) \;=\; k_p\,\frac{s + k_i}{s} .
-
 \end{equation}
 
 Place the controller zero on the plant pole:
 
 \begin{equation}
-
 	\label{eq:curr-cancell}
-
 	k_i \;=\; \frac{R}{L} .
-
 \end{equation}
 
 With \eqref{eq:curr-cancell}, the loop reduces to a pure integrator gain:
 
 \begin{equation}
-
 	\label{eq:cur-loop}
-
 	L(s) \;=\; C(s)\,G_i(s) \;=\; \frac{k_p}{L}\,\frac{1}{s} .
-
 \end{equation}
 
 
@@ -1337,21 +1134,15 @@ With \eqref{eq:curr-cancell}, the loop reduces to a pure integrator gain:
 Select the desired closed-loop bandwidth (per axis):
 
 \begin{equation}
-
 	\label{eq:cur-wc}
-
 	\omega_{ci} \;>\; 0 , \qquad \tau_i \;=\; \frac{1}{\omega_{ci}} .
-
 \end{equation}
 
 The proportional gain that realizes \eqref{eq:cur-wc} is
 
 \begin{equation}
-
 	\label{eq:cur-kp}
-
 	k_p \;=\; L\, \omega_{ci} \;=\; \frac{L}{\tau_i} .
-
 \end{equation}
 
 Equations \eqref{eq:curr-cancell}--\eqref{eq:cur-kp} produce a first-order, monotonic current response with zero steady-state error to step references (neglecting saturation).
@@ -1363,37 +1154,25 @@ Equations \eqref{eq:curr-cancell}--\eqref{eq:cur-kp} produce a first-order, mono
 For each axis, define the error, the integrator state, and the auxiliary control:
 
 \begin{equation}
-
 	\label{eq:cur-realize}
-
 	e_d = i_d^{\ast} - i_d , \qquad \dot{x}_{I,d} = k_i\, e_d , \qquad u_d = k_p\,(e_d + x_{I,d}) ,
-
 \end{equation}
 
 \begin{equation}
-
 	\label{eq:cur-realize-q}
-
 	e_q = i_q^{\ast} - i_q , \qquad \dot{x}_{I,q} = k_i\, e_q , \qquad u_q = k_p\,(e_q + x_{I,q}) .
-
 \end{equation}
 
 Recover the commanded dq voltages for the PWM modulator:
 
 \begin{equation}
-
 	\label{eq:cur-vdcmd}
-
 	v_d^{\ast} \;=\; u_d \;-\; \omega_e\, L_s\, i_q ,
-
 \end{equation}
 
 \begin{equation}
-
 	\label{eq:cur-vqcmd}
-
 	v_q^{\ast} \;=\; u_q \;+\; \omega_e\, L_s\, i_d .
-
 \end{equation}
 
 
@@ -1403,33 +1182,22 @@ Recover the commanded dq voltages for the PWM modulator:
 Limit the voltage vector to the available DC bus (space-vector circle limitation):
 
 \begin{equation}
-
 	\label{eq:cur-sat}
-
 	\begin{bmatrix} v_d^{\ast\,\mathrm{sat}} \\[2pt] v_q^{\ast\,\mathrm{sat}} \end{bmatrix}
-
 	= \operatorname{sat}_{V_{\max}}\!\left( \begin{bmatrix} v_d^{\ast} \\ v_q^{\ast} \end{bmatrix} \right) ,
-
 	\qquad V_{\max} \approx \frac{V_{\mathrm{dc}}}{\sqrt{3}} .
-
 \end{equation}
 
 Apply back-calculation anti-windup on each axis using the voltage deficit:
 
 \begin{equation}
-
 	\label{eq:cur-aw-d}
-
 	\dot{x}_{I,d} \;=\; k_i\, e_d \;+\; \frac{K_{aw}}{k_p}\,\big( v_d^{\ast\,\mathrm{sat}} - v_d^{\ast} \big) ,
-
 \end{equation}
 
 \begin{equation}
-
 	\label{eq:cur-aw-q}
-
 	\dot{x}_{I,q} \;=\; k_i\, e_q \;+\; \frac{K_{aw}}{k_p}\,\big( v_q^{\ast\,\mathrm{sat}} - v_q^{\ast} \big) .
-
 \end{equation}
 
 
@@ -1439,27 +1207,18 @@ Apply back-calculation anti-windup on each axis using the voltage deficit:
 The $d$- and $q$-axis series PI controllers are tuned by pole cancellation, placing the controller zero at the plant pole and using the proportional gain to set a first-order closed-loop pole. With $L=0.018585~\mathrm{H}$ and $R = 0.55~\Omega$, and choosing a closed-loop bandwidth of $f_{ci}=100~\mathrm{Hz}$ as shown in \ref{fig:CurrentControllerBodePlot},
 
 \begin{equation}
-
 	\label{eq:cur-wci-num}
-
 	\omega_{ci} = 2\pi\cdot 100 = 628.31853~\text{rad/s}, \qquad \tau_i=\frac{1}{\omega_{ci}}=1.5915\times 10^{-3}~\text{s},
-
 \end{equation}
 
 \begin{equation}
-
 	\label{eq:cur-ki-num}
-
 	k_{i,d}=k_{i,q}=\frac{R_s}{L}=\frac{0.55}{0.018585}=29.594~\text{rad/s},
-
 \end{equation}
 
 \begin{equation}
-
 	\label{eq:cur-kp-num}
-
 	k_{p,d}=k_{p,q}=L\,\omega_{ci}=0.018585\times 628.31853=11.677~.
-
 \end{equation}
 
 This yields identical first-order closed-loop dynamics on both axes with time constant $\tau_i\approx1.5915$\,ms and zero steady-state error to step current commands. (If a different $f_{ci}$ is adopted, recompute only $k_{p,\{\!d,q\!\}}=L\,\omega_{ci}$ while keeping $k_{i,\{\!d,q\!\}}=R/L$.)
@@ -1495,11 +1254,8 @@ The outer DC-Link Voltage loop commands the direct–current reference so that t
 By using the balance for the active power given in \eqref{eq:narr-pe}: 
 
 \begin{equation}
-
 	\label{eq:pc-dc}
-
 	\hat{P} = V_{sd}\hat{I_{d}} + V_{sq}\hat{I_{q}} +\tfrac{L}{2}\,\tfrac{d(\hat{I_{d}^2}+\hat{I_{q}^2})}{dt}\ = \tfrac{C}{2}\,\tfrac{d(\hat{V_{dc}^2})}{dt}\ + \hat{V_{dc}}I_{dc} 
-
 \end{equation}
 
 
@@ -1507,11 +1263,8 @@ By using the balance for the active power given in \eqref{eq:narr-pe}:
 The transfer function between the DC-Link voltage and the grid current in D-axis can be derived from \eqref{eq:pc-dc} as follows:
 
 \begin{equation}
-
 	\label{eq:pc-Gvdc}
-
 	G_{d}(s) = \tfrac{\hat{Vdc}}{\hat{Id}} = \tfrac{-sLId+V_{sd}}{sCV_{dc}+I_{dc}}.
-
 \end{equation}
 
 
@@ -1519,21 +1272,15 @@ The transfer function between the DC-Link voltage and the grid current in D-axis
 The series PI is written as
 
 \begin{equation}
-
 	\label{eq:pc-controller}
-
 	C(s) = k_p\!\left(1 + \frac{k_i}{s}\right) = k_p\,\frac{s + k_i}{s} .
-
 \end{equation}
 
 %The controller zero is placed to cancel the plant pole by setting
 
 %\begin{equation}
-
 %	\label{eq:pc-cancel}
-
 %	k_i = \frac{B}{J} .
-
 %\end{equation}
 
 With \eqref{eq:pc-Gvdc}, the loop gain with voltage transfer function has 2 poles and a RHP zero. 
@@ -1547,11 +1294,8 @@ The closed loop from DC-Link Voltage reference reduces to first order by the ass
 The speed loop bandwidth and time constant are chosen explicitly as
 
 \begin{equation}
-
 	\label{eq:pc-wc}
-
 	\omega_c > 0 , \qquad \tau = \frac{1}{\omega_c} .
-
 \end{equation}
 
 
@@ -1559,11 +1303,8 @@ The speed loop bandwidth and time constant are chosen explicitly as
 Define the speed error and the PI internal state and torque command as
 
 \begin{equation}
-
 	\label{eq:pc-realize}
-
 	e_{V_{dc}} = V_{dcref}^{*} - V_{dc}.
-
 \end{equation}
 
 The direct–current command follows from the control action of the outer DC-Link Voltage. The commanded current is limited to the available range:
@@ -1571,11 +1312,8 @@ The direct–current command follows from the control action of the outer DC-Lin
 
 
 \begin{equation}
-
 	\label{eq:pc-sat}
-
 	i_d^{\ast\,\mathrm{sat}} = \operatorname{sat}\!\big(i_d^{\ast};\, -i_{d,\max},\, i_{d,\max}\big).
-
 \end{equation}
 
 
@@ -1583,35 +1321,23 @@ The direct–current command follows from the control action of the outer DC-Lin
 In this work, the series PI speed controller is tuned for a closed-loop bandwidth of 10\,Hz as shown in Figure\ref{fig:SpeedControllerBodePlot}, ensuring clear separation from the inner current loops while preserving ripple free DC-Link Voltage. Using the pole-cancellation design, the controller zero is placed at the mechanical pole and the proportional gain sets the first-order closed-loop pole. The design values are:
 
 \begin{equation}
-
 	\label{eq:speed-wc-num}
-
 	\omega_c = 2\pi\cdot 10 = 62.832~\text{rad/s}, \qquad \tau=\frac{1}{\omega_c}=0.01592~\text{s},
-
 \end{equation}
 
 %\begin{equation}
-
 %	\label{eq:kt-num}
-
 %	K_t = \tfrac{3}{2}\,p\,\lambda_f = \tfrac{3}{2}\cdot 4 \cdot 0.1227 = 0.7362~\text{N\,m/A},
-
 %\end{equation}
 
 \begin{equation}
-
 	\label{eq:ki-num}
-
 	k_i = 1.5~\text{rad/s},
-
 \end{equation}
 
 \begin{equation}
-
 	\label{eq:kp-num}
-
 	k_p = 0.25.
-
 \end{equation}
 
 With \(k_i\) and \(k_p\) as above, the closed-loop speed response is first-order with time constant \(\tau\approx 0.0159\) s and zero steady-state error to step commands with proper dynamics with a suitable bandwidth from the bandwidth of the current controllers.

@@ -84,8 +84,6 @@
 
 \usepackage[labelfont=bf,font=bf,justification=centering]{caption} %{labelsep=space}  
 
-\usepackage{caption}
-
 \usepackage{subcaption}
 
 \usepackage{float} % to adjust some figures positions with control letter H
@@ -258,70 +256,37 @@
 
 \usepackage{titlesec}
 
-\usepackage{tocloft}
-
-
-
 % Center the chapter titles
-
 \titleformat{\chapter}[display]
-
-{\normalfont\huge\bfseries\filcenter} % Centering the chapter title
-
+{\normalfont\huge\bfseries\filcenter}
 {\chaptertitlename\ \thechapter}{20pt}{\Huge}
 
-
-
 % Define subsubsubsection
-
 \titleclass{\subsubsubsection}{straight}[\subsubsection]
-
 \newcounter{subsubsubsection}[subsubsection]
-
 \renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
 
 \titleformat{\subsubsubsection}
-
 {\normalfont\normalsize\itshape}{\thesubsubsubsection}{1em}{}
 
 \titlespacing*{\subsubsubsection}
-
 {0pt}{0.5em}{0.5em}
 
-
-
 % Enable subsubsubsection in TOC
-
 \setcounter{secnumdepth}{4}
-
 \setcounter{tocdepth}{4}
 
-
-
 % Define subsubsubsection for tocloft with proper spacing
-
 \makeatletter
-
 \newcommand{\l@subsubsubsection}{\@dottedtocline{4}{4.5em}{3.8em}}
-
 \makeatother
 
-
-
-
-
-
-
 % Change chapter title format to centered "Chapter X: Title"
-
 % Define chapter title format in one line and centered
 
 \titleformat{\chapter}[block]
-
 {\normalfont\fontsize{18}{22}\bfseries\centering} % Sets font size to 18pt
-
 {Chapter \thechapter:}{0.5em}{} % Chapter number with colon and space for title
-
 []
 
 
@@ -335,9 +300,7 @@
 %[]
 
 \titleformat{\section}
-
 {\normalfont\fontsize{16}{20}\bfseries} % Sets font size to 16pt, bold
-
 {\thesection}{1em}{} % Keeps section numbering and spacing
 
 

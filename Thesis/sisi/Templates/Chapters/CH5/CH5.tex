@@ -156,7 +156,7 @@ where $\Lambda$ is defined as follows:
 
 \begin{equation}
 \Lambda = \frac{(V_{dc} - V_{ce} + V_d)(T_{\text{dead}} + T_{\text{ON}} - T_{\text{OFF}})}{3T_s} + \frac{V_{\text{ce0}} + V_{\text{d0}}}{6},
-\label{eq:Lambda}
+\label{eq:Lambda_ch5}
 \end{equation}
 and $K_{abc}^{dq}$ is the following transformation matrix: 
 \begin{equation}
@@ -199,7 +199,7 @@ i_d = I_1 cos(\theta_1) + I_5cos(-6\omega t + \theta_5) + I_7cos(6\omega t + \th
 \end{equation}
 \begin{equation}
 i_q = I_1 sin(\theta_1) + I_5sin(-6\omega t + \theta_5) + I_7sin(6\omega t + \theta_7) = i_q{}_{1} + i_q{}_{5} + i_q{}_{7},
-\label{eq:id_total}
+\label{eq:iq_total}
 \end{equation}
 
 
@@ -802,7 +802,7 @@ At 5\% rated speed (100~rpm) with dead time and device drops enabled, the propos
 % Requires in preamble:
 % \usepackage{graphicx}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
   \centering
   % Replace with your exported composite plot (e.g., speed, dq currents, phase currents, THD)
   \includegraphics[width=0.7\linewidth]{MPCParameterVariation}
@@ -843,7 +843,7 @@ Steady-state tests were conducted at the low and higher speeds to evaluate harmo
 % Presenting and analyzing steady-state results
 The steady-state results are summarized in Table~\ref{tab:steady_state_results} and illustrated in Figures~\ref{fig:steady_state_100rpm}and~\ref{fig:steady_state_200rpm}. At the low speed, MMPC-HE exhibited significantly lower THD compared to MMPC, indicating effective harmonic suppression. At the higher speed, MMPC-HE outperformed both MMPC and the PI controller in THD reduction. Phase current waveforms for MMPC-HE showed smoother profiles with minimal distortions, and d-q axis currents displayed reduced oscillations, confirming superior tracking accuracy. The THD improvement of MMPC-HE was statistically significant, MMPC-HE demonstrated enhanced harmonic suppression under similar conditions.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \caption{Steady-State THD Comparison at Low Load}
 \label{tab:steady_state_results}
@@ -918,7 +918,7 @@ CPU load consumption tests were conducted to evaluate the computational burden o
 % Presenting and analyzing CPU load consumption results
 The CPU load consumption results are summarized in Table~\ref{tab:cpu_load_results}. At both the low and higher steady state speeds, MMPC-HE exhibited a higher computational load compared to MMPC and the PI controller, attributed to the additional sine and cosine operations required for harmonic extraction and elimination. However, the execution time of MMPC-HE remained within the \SI{100}{\micro\second} control cycle, indicating feasibility for real-time implementation on the C2000 DSP. In contrast, MMPC and the PI controller required less computational time, with the PI controller showing the lowest CPU load due to its simpler control structure. These results highlight a trade-off between the enhanced harmonic suppression of MMPC-HE and its increased computational demand, which warrants further optimization in future work.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \caption{CPU Load Consumption Comparison}
 \label{tab:cpu_load_results}

@@ -1,0 +1,646 @@
+﻿This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex.fmt)
+ restricted \write18 enabled.
+entering extended mode
+(MAIN.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-04>
+(C:\Program Files\MiKTeX\tex/latex/base\report.cls
+Document Class: report 2023/05/17 v1.4n Standard LaTeX document class
+(C:\Program Files\MiKTeX\tex/latex/base\size12.clo))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/emptypage\emptypage.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/geometry\geometry.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\keyval.sty)
+(C:\Program Files\MiKTeX\tex/generic/iftex\ifvtex.sty
+(C:\Program Files\MiKTeX\tex/generic/iftex\iftex.sty))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/geometry\geometry.cfg))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/psnfss\times.sty)
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amsmath.sty
+For additional information on amsmath, use the `?' option.
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amstext.sty
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amsgen.sty))
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amsbsy.sty)
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amsopn.sty))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/amscls\amsthm.sty)
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\amssymb.sty
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\amsfonts.sty))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/jknappen\mathrsfs.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/comment\comment.sty
+Excluding comment 'comment')
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/booktabs\booktabs.sty)
+(C:\Program Files\MiKTeX\tex/latex/tools\longtable.sty)
+(C:\Program Files\MiKTeX\tex/latex/ragged2e\ragged2e.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/changepage\changepage.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/siunitx\siunitx.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/translations\translations.sty
+(C:\Program Files\MiKTeX\tex/latex/etoolbox\etoolbox.sty)
+(C:\Program Files\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/infwarerr\infwarerr.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty)))
+(C:\Program Files\MiKTeX\tex/latex/tools\array.sty))
+(C:\Program Files\MiKTeX\tex/latex/pgf/frontendlayer\tikz.sty
+(C:\Program Files\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty
+(C:\Program Files\MiKTeX\tex/latex/pgf/utilities\pgfrcs.sty
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfutil-common.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfutil-latex.def)
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfrcs.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf\pgf.revision.tex)))
+(C:\Program Files\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\graphicx.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\graphics.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\trig.sty)
+(C:\Program Files\MiKTeX\tex/latex/graphics-cfg\graphics.cfg)
+(C:\Program Files\MiKTeX\tex/latex/graphics-def\pdftex.def)))
+(C:\Program Files\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.sty
+(C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsys.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfkeyslibraryfiltered.code.
+tex)) (C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgf.cfg)
+(C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-pdftex.def
+(C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-common-pdf.def)))
+(C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsyssoftpath.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsysprotocol.code.tex))
+(C:\Program Files\MiKTeX\tex/latex/xcolor\xcolor.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics-cfg\color.cfg)
+(C:\Program Files\MiKTeX\tex/latex/graphics\mathcolor.ltx))
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcore.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathutil.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathparser.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.basic.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.trigonometric.co
+de.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.random.code.tex)
+
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.comparison.code.
+tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.base.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.round.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.misc.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.integerarithmeti
+cs.code.tex) (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathcalc.code.tex
+) (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfloat.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfint.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepoints.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathconstruct.code.t
+ex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathusage.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorescopes.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoregraphicstate.code.te
+x)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransformations.code
+.tex) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorequick.code.tex
+) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreobjects.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathprocessing.code.
+tex) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorearrows.code.tex
+) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreshade.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreimage.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreexternal.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorelayers.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransparency.code.te
+x) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepatterns.code.tex
+) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorerdf.code.tex)))
+(C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmoduleshapes.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmoduleplot.code.tex)
+(C:\Program Files\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-0-65.sty)
+(C:\Program Files\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-1-18.sty))
+ (C:\Program Files\MiKTeX\tex/latex/pgf/utilities\pgffor.sty
+(C:\Program Files\MiKTeX\tex/latex/pgf/utilities\pgfkeys.sty
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex))
+(C:\Program Files\MiKTeX\tex/latex/pgf/math\pgfmath.sty
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgffor.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz\tikz.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries\pgflibraryplothandlers.code.
+tex) (C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmodulematrix.code.tex)
+
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+rytopaths.code.tex)))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/circuitikz\circuitikz.sty
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+rycalc.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries\pgflibraryarrows.meta.code.t
+ex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+rybending.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmodulebending.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmodulenonlineartransformati
+ons.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries\pgflibrarycurvilinear.code.t
+ex)))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryfpu.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries\pgflibraryfpu.code.tex))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcirc.defines.te
+x)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircutils.tex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircpath.tex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircshapes.tex)
+
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircmonopoles.t
+ex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircbipoles.tex
+)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcirctripoles.te
+x)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircquadpoles.t
+ex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircmultipoles.
+tex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcirclabel.tex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircvoltage.tex
+)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcirccurrent.tex
+) (C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircflow.tex)
+)
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.geometric.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.geom
+etric.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.misc.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.misc
+.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.symbols.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.symb
+ols.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.arrows.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.arro
+ws.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.callouts.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.call
+outs.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.multipart.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.mult
+ipart.code.tex)))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+rypositioning.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+rybackgrounds.code.tex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/caption\caption.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/caption\caption3.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/caption\ltcaption.sty))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/caption\subcaption.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/float\float.sty)
+(C:\Program Files\MiKTeX\tex/latex/tools\tabularx.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/multirow\multirow.sty)
+(C:\Program Files\MiKTeX\tex/latex/hyperref\hyperref.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
+) (C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/pdfescape\pdfescape.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/hycolor\hycolor.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/letltxmacro\letltxmacro.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/auxhook\auxhook.sty)
+(C:\Program Files\MiKTeX\tex/latex/hyperref\nameref.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/refcount\refcount.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/gettitlestring\gettitlestring
+.sty (C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/kvoptions\kvoptions.sty)))
+(C:\Program Files\MiKTeX\tex/latex/hyperref\pd1enc.def)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/intcalc\intcalc.sty)
+(C:\Program Files\MiKTeX\tex/latex/hyperref\puenc.def)
+(C:\Program Files\MiKTeX\tex/latex/url\url.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/bitset\bitset.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty))
+(C:\Program Files\MiKTeX\tex/latex/base\atbegshi-ltx.sty))
+(C:\Program Files\MiKTeX\tex/latex/hyperref\hpdftex.def
+(C:\Program Files\MiKTeX\tex/latex/base\atveryend-ltx.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.s
+ty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/uniquecounter\uniquecounter.s
+ty))) (C:\Program Files\MiKTeX\tex/latex/biblatex\biblatex.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/logreq\logreq.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/logreq\logreq.def))
+(C:\Program Files\MiKTeX\tex/latex/base\ifthen.sty)
+(C:\Program Files\MiKTeX\tex/latex/biblatex\blx-dm.def)
+(C:\Program Files\MiKTeX\tex/latex/biblatex\blx-compat.def)
+(C:\Program Files\MiKTeX\tex/latex/biblatex\blx-bibtex.def
+
+Package biblatex Warning: Using fall-back bibtex backend:
+(biblatex)                functionality may be reduced/unavailable.
+
+) (C:\Program Files\MiKTeX\tex/latex/biblatex\biblatex.def)
+(C:\Program Files\MiKTeX\tex/latex/biblatex/bbx\numeric.bbx
+(C:\Program Files\MiKTeX\tex/latex/biblatex/bbx\standard.bbx))
+(C:\Program Files\MiKTeX\tex/latex/biblatex/cbx\numeric-comp.cbx)
+(C:\Program Files\MiKTeX\tex/latex/biblatex\biblatex.cfg)
+(C:\Program Files\MiKTeX\tex/latex/l3kernel\expl3.sty
+(C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def))
+(C:\Program Files\MiKTeX\tex/latex/biblatex\blx-case-expl3.sty
+(C:\Program Files\MiKTeX\tex/latex/l3packages/xparse\xparse.sty)))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/appendix\appendix.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/pdfpages\pdfpages.sty
+(C:\Program Files\MiKTeX\tex/latex/tools\calc.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/eso-pic\eso-pic.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/pdfpages\pppdftex.def))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/eurosym\eurosym.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/titlecaps\titlecaps.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/ifnextok\ifnextok.sty))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/tocloft\tocloft.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/titlesec\titlesec.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/psnfss\ot1ptm.fd) (MAIN.aux)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/translations/dicts\translations
+-basic-dictionary-english.trsl)
+(C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+(C:\Program Files\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg)) (MAIN.out)
+(MAIN.out) (C:\Program Files\MiKTeX\tex/latex/biblatex/lbx\english.lbx)
+(MAIN.bbl)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/pdflscape\pdflscape.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/pdflscape\pdflscape-nometadata.
+sty (C:\Program Files\MiKTeX\tex/latex/graphics\lscape.sty))) (MAIN.toc
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd)
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/jknappen\ursfs.fd) [1{C:/Users/
+user/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Program Files/MiKTeX/
+fonts/enc/dvips/base/8r.enc}]
+Overfull \hbox (0.85883pt too wide) in paragraph at lines 76--76
+ [][] [][]\OT1/ptm/m/n/12 Modulated Model Pre-dic-tive Con-troller Sim-u-la-tio
+n Mod-el-ing Un- 
+[2]
+Overfull \hbox (0.59096pt too wide) in paragraph at lines 85--85
+ [][] [][]\OT1/ptm/m/n/12 Hybrid Mod-u-lated Model Pre-dic-tive Con-troller wit
+h Non-Linearities Har- 
+) [3] (MAIN.lot) [4] (MAIN.lof
+Overfull \hbox (10.45636pt too wide) in paragraph at lines 19--19
+ [][] [][]\OT1/ptm/m/n/12 FCS{MPC dy-namic re-sponse (ideal model) for speed ch
+anges within 
+
+Overfull \hbox (6.28033pt too wide) in paragraph at lines 20--20
+ [][] [][]\OT1/ptm/m/n/12 FCS{MPC pa-ram-e-ter vari-a-tion at low speed (100 rp
+m, ideal model). 
+
+Underfull \vbox (badness 10000) has occurred while \output is active [5]
+Overfull \hbox (21.32239pt too wide) in paragraph at lines 27--27
+ \OT1/ptm/m/n/12 rpm, ideal model). The pre-dic-tion model uses $\OML/cmm/m/it/
+12 R[][]\OT1/cmr/m/n/12 25%$ \OT1/ptm/m/n/12 and $\OML/cmm/m/it/12 L[][]\OT1/cm
+r/m/n/12 25%$\OT1/ptm/m/n/12 . 
+
+Overfull \hbox (1.6pt too wide) in paragraph at lines 27--27
+ \OT1/ptm/m/n/12 THD com-par-i-son, which re-mains at $[]$|indistinguishable fr
+om 
+
+Overfull \hbox (15.71301pt too wide) in paragraph at lines 27--27
+ \OT1/ptm/m/n/12 the no-variation case|indicating high ro-bust-ness of band-wid
+th/cutoff 
+
+Underfull \vbox (badness 10000) has occurred while \output is active [6]
+Overfull \hbox (2.512pt too wide) in paragraph at lines 38--38
+ [][] [][]\OT1/ptm/m/n/12 PI con-troller un-der pa-ram-e-ter vari-a-tion with i
+n-verter non-linearities 
+
+Overfull \hbox (0.25606pt too wide) in paragraph at lines 39--39
+ \OT1/ptm/m/n/12 pos-ite plot shows mo-tor speed, $\OML/cmm/m/it/12 i[]$\OT1/pt
+m/m/n/12 , and phase cur-rents dur-ing torque 
+
+Overfull \hbox (12.07646pt too wide) in paragraph at lines 41--41
+ [][] [][]\OT1/ptm/m/n/12 FCS{MPC at 10% rated speed (200 rpm) with in-verter n
+on-linearities 
+
+Overfull \hbox (3.18423pt too wide) in paragraph at lines 48--48
+ [][] [][]\OT1/ptm/m/n/12 M2PC un-der pa-ram-e-ter vari-a-tion with in-verter n
+on-linearities (dead 
+
+Underfull \vbox (badness 10000) has occurred while \output is active [7]
+Overfull \hbox (4.66069pt too wide) in paragraph at lines 51--51
+ \OT1/ptm/m/n/12 MMPC ap-proach, and har-monic pre-dic-tion in mul-ti-ple syn-c
+hronous 
+
+Overfull \hbox (2.78928pt too wide) in paragraph at lines 52--52
+ \OT1/ptm/m/n/12 un-der in-verter non-linearities (dead time, de-vice drops). E
+ach panel 
+
+Overfull \hbox (1.86462pt too wide) in paragraph at lines 54--54
+ [][] [][]\OT1/ptm/m/n/12 Dynamic per-for-mance of MMPC-HE un-der in-verter non
+-linearities 
+
+Overfull \hbox (5.7531pt too wide) in paragraph at lines 56--56
+ [][] [][]\OT1/ptm/m/n/12 Proposed MMPC-HE un-der load vari-a-tion at 50% rated
+ speed (1000 
+) [8] (Chapters/FrontPages/Abstract.tex
+Overfull \hbox (10.52179pt too wide) in paragraph at lines 21--22
+\OT1/ptm/m/n/12 50% rated), load steps (10--100% rated torque), and pa-ram-e-te
+r vari-a-tion ($\OML/cmm/m/it/12 R[]\OT1/cmr/m/n/12 25%$\OT1/ptm/m/n/12 , $\OML
+/cmm/m/it/12 L[]\OT1/cmr/m/n/12 25%$\OT1/ptm/m/n/12 ),
+) [9]
+Chapter 1.
+(Chapters/CH1/CH1.tex
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/psnfss\ts1ptm.fd) [1] [2]
+Overfull \hbox (1.97092pt too wide) in paragraph at lines 54--55
+[]\OT1/ptm/b/n/12 A harmonic-extraction aug-men-ta-tion \OT1/ptm/m/n/12 that se
+-lec-tively can-cels dom-i-nant low-order
+[3]
+Overfull \hbox (19.15384pt too wide) in paragraph at lines 63--64
+\OT1/ptm/m/n/12 Chapter []2[] de-vel-ops the PMSM model from phase vari-ables t
+o $\OML/cmm/m/it/12 dq$ \OT1/ptm/m/n/12 form, states the torque/power
+) [4]
+Chapter 2.
+(Chapters/CH2/CH2.tex
+Underfull \vbox (badness 10000) has occurred while \output is active [5]
+[6] [7] [8] (Chapters/CH2/Pictures/SensorlessDriveSystemTikZ.tex) [9] [10]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.833 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.833 
+      
+[11] [12 <./Chapters/CH2/Pictures/./Filter.pdf>]
+
+! LaTeX Error: \mathbf allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.834 \mathbf
+              s = \eta_0\,
+! Missing $ inserted.
+<inserted text> 
+                $
+l.834 \mathbf s = \eta
+                      _0\,
+! Missing $ inserted.
+<inserted text> 
+                $
+l.835 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.836 \begin{bmatrix}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.842 \end{bmatrix}
+                   .
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.844 \]
+        
+! Missing $ inserted.
+<inserted text> 
+                $
+l.844 \]
+        
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.844 \]
+        
+[13] [14] [15] [16] [17 <./Chapters/CH2/Pictures/./CurrentControllerBodePlot.pd
+f>]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[18]
+Underfull \vbox (badness 10000) has occurred while \output is active [19 <./Cha
+pters/CH2/Pictures/./SpeedControllerBodePlot.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active [20 <./Cha
+pters/CH2/Pictures/./MidSpeedLowLoadSteadyState.pdf> <./Chapters/CH2/Pictures/.
+/MidSpeedMidLoadSteadyState.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active [21 <./Cha
+pters/CH2/Pictures/./PISteadyStateLowLoad100Rpm.pdf> <./Chapters/CH2/Pictures/.
+/PISteadyStateHighLoad100Rpm.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active [22 <./Cha
+pters/CH2/Pictures/./PISteadyStateLowLoad200Rpm.pdf> <./Chapters/CH2/Pictures/.
+/PISteadyStateHighLoad200Rpm.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active [23 <./Cha
+pters/CH2/Pictures/./DynamicResponsePILowLoad.pdf> <./Chapters/CH2/Pictures/./D
+ynamicResponsePIHighLoad.pdf>]) [24 <./Chapters/CH2/Pictures/./ParameterVariati
+on.pdf> <./Chapters/CH2/Pictures/./LoadVariation.pdf>]
+Chapter 3.
+(Chapters/CH3/CH3.tex [25] [26] [27 <./Chapters/CH3/Pictures/FCS.pdf>] [28 <./C
+hapters/CH3/Pictures/./InverterStates.png>]
+Overfull \hbox (23.60834pt too wide) in paragraph at lines 202--203
+[]\OT1/ptm/m/n/12 Define con-troller data: $\OML/cmm/m/it/12 T[]$\OT1/ptm/m/n/1
+2 , ma-chine/inverter pa-ram-e-ters, lim-its, weights, and delay/dead-
+
+Overfull \hbox (11.85875pt too wide) in paragraph at lines 210--211
+[]\OT1/ptm/m/n/12 Enforce con-straints and dis-card in-fea-si-ble can-di-dates 
+(cur-rent/voltage/thermal/speed). 
+[29]
+Underfull \vbox (badness 10000) has occurred while \output is active [30 <./Cha
+pters/CH3/Pictures/./FCSMidSpeedMidLoadSteadyState.pdf>]
+Overfull \hbox (10.40677pt too wide) in paragraph at lines 287--290
+\OT1/ptm/m/n/12 nal model|stator re-sis-tance in-creased by $\OT1/cmr/m/n/12 +2
+5%$ \OT1/ptm/m/n/12 and in-duc-tances de-creased by $\OT1/cmr/m/n/12 25%$\OT1/p
+tm/m/n/12 |while
+
+Underfull \vbox (badness 1490) has occurred while \output is active [31 <./Chap
+ters/CH3/Pictures/./FCSSteadyStateLowLoad100Rpm.pdf> <./Chapters/CH3/Pictures/.
+/FCSSteadyStateHighLoad100Rpm.pdf> <./Chapters/CH3/Pictures/./FCSDynamicRespons
+eLowLoad.pdf> <./Chapters/CH3/Pictures/./FCSDynamicResponseHighLoad.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active [32 <./Cha
+pters/CH3/Pictures/./FCSParameterVariation.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active [33 <./Cha
+pters/CH3/Pictures/./FCSLoadVariation.pdf>]
+Overfull \hbox (68.58832pt too wide) detected at line 398
+[][][]\OML/cmm/m/it/12 E[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m/n/12 +
+ 1] = \OML/cmm/m/it/12 i[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k[]\OT1/cmr/m/n/12 
+1] \OMS/cmsy/m/n/12 ^^@ []\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m/n/12 +
+ 1]\OML/cmm/m/it/12 ;  E[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m/n/12 +
+ 1] = \OML/cmm/m/it/12 i[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k[]\OT1/cmr/m/n/12 
+1] \OMS/cmsy/m/n/12 ^^@ []\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m/n/12 +
+ 1]\OML/cmm/m/it/12 ; [] J[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m/n/12
+ + 1] = (\OML/cmm/m/it/12 E[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m/n/1
+2 + 1])[] + (\OML/cmm/m/it/12 E[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m
+/n/12 + 1])[]\OML/cmm/m/it/12 :
+[34 <./Chapters/CH3/Pictures/M2PC.pdf>]
+Overfull \hbox (29.26553pt too wide) detected at line 427
+[][][]\OML/cmm/m/it/12 D  \OT1/cmr/m/n/12 =  \OML/cmm/m/it/12 E[]\OT1/cmr/m/n/1
+2 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 ) []\OML/cmm/m/it/12 E[]\OT1/cmr/m/n/12 
+(\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 E[
+]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 )[] + \OML/cmm/m/it/12 E[
+]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 ) []\OML/cmm/m/it/12 E[]\
+OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^@ \OML
+/cmm/m/it/12 E[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 )[] + \OML
+/cmm/m/it/12 E[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 ) []\OML/c
+mm/m/it/12 E[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 ) \OMS/cmsy/
+m/n/12 ^^@ \OML/cmm/m/it/12 E[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/
+n/12 )[]\OML/cmm/m/it/12 :
+
+Overfull \hbox (2.83679pt too wide) in paragraph at lines 449--450
+\OT1/ptm/m/n/12 tar-get [], and re-places \ap-ply one vec-tor" with the SVM dwe
+ll syn-the-sis []{[].
+[35] [36 <./Chapters/CH3/Pictures/./MPCMidSpeedLowLoadSteadyState.pdf> <./Chapt
+ers/CH3/Pictures/./MPCMidSpeedMidLoadSteadyState.pdf>] [37 <./Chapters/CH3/Pict
+ures/./MPCSteadyStateLowLoad100Rpm.pdf> <./Chapters/CH3/Pictures/./MPCSteadySta
+teHighLoad100Rpm.pdf> <./Chapters/CH3/Pictures/./MPCSteadyStateLowLoad200Rpm.pd
+f> <./Chapters/CH3/Pictures/./MPCSteadyStateHighLoad200Rpm.pdf>] [38 <./Chapter
+s/CH3/Pictures/./MPCDynamicResponseLowLoad.pdf> <./Chapters/CH3/Pictures/./MPCD
+ynamicResponseHighLoad.pdf> <./Chapters/CH3/Pictures/./MPCParameterVariation.pd
+f>]) [39 <./Chapters/CH3/Pictures/./MPCLoadVariation.pdf>]
+Chapter 4.
+(Chapters/CH4/CH4.tex
+Overfull \hbox (0.75583pt too wide) in paragraph at lines 22--23
+[]\OT1/ptm/m/n/12 MEASUREMENT SETUP SHOT FROM THE LAB HAS TO BE IN-CLUDED HERE.
+ 
+[40]
+Overfull \hbox (0.75583pt too wide) in paragraph at lines 50--51
+[]\OT1/ptm/m/n/12 MEASUREMENT SETUP SHOT FROM THE LAB HAS TO BE IN-CLUDED HERE.
+ 
+[41 <./Chapters/CH4/Pictures/./InductanceMeas.pdf>] [42 <./Chapters/CH4/Picture
+s/./FluxLinkageMeas.pdf>] [43 <./Chapters/CH4/Pictures/./ViscousFriction.pdf>]
+Overfull \hbox (6.99016pt too wide) in paragraph at lines 105--106
+[]\OT1/ptm/m/n/12 Applying the above to the recorded coast{down data and us-ing
+ $\OML/cmm/m/it/12 B \OT1/cmr/m/n/12 = 0\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 00477
+5 []$
+
+Overfull \hbox (38.28868pt too wide) detected at line 140
+[][][]\OML/cmm/m/it/12 v[] \OT1/cmr/m/n/12 = [] []2\OML/cmm/m/it/12 T[] \OMS/cm
+sy/m/n/12 ^^@ \OML/cmm/m/it/12 T[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 T[][] 
+\OMS/cmsy/m/n/12 ^^@ [][]\OT1/cmr/m/n/12 2  [] \OML/cmm/m/it/12 i[] \OMS/cmsy/m
+/n/12 ^^@ [] \OML/cmm/m/it/12 i[] \OMS/cmsy/m/n/12 ^^@ [] \OML/cmm/m/it/12 i[][
+] \OMS/cmsy/m/n/12 ^^@ [] \OML/cmm/m/it/12 i[];
+[44] [45 <./Chapters/CH4/Pictures/./InverterNonlinearities.png>]
+Overfull \hbox (17.22807pt too wide) in paragraph at lines 201--201
+|[]\OT1/ptm/b/n/14.4 PI Con-troller Sim-u-la-tion Mod-el-ing Un-der Inverter-No
+nlinearities
+
+Underfull \vbox (badness 10000) has occurred while \output is active [46]
+Underfull \vbox (badness 2261) has occurred while \output is active [47 <./Chap
+ters/CH4/Pictures/./PIMidSpeedLowLoadSteadyState.pdf> <./Chapters/CH4/Pictures/
+./PIMidSpeedMidLoadSteadyState.pdf> <./Chapters/CH4/Pictures/./PISteadyStateLow
+Load200Rpm.pdf> <./Chapters/CH4/Pictures/./PISteadyStateHighLoad200Rpm.pdf>]
+[48 <./Chapters/CH4/Pictures/./PISteadyStateLowLoad100Rpm.pdf> <./Chapters/CH4/
+Pictures/./DynamicResponsePILowLoad.pdf> <./Chapters/CH4/Pictures/./DynamicResp
+onsePIHighLoad.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active [49 <./Cha
+pters/CH4/Pictures/./PIParameterVariation.pdf>] [50 <./Chapters/CH4/Pictures/./
+PILoadVariation.pdf> <./Chapters/CH4/Pictures/FCSMidSpeedMidLoadSteadyState.pdf
+>]
+Underfull \vbox (badness 10000) has occurred while \output is active [51 <./Cha
+pters/CH4/Pictures/FCSSteadyStateLowLoad200Rpm.pdf> <./Chapters/CH4/Pictures/FC
+SSteadyStateHighLoad200Rpm.pdf>]
+Overfull \hbox (0.14604pt too wide) in paragraph at lines 393--396
+\OT1/ptm/m/n/12 FCS{MPC main-tains the com-manded speed with-out fail-ures or s
+teady-state deviation|$\OML/cmm/m/it/12 i[]$
+[52 <./Chapters/CH4/Pictures/./FCSDynamicResponseLowLoad.pdf> <./Chapters/CH4/P
+ictures/FCSParameterVariation.pdf>]
+Underfull \vbox (badness 6300) has occurred while \output is active [53 <./Chap
+ters/CH4/Pictures/FCSLoadVariation.pdf>] [54 <./Chapters/CH4/Pictures/MPCMidSpe
+edLowLoadSteadyState.pdf> <./Chapters/CH4/Pictures/MPCMidSpeedMidLoadSteadyStat
+e.pdf>] [55 <./Chapters/CH4/Pictures/./MPCSteadyStateLowLoad100Rpm.pdf> <./Chap
+ters/CH4/Pictures/./MPCSteadyStateHighLoad100Rpm.pdf> <./Chapters/CH4/Pictures/
+./MPCSteadyStateLowLoad200Rpm.pdf> <./Chapters/CH4/Pictures/./MPCSteadyStateHig
+hLoad200Rpm.pdf>] [56 <./Chapters/CH4/Pictures/MPCDynamicResponseLowLoad.pdf> <
+./Chapters/CH4/Pictures/MPCDynamicResponseHighLoad.pdf> <./Chapters/CH4/Picture
+s/MPCParameterVariation.pdf>]) [57 <./Chapters/CH4/Pictures/MPCLoadVariation.pd
+f>]
+Chapter 5.
+(Chapters/CH5/CH5.tex
+Overfull \hbox (21.52083pt too wide) in paragraph at lines 8--9
+\OT1/ptm/m/n/12 This sec-tion de-vel-ops a con-tin-u-ous nar-ra-tive from stan-
+dard three-phase mod-el-ing to harmonic-
+
+Overfull \hbox (1.925pt too wide) in paragraph at lines 29--31
+\OT1/ptm/m/n/12 and then the Park trans-for-ma-tion to ro-tate into the fun-da-
+men-tal syn-chronous frame aligned
+[58] [59] [60]
+Overfull \hbox (2.13744pt too wide) in paragraph at lines 211--211
+|[]\OT1/ptm/b/n/16 Hybrid Mod-u-lated Model Pre-dic-tive Con-troller with Non-
+
+Overfull \hbox (76.89859pt too wide) detected at line 280
+[][][][][]
+[61]
+
+LaTeX Warning: Citation 'harmonics_MSRF' on page 62 undefined on input line 313
+.
+
+
+LaTeX Warning: Citation 'MSRF_2016' on page 62 undefined on input line 313.
+
+[62] [63] [64 <./Chapters/CH5/Pictures/hybrid_MPC_updated.pdf>]
+Overfull \hbox (62.74841pt too wide) in paragraph at lines 662--668
+[]\OT1/ptm/m/n/12 Form the de-com-posed voltage-drop com-po-nents $[] \OML/cmm/
+m/it/12 ;  [][] ;  [][] :$ 
+[65]
+Overfull \hbox (18.38185pt too wide) detected at line 680
+[] \OT1/cmr/m/n/12 = [][] [] \OML/cmm/m/it/12 ;  [] \OT1/cmr/m/n/12 = [][] [] \
+OML/cmm/m/it/12 :
+[66]
+Underfull \vbox (badness 5345) has occurred while \output is active [67 <./Chap
+ters/CH5/Pictures/MPCMidSpeedLowLoadSteadyState.pdf> <./Chapters/CH5/Pictures/M
+PCMidSpeedMidLoadSteadyState.pdf> <./Chapters/CH5/Pictures/./MPCSteadyStateLowL
+oad100Rpm.pdf> <./Chapters/CH5/Pictures/./MPCSteadyStateHighLoad100Rpm.pdf> <./
+Chapters/CH5/Pictures/./MPCSteadyStateLowLoad200Rpm.pdf> <./Chapters/CH5/Pictur
+es/./MPCSteadyStateHighLoad200Rpm.pdf>] [68 <./Chapters/CH5/Pictures/MPCDynamic
+ResponseLowLoad.pdf> <./Chapters/CH5/Pictures/MPCDynamicResponseHighLoad.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active [69 <./Cha
+pters/CH5/Pictures/MPCParameterVariation.pdf>] [70 <./Chapters/CH5/Pictures/MPC
+LoadVariation.pdf>]
+Overfull \hbox (8.76465pt too wide) in paragraph at lines 844--845
+[]\OT1/ptm/m/n/12 The steady-state re-sults are sum-ma-rized in Ta-ble []5.1[] 
+and il-lus-trated in Fig-ures []5.7[]and []5.8[].
+
+Underfull \vbox (badness 10000) has occurred while \output is active [71 <./Cha
+pters/CH5/Pictures/./SteadyState100Rpm.pdf>] [72 <./Chapters/CH5/Pictures/./Ste
+adyState200Rpm.pdf> <./Chapters/CH5/Pictures/./hardware_setup.pdf>] [73 <./Chap
+ters/CH5/Pictures/./DynamicResponseHE.pdf> <./Chapters/CH5/Pictures/./DynamicRe
+sponseAll.pdf>] [74 <./Chapters/CH5/Pictures/./ParameterVariation.pdf>])
+[75 <./Chapters/CH5/Pictures/./CPU_Load_PI.png (PNG copy)> <./Chapters/CH5/Pict
+ures/./CPU_Load_MPC_NHE.png (PNG copy)> <./Chapters/CH5/Pictures/./CPU_Load_MPC
+_HE.png (PNG copy)>]
+Chapter 6.
+(Chapters/Conclusion/Conclusion.tex
+Overfull \hbox (4.78004pt too wide) in paragraph at lines 8--9
+\OT1/ptm/m/n/12 THD at $\OT1/cmr/m/n/12 1000 []$\OT1/ptm/m/n/12 ) and well-damp
+ed dy-nam-ics; FCS{MPC ex-hibits the ex-pected staircase-
+[76]
+Underfull \vbox (badness 1264) has occurred while \output is active [77]
+Overfull \hbox (13.47993pt too wide) in paragraph at lines 30--31
+\OT1/ptm/m/n/12 Overall, the the-sis demon-strates that MMPC|particularly with 
+har-monic ex-trac-tion|offers
+)
+
+LaTeX Warning: Empty bibliography on input line 438.
+
+[78] (MAIN.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+Package biblatex Warning: Please (re)run BibTeX on the file(s):
+(biblatex)                MAIN
+(biblatex)                and rerun LaTeX afterwards.
+
+ )
+(see the transcript file for additional information)<C:/Program Files/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmbx8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.p
+fb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Progr
+am Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmmib10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr
+12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Pr
+ogram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cms
+y8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/P
+rogram Files/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX/f
+onts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/
+utmri8a.pfb>
+Output written on MAIN.pdf (87 pages, 26175119 bytes).
+Transcript written on MAIN.log.

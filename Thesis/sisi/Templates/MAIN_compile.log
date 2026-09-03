@@ -1,0 +1,5326 @@
+﻿This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex.fmt)
+ restricted \write18 enabled.
+entering extended mode
+(MAIN.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-04>
+(C:\Program Files\MiKTeX\tex/latex/base\report.cls
+Document Class: report 2023/05/17 v1.4n Standard LaTeX document class
+(C:\Program Files\MiKTeX\tex/latex/base\size12.clo))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/emptypage\emptypage.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/geometry\geometry.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\keyval.sty)
+(C:\Program Files\MiKTeX\tex/generic/iftex\ifvtex.sty
+(C:\Program Files\MiKTeX\tex/generic/iftex\iftex.sty))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/geometry\geometry.cfg))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/psnfss\times.sty)
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amsmath.sty
+For additional information on amsmath, use the `?' option.
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amstext.sty
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amsgen.sty))
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amsbsy.sty)
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amsopn.sty))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/amscls\amsthm.sty)
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\amssymb.sty
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\amsfonts.sty))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/jknappen\mathrsfs.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/comment\comment.sty
+Excluding comment 'comment')
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/booktabs\booktabs.sty)
+(C:\Program Files\MiKTeX\tex/latex/tools\longtable.sty)
+(C:\Program Files\MiKTeX\tex/latex/ragged2e\ragged2e.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/changepage\changepage.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/siunitx\siunitx.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/translations\translations.sty
+(C:\Program Files\MiKTeX\tex/latex/etoolbox\etoolbox.sty)
+(C:\Program Files\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/infwarerr\infwarerr.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty)))
+(C:\Program Files\MiKTeX\tex/latex/tools\array.sty))
+(C:\Program Files\MiKTeX\tex/latex/pgf/frontendlayer\tikz.sty
+(C:\Program Files\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty
+(C:\Program Files\MiKTeX\tex/latex/pgf/utilities\pgfrcs.sty
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfutil-common.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfutil-latex.def)
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfrcs.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf\pgf.revision.tex)))
+(C:\Program Files\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\graphicx.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\graphics.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\trig.sty)
+(C:\Program Files\MiKTeX\tex/latex/graphics-cfg\graphics.cfg)
+(C:\Program Files\MiKTeX\tex/latex/graphics-def\pdftex.def)))
+(C:\Program Files\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.sty
+(C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsys.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfkeyslibraryfiltered.code.
+tex)) (C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgf.cfg)
+(C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-pdftex.def
+(C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-common-pdf.def)))
+(C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsyssoftpath.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsysprotocol.code.tex))
+(C:\Program Files\MiKTeX\tex/latex/xcolor\xcolor.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics-cfg\color.cfg)
+(C:\Program Files\MiKTeX\tex/latex/graphics\mathcolor.ltx))
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcore.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathutil.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathparser.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.basic.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.trigonometric.co
+de.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.random.code.tex)
+
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.comparison.code.
+tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.base.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.round.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.misc.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.integerarithmeti
+cs.code.tex) (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathcalc.code.tex
+) (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfloat.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfint.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepoints.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathconstruct.code.t
+ex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathusage.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorescopes.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoregraphicstate.code.te
+x)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransformations.code
+.tex) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorequick.code.tex
+) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreobjects.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathprocessing.code.
+tex) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorearrows.code.tex
+) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreshade.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreimage.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreexternal.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorelayers.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransparency.code.te
+x) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepatterns.code.tex
+) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorerdf.code.tex)))
+(C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmoduleshapes.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmoduleplot.code.tex)
+(C:\Program Files\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-0-65.sty)
+(C:\Program Files\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-1-18.sty))
+ (C:\Program Files\MiKTeX\tex/latex/pgf/utilities\pgffor.sty
+(C:\Program Files\MiKTeX\tex/latex/pgf/utilities\pgfkeys.sty
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex))
+(C:\Program Files\MiKTeX\tex/latex/pgf/math\pgfmath.sty
+(C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgffor.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz\tikz.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries\pgflibraryplothandlers.code.
+tex) (C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmodulematrix.code.tex)
+
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+rytopaths.code.tex)))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/circuitikz\circuitikz.sty
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+rycalc.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries\pgflibraryarrows.meta.code.t
+ex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+rybending.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmodulebending.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmodulenonlineartransformati
+ons.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries\pgflibrarycurvilinear.code.t
+ex)))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryfpu.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries\pgflibraryfpu.code.tex))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcirc.defines.te
+x)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircutils.tex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircpath.tex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircshapes.tex)
+
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircmonopoles.t
+ex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircbipoles.tex
+)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcirctripoles.te
+x)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircquadpoles.t
+ex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircmultipoles.
+tex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcirclabel.tex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircvoltage.tex
+)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcirccurrent.tex
+) (C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/circuitikz\pgfcircflow.tex)
+)
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.geometric.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.geom
+etric.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.misc.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.misc
+.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.symbols.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.symb
+ols.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.arrows.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.arro
+ws.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.callouts.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.call
+outs.code.tex))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+ryshapes.multipart.code.tex
+(C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.mult
+ipart.code.tex)))
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+rypositioning.code.tex)
+(C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
+rybackgrounds.code.tex)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/caption\caption.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/caption\caption3.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/caption\ltcaption.sty))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/caption\subcaption.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/float\float.sty)
+(C:\Program Files\MiKTeX\tex/latex/tools\tabularx.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/multirow\multirow.sty)
+(C:\Program Files\MiKTeX\tex/latex/hyperref\hyperref.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
+) (C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/pdfescape\pdfescape.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/hycolor\hycolor.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/letltxmacro\letltxmacro.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/auxhook\auxhook.sty)
+(C:\Program Files\MiKTeX\tex/latex/hyperref\nameref.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/refcount\refcount.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/gettitlestring\gettitlestring
+.sty (C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/kvoptions\kvoptions.sty)))
+(C:\Program Files\MiKTeX\tex/latex/hyperref\pd1enc.def)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/intcalc\intcalc.sty)
+(C:\Program Files\MiKTeX\tex/latex/hyperref\puenc.def)
+(C:\Program Files\MiKTeX\tex/latex/url\url.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/bitset\bitset.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty))
+(C:\Program Files\MiKTeX\tex/latex/base\atbegshi-ltx.sty))
+(C:\Program Files\MiKTeX\tex/latex/hyperref\hpdftex.def
+(C:\Program Files\MiKTeX\tex/latex/base\atveryend-ltx.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.s
+ty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/generic/uniquecounter\uniquecounter.s
+ty))) (C:\Program Files\MiKTeX\tex/latex/biblatex\biblatex.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/logreq\logreq.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/logreq\logreq.def))
+(C:\Program Files\MiKTeX\tex/latex/base\ifthen.sty)
+(C:\Program Files\MiKTeX\tex/latex/biblatex\blx-dm.def)
+(C:\Program Files\MiKTeX\tex/latex/biblatex\blx-compat.def)
+(C:\Program Files\MiKTeX\tex/latex/biblatex\blx-bibtex.def
+
+Package biblatex Warning: Using fall-back bibtex backend:
+(biblatex)                functionality may be reduced/unavailable.
+
+) (C:\Program Files\MiKTeX\tex/latex/biblatex\biblatex.def)
+(C:\Program Files\MiKTeX\tex/latex/biblatex/bbx\numeric.bbx
+(C:\Program Files\MiKTeX\tex/latex/biblatex/bbx\standard.bbx))
+(C:\Program Files\MiKTeX\tex/latex/biblatex/cbx\numeric-comp.cbx)
+(C:\Program Files\MiKTeX\tex/latex/biblatex\biblatex.cfg)
+(C:\Program Files\MiKTeX\tex/latex/l3kernel\expl3.sty
+(C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def))
+(C:\Program Files\MiKTeX\tex/latex/biblatex\blx-case-expl3.sty
+(C:\Program Files\MiKTeX\tex/latex/l3packages/xparse\xparse.sty)))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/appendix\appendix.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/pdfpages\pdfpages.sty
+(C:\Program Files\MiKTeX\tex/latex/tools\calc.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/eso-pic\eso-pic.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/pdfpages\pppdftex.def))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/eurosym\eurosym.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/titlecaps\titlecaps.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/ifnextok\ifnextok.sty))
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/tocloft\tocloft.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/titlesec\titlesec.sty)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/psnfss\ot1ptm.fd) (MAIN.aux)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/translations/dicts\translations
+-basic-dictionary-english.trsl)
+(C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+(C:\Program Files\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg)) (MAIN.out)
+(MAIN.out) (C:\Program Files\MiKTeX\tex/latex/biblatex/lbx\english.lbx)
+(MAIN.bbl)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/pdflscape\pdflscape.sty
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/pdflscape\pdflscape-nometadata.
+sty (C:\Program Files\MiKTeX\tex/latex/graphics\lscape.sty))) (MAIN.toc)
+[1{C:/Users/user/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Program F
+iles/MiKTeX/fonts/enc/dvips/base/8r.enc}] (MAIN.lot) [2] (MAIN.lof) [3]
+(Chapters/FrontPages/Abstract.tex
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd)
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd)
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/jknappen\ursfs.fd)
+Overfull \hbox (10.52179pt too wide) in paragraph at lines 21--22
+\OT1/ptm/m/n/12 50% rated), load steps (10--100% rated torque), and pa-ram-e-te
+r vari-a-tion ($\OML/cmm/m/it/12 R[]\OT1/cmr/m/n/12 25%$\OT1/ptm/m/n/12 , $\OML
+/cmm/m/it/12 L[]\OT1/cmr/m/n/12 25%$\OT1/ptm/m/n/12 ),
+) [4]
+Chapter 1.
+(Chapters/CH1/CH1.tex
+(C:\Users\user\AppData\Roaming\MiKTeX\tex/latex/psnfss\ts1ptm.fd) [1] [2]
+Overfull \hbox (1.97092pt too wide) in paragraph at lines 54--55
+[]\OT1/ptm/b/n/12 A harmonic-extraction aug-men-ta-tion \OT1/ptm/m/n/12 that se
+-lec-tively can-cels dom-i-nant low-order
+[3]
+
+LaTeX Warning: Reference `chap:modeling' on page 4 undefined on input line 63.
+
+
+LaTeX Warning: Reference `chap:mpc' on page 4 undefined on input line 63.
+
+
+LaTeX Warning: Reference `chap:results' on page 4 undefined on input line 63.
+
+
+LaTeX Warning: Reference `chap:results' on page 4 undefined on input line 63.
+
+
+LaTeX Warning: Reference `chap:proposed' on page 4 undefined on input line 63.
+
+
+LaTeX Warning: Reference `ch:conclusion' on page 4 undefined on input line 63.
+
+
+Overfull \hbox (25.15384pt too wide) in paragraph at lines 63--64
+\OT1/ptm/m/n/12 Chapter [] de-vel-ops the PMSM model from phase vari-ables to $
+\OML/cmm/m/it/12 dq$ \OT1/ptm/m/n/12 form, states the torque/power
+) [4]
+Chapter 2.
+(Chapters/CH2/CH2.tex
+
+LaTeX Warning: Reference `tab:spmsm-notation-narrative' on page 5 undefined on 
+input line 13.
+
+
+LaTeX Warning: Reference `eq:narr-abc-phase' on page 5 undefined on input line 
+289.
+
+
+LaTeX Warning: Reference `eq:narr-abc-vector' on page 5 undefined on input line
+ 289.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [5]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.358 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.358 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.361 v_
+        \ell - v_{conv\ell} = R\, i_\ell + L\frac{\mathrm di_\ell}{\mathrm d...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.362 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.363 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.363 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.363 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.363 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.368 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.368 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.371 \begin{bmatrix}
+                      v_a \\ v_b \\ v_c \end{bmatrix} -
+! Missing $ inserted.
+<inserted text> 
+                $
+l.371 ...{bmatrix} v_a \\ v_b \\ v_c \end{bmatrix}
+                                                   -
+! Missing $ inserted.
+<inserted text> 
+                $
+l.373 \begin{bmatrix}
+                      v_{conva} \\ v_{convb} \\ v_{convc} \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.373 ...} \\ v_{convb} \\ v_{convc} \end{bmatrix}
+                                                  
+! Missing $ inserted.
+<inserted text> 
+                $
+l.375 = R \begin{bmatrix}
+                          i_a \\ i_b \\ i_c \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.375 ...{bmatrix} i_a \\ i_b \\ i_c \end{bmatrix}
+                                                  
+
+! LaTeX Error: \mathrm allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.377 + L\frac{\mathrm d}{\mathrm d t}
+                                       \begin{bmatrix} i_a \\ i_b \\ i_c \en...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.377 + L\frac{\mathrm d}{\mathrm d t}
+                                       \begin{bmatrix} i_a \\ i_b \\ i_c \en...
+
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.377 + L\frac{\mathrm d}{\mathrm d t}
+                                       \begin{bmatrix} i_a \\ i_b \\ i_c \en...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.378 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.379 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.379 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.379 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.379 \end{equation}
+                    
+[6]
+! Missing } inserted.
+<inserted text> 
+                }
+l.379 \end{equation}
+                    
+
+LaTeX Warning: Reference `eq:narr-abc-phase' on page 7 undefined on input line 
+383.
+
+
+LaTeX Warning: Reference `eq:narr-abc-vector' on page 7 undefined on input line
+ 383.
+
+
+LaTeX Warning: Reference `eq:narr-abc-phase' on page 7 undefined on input line 
+387.
+
+
+LaTeX Warning: Reference `eq:narr-abc-vector' on page 7 undefined on input line
+ 387.
+
+
+LaTeX Warning: Reference `eq:add-ab-volt-a' on page 7 undefined on input line 3
+87.
+
+
+LaTeX Warning: Reference `eq:add-ab-volt-b' on page 7 undefined on input line 3
+87.
+
+
+Overfull \hbox (50.33255pt too wide) in paragraph at lines 387--388
+[]\OT1/ptm/m/n/12 Applying the power[]invariant Clarke trans-form to Equa-tions
+ []{[] yields the stationary[]frame
+! Missing $ inserted.
+<inserted text> 
+                $
+l.392 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.392 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.395 \begin{bmatrix}
+                      v_\alpha \\ v_\beta \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.395 ...matrix} v_\alpha \\ v_\beta \end{bmatrix}
+                                                  
+! Missing $ inserted.
+<inserted text> 
+                $
+l.397 = \tfrac{2}{3}
+                    
+! Extra }, or forgotten $.
+\@genfrac ...egingroup #4\endgroup #2#3\relax #5}}
+                                                  
+l.397 = \tfrac{2}{3}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.398 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.399 \begin{bmatrix}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.405 \end{bmatrix}
+                   
+! Missing $ inserted.
+<inserted text> 
+                $
+l.407 \begin{bmatrix}
+                      v_a \\ v_b \\ v_c \end{bmatrix} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.407 ...{bmatrix} v_a \\ v_b \\ v_c \end{bmatrix}
+                                                   .
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.409 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.409 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.409 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.409 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.409 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.414 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.414 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.417  v_
+         \alpha = R \, i_\alpha + L \, \frac{\mathrm d i_\alpha}{\mathrm d t...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.418 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.419 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.419 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.419 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.419 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.422 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.422 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.425  v_
+         \beta = R \, i_\beta + L \, \frac{\mathrm d i_\beta}{\mathrm d t} +...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.426 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.427 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.427 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.427 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.427 \end{equation}
+                    
+
+LaTeX Warning: Reference `eq:narr-park-i' on page 7 undefined on input line 431
+.
+
+
+LaTeX Warning: Reference `eq:narr-park-v' on page 7 undefined on input line 431
+.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.436 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.436 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.439 \begin{bmatrix}
+                      i_d \\ i_q \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.439 \begin{bmatrix} i_d \\ i_q \end{bmatrix}
+                                              
+[7]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.441 = \begin{bmatrix}
+                        \cos \theta & \sin \theta \\ -\sin \theta & \cos \th...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.441 ... -\sin \theta & \cos \theta \end{bmatrix}
+                                                  
+! Missing $ inserted.
+<inserted text> 
+                $
+l.443 \begin{bmatrix}
+                      i_\alpha \\ i_\beta \end{bmatrix} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.443 ...matrix} i_\alpha \\ i_\beta \end{bmatrix}
+                                                   .
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.445 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.445 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.445 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.445 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.450 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.450 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.453 \begin{bmatrix}
+                      v_d \\ v_q \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.453 \begin{bmatrix} v_d \\ v_q \end{bmatrix}
+                                              
+! Missing $ inserted.
+<inserted text> 
+                $
+l.455 = \begin{bmatrix}
+                        \cos \theta & \sin \theta \\ -\sin \theta & \cos \th...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.455 ... -\sin \theta & \cos \theta \end{bmatrix}
+                                                  
+! Missing $ inserted.
+<inserted text> 
+                $
+l.457 \begin{bmatrix}
+                      v_\alpha \\ v_\beta \end{bmatrix} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.457 ...matrix} v_\alpha \\ v_\beta \end{bmatrix}
+                                                   .
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.459 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.459 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.459 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.459 \end{equation}
+                    
+
+LaTeX Warning: Reference `eq:narr-dq-vd' on page 8 undefined on input line 463.
+
+
+
+LaTeX Warning: Reference `eq:narr-dq-vq' on page 8 undefined on input line 463.
+
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.468 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.468 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.471 v_
+        {sd} = R\, i_d + \frac{\mathrm d i_d}{\mathrm d t} - \omega L i_q + ...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.472 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.473 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.473 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.473 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.473 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.478 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.478 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.481 v_
+        {sq} = R\, i_q + \frac{\mathrm d i_q}{\mathrm d t} + \omega L i_d + ...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.482 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.483 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.483 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.483 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.483 \end{equation}
+                    
+
+LaTeX Warning: Reference `eq:narr-dq-did' on page 8 undefined on input line 487
+.
+
+
+LaTeX Warning: Reference `eq:narr-dq-diq' on page 8 undefined on input line 487
+.
+
+[8]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.492 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.492 
+      
+
+! Package amsmath Error: \dot allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.495 \dot{i}
+             _d = \frac{1}{L} \Big( v_{sd} - R i_d + \omega L i_q - v_{convd...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.495 \dot{i}_
+              d = \frac{1}{L} \Big( v_{sd} - R i_d + \omega L i_q - v_{convd...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.496 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.497 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.497 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.497 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.497 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.502 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.502 
+      
+
+! Package amsmath Error: \dot allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.505 \dot{i}
+             _q = \frac{1}{L} \Big( v_{sq} - R i_q - \omega L i_d - v_{convq...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.505 \dot{i}_
+              q = \frac{1}{L} \Big( v_{sq} - R i_q - \omega L i_d - v_{convq...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.506 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.507 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.507 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.507 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.507 \end{equation}
+                    
+
+LaTeX Warning: Reference `eq:narr-pe' on page 9 undefined on input line 511.
+
+
+LaTeX Warning: Reference `eq:narr-qe' on page 9 undefined on input line 511.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.514 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.514 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.517 P = \tfrac{3}{2}
+                       \big( v_{sd} i_d + v_{sq} i_q \big) .
+! Extra }, or forgotten $.
+\@genfrac ...egingroup #4\endgroup #2#3\relax #5}}
+                                                  
+l.517 P = \tfrac{3}{2}
+                       \big( v_{sd} i_d + v_{sq} i_q \big) .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.518 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.519 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.519 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.519 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.519 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.519 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.524 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.524 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.527 Q = \tfrac{3}{2}
+                       \big( v_{sq} i_d - v_{sd} i_q \big) .
+! Extra }, or forgotten $.
+\@genfrac ...egingroup #4\endgroup #2#3\relax #5}}
+                                                  
+l.527 Q = \tfrac{3}{2}
+                       \big( v_{sq} i_d - v_{sd} i_q \big) .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.528 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.529 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.529 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.529 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.529 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.529 \end{equation}
+                    
+
+LaTeX Warning: Reference `eq:narr-dclink' on page 9 undefined on input line 535
+.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.540 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.540 
+      
+[9]
+
+! Package amsmath Error: \dot allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.543 C\,\dot v
+               _{dc} = \tfrac{3}{2} \big( S_d i_d + S_q i_q \big) - \frac{v_...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.543 C\,\dot v_
+                {dc} = \tfrac{3}{2} \big( S_d i_d + S_q i_q \big) - \frac{v_...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.544 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.545 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.545 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.545 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.545 \end{equation}
+                    
+
+LaTeX Warning: Reference `tab:drive-motor-params' on page 10 undefined on input
+ line 605.
+
+[10]
+
+LaTeX Warning: Reference `fig:FocDiagram' on page 11 undefined on input line 66
+7.
+
+(Chapters/CH2/Pictures/SensorlessDriveSystemTikZ.tex) [11]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.714 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.714 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.717 	\begin{bmatrix}
+                       v_\alpha \\ v_\beta \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.717 ...matrix} v_\alpha \\ v_\beta \end{bmatrix}
+                                                  
+! Missing $ inserted.
+<inserted text> 
+                $
+l.719 	= R_
+           s \begin{bmatrix} i_\alpha \\ i_\beta \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.720 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.721 	+ L_
+           s \frac{\mathrm d}{\mathrm d t} \begin{bmatrix} i_\alpha \\ i_\be...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.722 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.723 	+ \begin{bmatrix}
+                         e_\alpha \\ e_\beta \end{bmatrix} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.723 ...matrix} e_\alpha \\ e_\beta \end{bmatrix}
+                                                   .
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.725 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.725 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.725 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.725 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.730 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.730 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.733 	e_
+         \alpha = -\lambda_f\,\omega_e\,\sin\theta_e\,,\qquad e_\beta = \lam...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.734 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.735 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.735 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.735 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.735 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.740 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.740 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.743 	\theta
+             _e = \operatorname{atan2}\big(-e_\alpha,\,e_\beta\big).
+! Missing $ inserted.
+<inserted text> 
+                $
+l.744 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.745 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.745 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.745 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.745 \end{equation}
+                    
+
+LaTeX Warning: Reference `eq:smo-plant-alphabeta' on page 12 undefined on input
+ line 747.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.750 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.750 
+      
+
+! LaTeX Error: \mathrm allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.753 	\frac{\mathrm d}{\mathrm d t}
+                                     \begin{bmatrix} i_\alpha \\ i_\beta \en...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.753 	\frac{\mathrm d}{\mathrm d t}
+                                     \begin{bmatrix} i_\alpha \\ i_\beta \en...
+
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.753 	\frac{\mathrm d}{\mathrm d t}
+                                     \begin{bmatrix} i_\alpha \\ i_\beta \en...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.754 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.755 	= -\frac{R_s}{L_s}
+                          \begin{bmatrix} i_\alpha \\ i_\beta \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.755 	= -\frac{R_s}{L_s}
+                          \begin{bmatrix} i_\alpha \\ i_\beta \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.755 	= -\frac{R_s}{L_s}
+                          \begin{bmatrix} i_\alpha \\ i_\beta \end{bmatrix}
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.755 	= -\frac{R_s}{L_s}
+                          \begin{bmatrix} i_\alpha \\ i_\beta \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.756 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.757 	+ \frac{1}{L_s}
+                       \begin{bmatrix} v_\alpha \\ v_\beta \end{bmatrix}
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.757 	+ \frac{1}{L_s}
+                       \begin{bmatrix} v_\alpha \\ v_\beta \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.758 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.759 	- \frac{1}{L_s}
+                       \begin{bmatrix} e_\alpha \\ e_\beta \end{bmatrix} .
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.759 	- \frac{1}{L_s}
+                       \begin{bmatrix} e_\alpha \\ e_\beta \end{bmatrix} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.760 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.761 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.761 \end{equation}
+                    
+[12]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.761 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.761 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.761 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.761 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.761 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.761 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.768 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.768 
+      
+
+! Package amsmath Error: \tilde allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.771 	\tilde i
+               _\alpha = i_\alpha - \hat i_\alpha\,,\qquad \tilde i_\beta = ...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.771 	\tilde i_
+                \alpha = i_\alpha - \hat i_\alpha\,,\qquad \tilde i_\beta = ...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.772 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.773 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.773 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.773 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.773 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.778 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.778 
+      
+
+! LaTeX Error: \mathrm allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.781 	\frac{\mathrm d}{\mathrm d t}
+                                     \begin{bmatrix} \hat i_\alpha \\ \hat i...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.781 	\frac{\mathrm d}{\mathrm d t}
+                                     \begin{bmatrix} \hat i_\alpha \\ \hat i...
+
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.781 	\frac{\mathrm d}{\mathrm d t}
+                                     \begin{bmatrix} \hat i_\alpha \\ \hat i...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.782 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.783 	= -\frac{R_s}{L_s}
+                          \begin{bmatrix} \hat i_\alpha \\ \hat i_\beta \end...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.783 	= -\frac{R_s}{L_s}
+                          \begin{bmatrix} \hat i_\alpha \\ \hat i_\beta \end...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.783 	= -\frac{R_s}{L_s}
+                          \begin{bmatrix} \hat i_\alpha \\ \hat i_\beta \end...
+
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.783 	= -\frac{R_s}{L_s}
+                          \begin{bmatrix} \hat i_\alpha \\ \hat i_\beta \end...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.784 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.785 	+ \frac{1}{L_s}
+                       \begin{bmatrix} v_\alpha \\ v_\beta \end{bmatrix}
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.785 	+ \frac{1}{L_s}
+                       \begin{bmatrix} v_\alpha \\ v_\beta \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.786 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.787 	+ \frac{\eta_0}{L_s}
+                           
+! Missing $ inserted.
+<inserted text> 
+                $
+l.787 	+ \frac{\eta_0}{L_s}
+                           
+! Missing $ inserted.
+<inserted text> 
+                $
+l.787 	+ \frac{\eta_0}{L_s}
+                           
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.787 	+ \frac{\eta_0}{L_s}
+                           
+! Missing $ inserted.
+<inserted text> 
+                $
+l.788 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.789 	\begin{bmatrix}
+                      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.795 	\end{bmatrix}
+                     ,
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.797 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.797 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.797 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.797 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.797 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.797 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.797 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.797 \end{equation}
+                    
+
+LaTeX Warning: Reference `eq:smo-observer-dynamics' on page 13 undefined on inp
+ut line 803.
+
+
+LaTeX Warning: Reference `eq:smo-plant-dynamics' on page 13 undefined on input 
+line 803.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.806 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.806 
+      
+
+! LaTeX Error: \mathrm allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.809 	\frac{\mathrm d}{\mathrm d t}
+                                     \begin{bmatrix} \tilde i_\alpha \\ \til...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.809 	\frac{\mathrm d}{\mathrm d t}
+                                     \begin{bmatrix} \tilde i_\alpha \\ \til...
+
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.809 	\frac{\mathrm d}{\mathrm d t}
+                                     \begin{bmatrix} \tilde i_\alpha \\ \til...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.810 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.811 	= -\frac{R_s}{L_s}
+                          \begin{bmatrix} \tilde i_\alpha \\ \tilde i_\beta ...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.811 	= -\frac{R_s}{L_s}
+                          \begin{bmatrix} \tilde i_\alpha \\ \tilde i_\beta ...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.811 	= -\frac{R_s}{L_s}
+                          \begin{bmatrix} \tilde i_\alpha \\ \tilde i_\beta ...
+
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.811 	= -\frac{R_s}{L_s}
+                          \begin{bmatrix} \tilde i_\alpha \\ \tilde i_\beta ...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.812 
+      
+[13]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.813 	+ \frac{1}{L_s}
+                       \begin{bmatrix} e_\alpha \\ e_\beta \end{bmatrix}
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.813 	+ \frac{1}{L_s}
+                       \begin{bmatrix} e_\alpha \\ e_\beta \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.814 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.815 	- \frac{\eta_0}{L_s}
+                           
+! Missing $ inserted.
+<inserted text> 
+                $
+l.815 	- \frac{\eta_0}{L_s}
+                           
+! Missing $ inserted.
+<inserted text> 
+                $
+l.815 	- \frac{\eta_0}{L_s}
+                           
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.815 	- \frac{\eta_0}{L_s}
+                           
+! Missing $ inserted.
+<inserted text> 
+                $
+l.816 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.817 	\begin{bmatrix}
+                      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.823 	\end{bmatrix}
+                     .
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.825 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.825 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.825 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.825 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.825 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.825 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.825 \end{equation}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.825 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.830 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.830 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.833 	S_
+         \alpha\,\dot S_\alpha + S_\beta\,\dot S_\beta \le 0
+! Missing $ inserted.
+<inserted text> 
+                $
+l.834 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.835 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.835 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.835 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.835 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.840 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.840 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.843 	\eta
+           _0 > \max\big\{\,|e_\alpha|,\; |e_\beta|\,\big\}\,.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.844 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.845 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.845 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.845 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.845 \end{equation}
+                    
+
+LaTeX Warning: Reference `eq:smo-eta-condition' on page 14 undefined on input l
+ine 847.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.854 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.854 
+      
+
+! LaTeX Error: \mathbf allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.857 	\mathbf
+              {e} = \begin{bmatrix} e_\alpha \\ e_\beta \end{bmatrix} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.857 	\mathbf{e} = \begin{bmatrix}
+                                    e_\alpha \\ e_\beta \end{bmatrix} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.857 ...matrix} e_\alpha \\ e_\beta \end{bmatrix}
+                                                   .
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.859 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.859 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.859 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.859 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.864 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.864 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.867 	\begin{bmatrix}
+                       \hat e_\alpha \\ \hat e_\beta \end{bmatrix}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.867 ...at e_\alpha \\ \hat e_\beta \end{bmatrix}
+                                                  
+[14]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.869 	= \operatorname{LPF}
+                           \left\{\, \eta_0
+! Missing $ inserted.
+<inserted text> 
+                $
+l.870 
+      
+! Missing \right. inserted.
+<inserted text> 
+                \right .
+l.870 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.871 	\begin{bmatrix}
+                      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.877 	\end{bmatrix}
+                    \,\right\} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.877 	\end{bmatrix}\,\right
+                            \} .
+! Extra \right.
+\rbrace ->\delimiter "5267309 
+                              
+l.877 	\end{bmatrix}\,\right\}
+                               .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.878 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.879 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.879 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.879 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.879 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.888 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.888 
+      
+
+! Package amsmath Error: \hat allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.891 	\hat \theta
+                  _e = \operatorname{atan2}\big(-\hat e_\alpha,\,\hat e_\bet...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.891 	\hat \theta_
+                   e = \operatorname{atan2}\big(-\hat e_\alpha,\,\hat e_\bet...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.892 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.893 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.893 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.893 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.893 \end{equation}
+                    
+
+LaTeX Warning: Reference `eq:smo-observer-dynamics' on page 15 undefined on inp
+ut line 903.
+
+
+LaTeX Warning: Reference `eq:smo-emf-estimate' on page 15 undefined on input li
+ne 903.
+
+
+LaTeX Warning: Reference `eq:smo-angle-est' on page 15 undefined on input line 
+903.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.910 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.910 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.913 	\phi
+           (\omega) = -\arctan\!\left(\frac{\omega}{\omega_c}\right).
+! Missing $ inserted.
+<inserted text> 
+                $
+l.914 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.915 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.915 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.915 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.915 \end{equation}
+                    
+[15]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.920 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.920 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.923 	\omega
+             _c = |\omega_e|.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.924 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.925 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.925 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.925 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.925 \end{equation}
+                    
+
+LaTeX Warning: Reference `eq:smo-lpf-phase' on page 16 undefined on input line 
+927.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.930 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.930 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.933 	\phi
+           (\omega_e) = -\arctan(1) = -45^{\circ}.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.934 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.935 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.935 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.935 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.935 \end{equation}
+                    
+
+LaTeX Warning: Reference `fig:FilterResponse' on page 16 undefined on input lin
+e 937.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.958 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.958 
+      
+
+! LaTeX Error: \mathbf allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.959 \mathbf
+              s = \eta_0\,
+! Missing $ inserted.
+<inserted text> 
+                $
+l.959 \mathbf s = \eta
+                      _0\,
+! Missing $ inserted.
+<inserted text> 
+                $
+l.960 
+      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.961 \begin{bmatrix}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.967 \end{bmatrix}
+                   .
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.969 \]
+        
+! Missing $ inserted.
+<inserted text> 
+                $
+l.969 \]
+        
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.969 \]
+        
+! Missing $ inserted.
+<inserted text> 
+                $
+l.976 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.976 
+      
+
+! Package amsmath Error: \dot allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.979 	\dot{\mathbf z}
+                      _1 = -2\pi\, f_c(\omega_e)\, \mathbf z_1 + 2\pi\, f_c(...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.979 	\dot{\mathbf z}_
+                       1 = -2\pi\, f_c(\omega_e)\, \mathbf z_1 + 2\pi\, f_c(...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.980 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.981 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.981 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.981 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.981 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.984 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.984 
+      
+
+! Package amsmath Error: \dot allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.987 	\dot{\mathbf z}
+                      _2 = -2\pi\, f_c(\omega_e)\, \mathbf z_2 + 2\pi\, f_c(...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.987 	\dot{\mathbf z}_
+                       2 = -2\pi\, f_c(\omega_e)\, \mathbf z_2 + 2\pi\, f_c(...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.988 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.989 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.989 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.989 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.989 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.992 
+      
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.992 
+      
+[16] [17 <./Chapters/CH2/Pictures/./Filter.pdf>]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.995 	\begin{bmatrix}
+                       \hat e_\alpha \\ \hat e_\beta \end{bmatrix} = \mathbf...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.995 ...at e_\alpha \\ \hat e_\beta \end{bmatrix}
+                                                   = \mathbf z_2 .
+
+! LaTeX Error: \mathbf allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.995 ...a \\ \hat e_\beta \end{bmatrix} = \mathbf
+                                                   z_2 .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.995 ...\ \hat e_\beta \end{bmatrix} = \mathbf z_
+                                                  2 .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.996 
+      
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.997 \end{equation}
+                    
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.997 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.997 \end{equation}
+                    
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.997 \end{equation}
+                    
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1002 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1002 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1005 	f_
+          c(\omega_e) = \operatorname{clip}\!\Big( \tfrac{|\omega_e|}{2\pi} ...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1006 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1007 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1007 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1007 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1007 \end{equation}
+                     
+
+LaTeX Warning: Reference `eq:spdS-Ts' on page 18 undefined on input line 1053.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1056 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1056 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1059 	T_
+          s > 0 .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1060 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1061 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1061 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1061 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1061 \end{equation}
+                     
+
+LaTeX Warning: Reference `eq:spdS-theta' on page 18 undefined on input line 106
+3.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1066 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1066 
+       
+
+! Package amsmath Error: \hat allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1069 	\hat\theta
+                  _e[k] \in (-\pi,\,\pi] ,\qquad k=0,1,2,\dots
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1069 	\hat\theta_
+                   e[k] \in (-\pi,\,\pi] ,\qquad k=0,1,2,\dots
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1070 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1071 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1071 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1071 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1071 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1080 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1080 
+       
+[18]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1083 	\Delta
+              \theta_{\mathrm{raw}}[k] = \hat\theta_e[k] - \hat\theta_e[k-1] .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1084 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1085 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1085 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1085 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1085 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1092 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1092 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1095 	\Delta
+              \theta_e[k] =
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1096 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1097 	\begin{cases}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1105 	\end{cases}
+                   
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1107 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1107 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1107 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1107 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1112 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1112 
+       
+
+! Package amsmath Error: \hat allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1115 	\hat\omega
+                  _e[k] = \frac{\Delta\theta_e[k]}{T_s}.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1115 	\hat\omega_
+                   e[k] = \frac{\Delta\theta_e[k]}{T_s}.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1116 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1117 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1117 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1117 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1117 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1122 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1122 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1125 	T_
+          s < \frac{\Delta\theta_{\lim}}{\omega_{e,\max}}
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1126 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1127 	\quad\Big(\text{equivalently } f_
+                                         s > \omega_{e,\max}/\Delta\theta_{\...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1128 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1129 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1129 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1129 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1129 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1142 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1142 
+       
+[19]
+
+! Package amsmath Error: \hat allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1145 	\hat\omega
+                  _e[k] = \frac{\Delta\theta_e[k]}{T_s} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1145 	\hat\omega_
+                   e[k] = \frac{\Delta\theta_e[k]}{T_s} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1146 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1147 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1147 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1147 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1147 \end{equation}
+                     
+
+LaTeX Warning: Reference `eq:spdS-simple-lpf' on page 20 undefined on input lin
+e 1153.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1156 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1156 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1159 	\omega
+              _{e,f}[k] = G\; \omega_{e,f}[k-1] + (1-G)\; \hat\omega_e[k] .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1160 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1161 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1161 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1161 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1161 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1166 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1166 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1169 	G = e^
+              {-\omega_c T_s} ,
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1170 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1171 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1171 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1171 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1171 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1174 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1174 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1177 	G \approx
+                  \frac{1}{1 + \omega_c T_s} \quad \text{for small } \omega_...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1178 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1179 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1179 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1179 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1179 \end{equation}
+                     
+
+LaTeX Warning: Reference `eq:spdS-G-exact' on page 20 undefined on input line 1
+181.
+
+
+LaTeX Warning: Reference `eq:spdS-G-approx' on page 20 undefined on input line 
+1181.
+
+
+LaTeX Warning: Reference `eq:spdS-omegam' on page 20 undefined on input line 11
+85.
+
+
+LaTeX Warning: Reference `eq:spdS-rpm' on page 20 undefined on input line 1185.
+
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1188 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1188 
+       
+
+! Package amsmath Error: \hat allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1191 	\hat\omega
+                  _m[k] = \frac{\omega_{e,f}[k]}{p} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1191 	\hat\omega_
+                   m[k] = \frac{\omega_{e,f}[k]}{p} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1192 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1193 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1193 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1193 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1193 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1196 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1196 
+       
+[20]
+
+! Package amsmath Error: \hat allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1199 	\hat n
+              [k] = \frac{60}{2\pi} \, \hat\omega_m[k] .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1199 	\hat n[k] = \frac{60}{2\pi}
+                                    \, \hat\omega_m[k] .
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.1199 	\hat n[k] = \frac{60}{2\pi}
+                                    \, \hat\omega_m[k] .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1200 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1201 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1201 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1201 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1201 \end{equation}
+                     
+! Missing } inserted.
+<inserted text> 
+                }
+l.1201 \end{equation}
+                     
+
+LaTeX Warning: Reference `eq:narr-dq-vd' on page 21 undefined on input line 126
+3.
+
+
+LaTeX Warning: Reference `eq:narr-dq-vq' on page 21 undefined on input line 126
+3.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1268 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1268 
+       
+
+! LaTeX Error: \mathrm allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1271 	L\frac{\mathrm d i_d}{\mathrm d t}
+                                           = (R\, + Rce) i_d + v^{*}_{d}.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1271 	L\frac{\mathrm d i_d}{\mathrm d t}
+                                           = (R\, + Rce) i_d + v^{*}_{d}.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1271 	L\frac{\mathrm d i_d}{\mathrm d t}
+                                           = (R\, + Rce) i_d + v^{*}_{d}.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1271 	L\frac{\mathrm d i_d}{\mathrm d t}
+                                           = (R\, + Rce) i_d + v^{*}_{d}.
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.1271 	L\frac{\mathrm d i_d}{\mathrm d t}
+                                           = (R\, + Rce) i_d + v^{*}_{d}.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1272 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1273 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1273 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1273 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1273 \end{equation}
+                     
+! Missing } inserted.
+<inserted text> 
+                }
+l.1273 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1278 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1278 
+       
+
+! LaTeX Error: \mathrm allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1281 	L\frac{\mathrm d i_q}{\mathrm d t}
+                                           = (R\, + Rce) i_q + v^{*}_{q}.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1281 	L\frac{\mathrm d i_q}{\mathrm d t}
+                                           = (R\, + Rce) i_q + v^{*}_{q}.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1281 	L\frac{\mathrm d i_q}{\mathrm d t}
+                                           = (R\, + Rce) i_q + v^{*}_{q}.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1281 	L\frac{\mathrm d i_q}{\mathrm d t}
+                                           = (R\, + Rce) i_q + v^{*}_{q}.
+! Extra }, or forgotten $.
+\frac  #1#2->{\begingroup #1\endgroup \@@over #2}
+                                                 
+l.1281 	L\frac{\mathrm d i_q}{\mathrm d t}
+                                           = (R\, + Rce) i_q + v^{*}_{q}.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1282 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1283 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1283 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1283 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1283 \end{equation}
+                     
+! Missing } inserted.
+<inserted text> 
+                }
+l.1283 \end{equation}
+                     
+
+LaTeX Warning: Reference `eq:narr-dq-vd' on page 21 undefined on input line 129
+1.
+
+
+LaTeX Warning: Reference `eq:narr-dq-vq' on page 21 undefined on input line 129
+1.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1296 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1296 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1299 	G_
+          i(s) \;=\; \frac{I(s)}{U(s)} \;=\; \frac{1}{L\, s + (R\, + Rce)} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1300 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1301 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1301 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1301 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1301 \end{equation}
+                     
+[21]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1308 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1308 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1311 	C(s) \;=\; k_
+                     p \left( 1 + \frac{k_i}{s} \right) \;=\; k_p\,\frac{s +...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1312 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1313 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1313 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1313 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1313 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1318 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1318 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1321 	k_
+          i \;=\; \frac{R}{L} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1322 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1323 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1323 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1323 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1323 \end{equation}
+                     
+
+LaTeX Warning: Reference `eq:curr-cancell' on page 22 undefined on input line 1
+325.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1328 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1328 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1331 	L(s) \;=\; C(s)\,G_
+                           i(s) \;=\; \frac{k_p}{L}\,\frac{1}{s} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1332 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1333 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1333 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1333 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1333 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1340 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1340 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1343 	\omega
+              _{ci} \;>\; 0 , \qquad \tau_i \;=\; \frac{1}{\omega_{ci}} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1344 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1345 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1345 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1345 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1345 \end{equation}
+                     
+
+LaTeX Warning: Reference `eq:cur-wc' on page 22 undefined on input line 1347.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1350 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1350 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1353 	k_
+          p \;=\; L\, \omega_{ci} \;=\; \frac{L}{\tau_i} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1354 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1355 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1355 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1355 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1355 \end{equation}
+                     
+
+LaTeX Warning: Reference `eq:curr-cancell' on page 22 undefined on input line 1
+357.
+
+
+LaTeX Warning: Reference `eq:cur-kp' on page 22 undefined on input line 1357.
+
+
+Overfull \hbox (2.84962pt too wide) in paragraph at lines 1357--1358
+[]\OT1/ptm/m/n/12 Equations []--[] pro-duce a first-order, mono-tonic cur-rent 
+re-sponse with zero steady-
+[22]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1366 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1366 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1369 	e_
+          d = i_d^{\ast} - i_d , \qquad \dot{x}_{I,d} = k_i\, e_d , \qquad u...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1370 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1371 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1371 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1371 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1371 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1374 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1374 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1377 	e_
+          q = i_q^{\ast} - i_q , \qquad \dot{x}_{I,q} = k_i\, e_q , \qquad u...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1378 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1379 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1379 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1379 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1379 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1384 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1384 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1387 	v_
+          d^{\ast} \;=\; u_d \;-\; \omega_e\, L_s\, i_q ,
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1388 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1389 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1389 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1389 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1389 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1392 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1392 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1395 	v_
+          q^{\ast} \;=\; u_q \;+\; \omega_e\, L_s\, i_d .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1396 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1397 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1397 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1397 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1397 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1406 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1406 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1409 	\begin{bmatrix}
+                        v_d^{\ast\,\mathrm{sat}} \\[2pt] v_q^{\ast\,\mathrm{...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1409 ...] v_q^{\ast\,\mathrm{sat}} \end{bmatrix}
+                                                  
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1411 	= \operatorname{sat}
+                            _{V_{\max}}\!\left( \begin{bmatrix} v_d^{\ast} \...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1412 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1413 	\qquad V_
+                 {\max} \approx \frac{V_{\mathrm{dc}}}{\sqrt{3}} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1414 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1415 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1415 \end{equation}
+                     
+[23]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1415 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1415 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1420 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1420 
+       
+
+! Package amsmath Error: \dot allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1423 	\dot{x}
+               _{I,d} \;=\; k_i\, e_d \;+\; \frac{K_{aw}}{k_p}\,\big( v_d^{\...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1423 	\dot{x}_
+                {I,d} \;=\; k_i\, e_d \;+\; \frac{K_{aw}}{k_p}\,\big( v_d^{\...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1424 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1425 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1425 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1425 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1425 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1428 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1428 
+       
+
+! Package amsmath Error: \dot allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1431 	\dot{x}
+               _{I,q} \;=\; k_i\, e_q \;+\; \frac{K_{aw}}{k_p}\,\big( v_q^{\...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1431 	\dot{x}_
+                {I,q} \;=\; k_i\, e_q \;+\; \frac{K_{aw}}{k_p}\,\big( v_q^{\...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1432 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1433 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1433 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1433 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1433 \end{equation}
+                     
+
+LaTeX Warning: Reference `fig:CurrentControllerBodePlot' on page 24 undefined o
+n input line 1439.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1442 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1442 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1445 	\omega
+              _{ci} = 2\pi\cdot 100 = 628.31853~\text{rad/s}, \qquad \tau_i=...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1446 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1447 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1447 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1447 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1447 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1450 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1450 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1453 	k_
+          {i,d}=k_{i,q}=\frac{R_s}{L}=\frac{0.55}{0.018585}=29.594~\text{rad...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1454 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1455 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1455 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1455 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1455 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1458 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1458 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1461 	k_
+          {p,d}=k_{p,q}=L\,\omega_{ci}=0.018585\times 628.31853=11.677~.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1462 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1463 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1463 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1463 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1463 \end{equation}
+                     
+[24]
+
+LaTeX Warning: Reference `eq:narr-pe' on page 25 undefined on input line 1495.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1498 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1498 
+       
+
+! Package amsmath Error: \hat allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1501 	\hat{P}
+                = V_{sd}\hat{I_{d}} + V_{sq}\hat{I_{q}} +\tfrac{L}{2}\,\tfra...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1501 	\hat{P} = V_
+                    {sd}\hat{I_{d}} + V_{sq}\hat{I_{q}} +\tfrac{L}{2}\,\tfra...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1502 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1503 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1503 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1503 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1503 \end{equation}
+                     
+[25 <./Chapters/CH2/Pictures/./CurrentControllerBodePlot.pdf>]
+
+LaTeX Warning: Reference `eq:pc-dc' on page 26 undefined on input line 1507.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1510 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1510 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1513 	G_
+          {d}(s) = \tfrac{\hat{Vdc}}{\hat{Id}} = \tfrac{-sLId+V_{sd}}{sCV_{d...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1514 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1515 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1515 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1515 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1515 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1522 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1522 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1525 	C(s) = k_
+                 p\!\left(1 + \frac{k_i}{s}\right) = k_p\,\frac{s + k_i}{s} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1526 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1527 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1527 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1527 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1527 \end{equation}
+                     
+
+LaTeX Warning: Reference `eq:pc-Gvdc' on page 26 undefined on input line 1539.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1550 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1550 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1553 	\omega
+              _c > 0 , \qquad \tau = \frac{1}{\omega_c} .
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1554 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1555 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1555 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1555 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1555 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1562 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1562 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1565 	e_
+          {V_{dc}} = V_{dcref}^{*} - V_{dc}.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1566 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1567 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1567 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1567 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1567 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1574 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1574 
+       
+[26]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1577 	i_
+          d^{\ast\,\mathrm{sat}} = \operatorname{sat}\!\big(i_d^{\ast};\, -i...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1578 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1579 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1579 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1579 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1579 \end{equation}
+                     
+
+LaTeX Warning: Reference `fig:SpeedControllerBodePlot' on page 27 undefined on 
+input line 1583.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1586 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1586 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1589 	\omega
+              _c = 2\pi\cdot 10 = 62.832~\text{rad/s}, \qquad \tau=\frac{1}{...
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1590 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1591 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1591 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1591 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1591 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1602 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1602 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1605 	k_
+          i = 1.5~\text{rad/s},
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1606 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1607 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1607 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1607 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1607 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1610 
+       
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.1610 
+       
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1613 	k_
+          p = 0.25.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1614 
+       
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1615 \end{equation}
+                     
+! You can't use `\eqno' in vertical mode.
+\veqno ->\@kernel@eqno 
+                       \aftergroup \ignorespaces 
+l.1615 \end{equation}
+                     
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1615 \end{equation}
+                     
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1615 \end{equation}
+                     
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: Reference `fig:PIIdeal_1000rpm_low' on page 27 undefined on inpu
+t line 1657.
+
+
+LaTeX Warning: Reference `fig:PIIdeal_1000rpm_med' on page 27 undefined on inpu
+t line 1657.
+
+[27]
+Underfull \vbox (badness 10000) has occurred while \output is active [28 <./Cha
+pters/CH2/Pictures/./SpeedControllerBodePlot.pdf>]
+
+LaTeX Warning: Reference `fig:PIIdeal_100rpm' on page 29 undefined on input lin
+e 1713.
+
+
+LaTeX Warning: Reference `fig:PIIdeal_200rpm' on page 29 undefined on input lin
+e 1713.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [29 <./Cha
+pters/CH2/Pictures/./MidSpeedLowLoadSteadyState.pdf> <./Chapters/CH2/Pictures/.
+/MidSpeedMidLoadSteadyState.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active [30 <./Cha
+pters/CH2/Pictures/./PISteadyStateLowLoad100Rpm.pdf> <./Chapters/CH2/Pictures/.
+/PISteadyStateHighLoad100Rpm.pdf>]
+
+LaTeX Warning: Reference `fig:PIDyn_100to1000_low' on page 31 undefined on inpu
+t line 1813.
+
+
+LaTeX Warning: Reference `fig:PIDyn_100to1000_rated' on page 31 undefined on in
+put line 1813.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [31 <./Cha
+pters/CH2/Pictures/./PISteadyStateLowLoad200Rpm.pdf> <./Chapters/CH2/Pictures/.
+/PISteadyStateHighLoad200Rpm.pdf>]
+
+LaTeX Warning: Reference `fig:PIParameterVariation' on page 32 undefined on inp
+ut line 1869.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [32 <./Cha
+pters/CH2/Pictures/./DynamicResponsePILowLoad.pdf> <./Chapters/CH2/Pictures/./D
+ynamicResponsePIHighLoad.pdf>]
+
+LaTeX Warning: Reference `fig:PILoadVariation' on page 33 undefined on input li
+ne 1899.
+
+
+LaTeX Warning: Reference `fig:PILoadVariation' on page 33 undefined on input li
+ne 1899.
+
+) [33 <./Chapters/CH2/Pictures/./ParameterVariation.pdf> <./Chapters/CH2/Pictur
+es/./LoadVariation.pdf>]
+Chapter 3.
+(Chapters/CH3/CH3.tex [34]
+
+LaTeX Warning: Reference `fig:fcs-diagram' on page 35 undefined on input line 6
+8.
+
+[35]
+
+LaTeX Warning: Reference `fig:InverterStates' on page 36 undefined on input lin
+e 91.
+
+[36 <./Chapters/CH3/Pictures/FCS.pdf>]
+
+LaTeX Warning: Reference `eq:fcs-euler' on page 37 undefined on input line 154.
+
+
+
+LaTeX Warning: Reference `eq:fcs-euler' on page 37 undefined on input line 168.
+
+
+
+LaTeX Warning: Reference `eq:fcs-delay-2' on page 37 undefined on input line 16
+8.
+
+[37 <./Chapters/CH3/Pictures/./InverterStates.png>]
+Overfull \hbox (23.60834pt too wide) in paragraph at lines 202--203
+[]\OT1/ptm/m/n/12 Define con-troller data: $\OML/cmm/m/it/12 T[]$\OT1/ptm/m/n/1
+2 , ma-chine/inverter pa-ram-e-ters, lim-its, weights, and delay/dead-
+
+Overfull \hbox (11.85875pt too wide) in paragraph at lines 210--211
+[]\OT1/ptm/m/n/12 Enforce con-straints and dis-card in-fea-si-ble can-di-dates 
+(cur-rent/voltage/thermal/speed). 
+
+LaTeX Warning: Reference `fig:FCSIdeal_1000rpm_med' on page 38 undefined on inp
+ut line 220.
+
+[38]
+
+LaTeX Warning: Reference `fig:FCSIdeal_100rpm_low' on page 39 undefined on inpu
+t line 234.
+
+
+LaTeX Warning: Reference `fig:FCSIdeal_100rpm_high' on page 39 undefined on inp
+ut line 234.
+
+
+LaTeX Warning: Reference `fig:PIIdeal_100rpm' on page 39 undefined on input lin
+e 234.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [39 <./Cha
+pters/CH3/Pictures/./FCSMidSpeedMidLoadSteadyState.pdf>]
+
+LaTeX Warning: Reference `fig:FCSDyn_100to1000_low' on page 40 undefined on inp
+ut line 257.
+
+
+LaTeX Warning: Reference `fig:FCSDyn_100to1000_rated' on page 40 undefined on i
+nput line 257.
+
+
+Overfull \hbox (10.40677pt too wide) in paragraph at lines 287--290
+\OT1/ptm/m/n/12 nal model|stator re-sis-tance in-creased by $\OT1/cmr/m/n/12 +2
+5%$ \OT1/ptm/m/n/12 and in-duc-tances de-creased by $\OT1/cmr/m/n/12 25%$\OT1/p
+tm/m/n/12 |while
+
+Underfull \vbox (badness 1490) has occurred while \output is active [40 <./Chap
+ters/CH3/Pictures/./FCSSteadyStateLowLoad100Rpm.pdf> <./Chapters/CH3/Pictures/.
+/FCSSteadyStateHighLoad100Rpm.pdf> <./Chapters/CH3/Pictures/./FCSDynamicRespons
+eLowLoad.pdf> <./Chapters/CH3/Pictures/./FCSDynamicResponseHighLoad.pdf>]
+
+LaTeX Warning: Reference `fig:FCSLoadVariation' on page 41 undefined on input l
+ine 300.
+
+
+LaTeX Warning: Reference `fig:FCSLoadVariation' on page 41 undefined on input l
+ine 300.
+
+
+LaTeX Warning: Reference `fig:FCSLoadVariation' on page 41 undefined on input l
+ine 300.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [41 <./Cha
+pters/CH3/Pictures/./FCSParameterVariation.pdf>]
+
+LaTeX Warning: Reference `sec:fcsmpc' on page 42 undefined on input line 337.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [42 <./Cha
+pters/CH3/Pictures/./FCSLoadVariation.pdf>]
+Overfull \hbox (68.58832pt too wide) detected at line 398
+[][][]\OML/cmm/m/it/12 E[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m/n/12 +
+ 1] = \OML/cmm/m/it/12 i[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k[]\OT1/cmr/m/n/12 
+1] \OMS/cmsy/m/n/12 ^^@ []\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m/n/12 +
+ 1]\OML/cmm/m/it/12 ;  E[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m/n/12 +
+ 1] = \OML/cmm/m/it/12 i[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k[]\OT1/cmr/m/n/12 
+1] \OMS/cmsy/m/n/12 ^^@ []\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m/n/12 +
+ 1]\OML/cmm/m/it/12 ; [] J[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m/n/12
+ + 1] = (\OML/cmm/m/it/12 E[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m/n/1
+2 + 1])[] + (\OML/cmm/m/it/12 E[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k \OT1/cmr/m
+/n/12 + 1])[]\OML/cmm/m/it/12 :
+[43 <./Chapters/CH3/Pictures/M2PC.pdf>]
+Overfull \hbox (29.26553pt too wide) detected at line 427
+[][][]\OML/cmm/m/it/12 D  \OT1/cmr/m/n/12 =  \OML/cmm/m/it/12 E[]\OT1/cmr/m/n/1
+2 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 ) []\OML/cmm/m/it/12 E[]\OT1/cmr/m/n/12 
+(\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 E[
+]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 )[] + \OML/cmm/m/it/12 E[
+]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 ) []\OML/cmm/m/it/12 E[]\
+OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^@ \OML
+/cmm/m/it/12 E[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 )[] + \OML
+/cmm/m/it/12 E[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 ) []\OML/c
+mm/m/it/12 E[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/n/12 ) \OMS/cmsy/
+m/n/12 ^^@ \OML/cmm/m/it/12 E[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 v[]\OT1/cmr/m/
+n/12 )[]\OML/cmm/m/it/12 :
+
+LaTeX Warning: Reference `eq:m2pc-fe-vector' on page 44 undefined on input line
+ 449.
+
+
+LaTeX Warning: Reference `eq:m2pc-fe-iq' on page 44 undefined on input line 449
+.
+
+
+LaTeX Warning: Reference `eq:m2pc-rank' on page 44 undefined on input line 449.
+
+
+
+LaTeX Warning: Reference `eq:m2pc-avg-err' on page 44 undefined on input line 4
+49.
+
+
+LaTeX Warning: Reference `eq:m2pc-duties' on page 44 undefined on input line 44
+9.
+
+[44]
+
+LaTeX Warning: Reference `fig:M2PCIdeal_1000rpm_low' on page 45 undefined on in
+put line 457.
+
+
+LaTeX Warning: Reference `fig:M2PCIdeal_1000rpm_med' on page 45 undefined on in
+put line 457.
+
+
+LaTeX Warning: Reference `fig:M2PCIdeal_100rpm_low' on page 45 undefined on inp
+ut line 483.
+
+
+LaTeX Warning: Reference `fig:M2PCIdeal_100rpm_high' on page 45 undefined on in
+put line 483.
+
+
+LaTeX Warning: Reference `fig:M2PCIdeal_200rpm_low' on page 45 undefined on inp
+ut line 483.
+
+
+LaTeX Warning: Reference `fig:M2PCIdeal_200rpm_high' on page 45 undefined on in
+put line 483.
+
+[45 <./Chapters/CH3/Pictures/./MPCMidSpeedLowLoadSteadyState.pdf> <./Chapters/C
+H3/Pictures/./MPCMidSpeedMidLoadSteadyState.pdf>]
+
+LaTeX Warning: Reference `fig:M2PCDyn_100to1000_low' on page 46 undefined on in
+put line 535.
+
+
+LaTeX Warning: Reference `fig:M2PCDyn_100to1000_rated' on page 46 undefined on 
+input line 535.
+
+
+LaTeX Warning: Reference `fig:M2PCParamVariation' on page 46 undefined on input
+ line 564.
+
+[46 <./Chapters/CH3/Pictures/./MPCSteadyStateLowLoad100Rpm.pdf> <./Chapters/CH3
+/Pictures/./MPCSteadyStateHighLoad100Rpm.pdf> <./Chapters/CH3/Pictures/./MPCSte
+adyStateLowLoad200Rpm.pdf> <./Chapters/CH3/Pictures/./MPCSteadyStateHighLoad200
+Rpm.pdf>]
+
+LaTeX Warning: Reference `fig:M2PCLoadVariation' on page 47 undefined on input 
+line 579.
+
+[47 <./Chapters/CH3/Pictures/./MPCDynamicResponseLowLoad.pdf> <./Chapters/CH3/P
+ictures/./MPCDynamicResponseHighLoad.pdf> <./Chapters/CH3/Pictures/./MPCParamet
+erVariation.pdf>]) [48 <./Chapters/CH3/Pictures/./MPCLoadVariation.pdf>]
+Chapter 4.
+(Chapters/CH4/CH4.tex
+Overfull \hbox (0.75583pt too wide) in paragraph at lines 22--23
+[]\OT1/ptm/m/n/12 MEASUREMENT SETUP SHOT FROM THE LAB HAS TO BE IN-CLUDED HERE.
+ 
+
+LaTeX Warning: Reference `fig:fcs-diagram' on page 49 undefined on input line 2
+7.
+
+[49]
+
+LaTeX Warning: Reference `eq:Ld-from-tau-osc' on page 50 undefined on input lin
+e 44.
+
+
+Overfull \hbox (0.75583pt too wide) in paragraph at lines 50--51
+[]\OT1/ptm/m/n/12 MEASUREMENT SETUP SHOT FROM THE LAB HAS TO BE IN-CLUDED HERE.
+ 
+
+LaTeX Warning: Reference `fig:FluxLinkage' on page 50 undefined on input line 5
+5.
+
+[50 <./Chapters/CH4/Pictures/./InductanceMeas.pdf>] [51 <./Chapters/CH4/Picture
+s/./FluxLinkageMeas.pdf>]
+
+LaTeX Warning: Reference `fig:ViscousFriction' on page 52 undefined on input li
+ne 87.
+
+[52 <./Chapters/CH4/Pictures/./ViscousFriction.pdf>]
+Overfull \hbox (6.99016pt too wide) in paragraph at lines 105--106
+[]\OT1/ptm/m/n/12 Applying the above to the recorded coast{down data and us-ing
+ $\OML/cmm/m/it/12 B \OT1/cmr/m/n/12 = 0\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 00477
+5 []$
+
+LaTeX Warning: Reference `eq:phasedir' on page 53 undefined on input line 116.
+
+
+LaTeX Warning: Reference `fig:InverterNonlinearities' on page 53 undefined on i
+nput line 116.
+
+
+LaTeX Warning: Reference `eq:vun' on page 53 undefined on input line 116.
+
+
+LaTeX Warning: Reference `eq:vun_star' on page 53 undefined on input line 116.
+
+
+Overfull \hbox (38.28868pt too wide) detected at line 140
+[][][]\OML/cmm/m/it/12 v[] \OT1/cmr/m/n/12 = [] []2\OML/cmm/m/it/12 T[] \OMS/cm
+sy/m/n/12 ^^@ \OML/cmm/m/it/12 T[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 T[][] 
+\OMS/cmsy/m/n/12 ^^@ [][]\OT1/cmr/m/n/12 2  [] \OML/cmm/m/it/12 i[] \OMS/cmsy/m
+/n/12 ^^@ [] \OML/cmm/m/it/12 i[] \OMS/cmsy/m/n/12 ^^@ [] \OML/cmm/m/it/12 i[][
+] \OMS/cmsy/m/n/12 ^^@ [] \OML/cmm/m/it/12 i[];
+
+LaTeX Warning: Reference `eq:vun' on page 53 undefined on input line 157.
+
+
+LaTeX Warning: Reference `eq:Lambda' on page 53 undefined on input line 157.
+
+[53] [54 <./Chapters/CH4/Pictures/./InverterNonlinearities.png>]
+
+LaTeX Warning: Reference `eq:vdqth' on page 55 undefined on input line 189.
+
+
+Overfull \hbox (17.22807pt too wide) in paragraph at lines 201--201
+|[]\OT1/ptm/b/n/14.4 PI Con-troller Sim-u-la-tion Mod-el-ing Un-der Inverter-No
+nlinearities
+
+LaTeX Warning: Reference `fig:PINL_1000rpm_low' on page 55 undefined on input l
+ine 204.
+
+
+LaTeX Warning: Reference `fig:PINL_1000rpm_med' on page 55 undefined on input l
+ine 204.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [55]
+
+LaTeX Warning: Reference `fig:PINL_200rpm_low' on page 56 undefined on input li
+ne 230.
+
+
+LaTeX Warning: Reference `fig:PINL_200rpm_high' on page 56 undefined on input l
+ine 230.
+
+
+LaTeX Warning: Reference `fig:PINL_100rpm_unstable' on page 56 undefined on inp
+ut line 230.
+
+
+Underfull \vbox (badness 2261) has occurred while \output is active [56 <./Chap
+ters/CH4/Pictures/./PIMidSpeedLowLoadSteadyState.pdf> <./Chapters/CH4/Pictures/
+./PIMidSpeedMidLoadSteadyState.pdf> <./Chapters/CH4/Pictures/./PISteadyStateLow
+Load200Rpm.pdf> <./Chapters/CH4/Pictures/./PISteadyStateHighLoad200Rpm.pdf>]
+
+LaTeX Warning: Reference `fig:PINL_Dyn_low' on page 57 undefined on input line 
+270.
+
+
+LaTeX Warning: Reference `fig:PINL_Dyn_rated' on page 57 undefined on input lin
+e 270.
+
+
+LaTeX Warning: Reference `fig:PINL_ParamVariation' on page 57 undefined on inpu
+t line 296.
+
+[57 <./Chapters/CH4/Pictures/./PISteadyStateLowLoad100Rpm.pdf> <./Chapters/CH4/
+Pictures/./DynamicResponsePILowLoad.pdf> <./Chapters/CH4/Pictures/./DynamicResp
+onsePIHighLoad.pdf>]
+
+LaTeX Warning: Reference `fig:PINL_LoadVariation' on page 58 undefined on input
+ line 306.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [58 <./Cha
+pters/CH4/Pictures/./PIParameterVariation.pdf>]
+
+LaTeX Warning: Reference `fig:FCSNL_1000rpm_med' on page 59 undefined on input 
+line 323.
+
+
+LaTeX Warning: Reference `fig:PINL_1000rpm_low' on page 59 undefined on input l
+ine 323.
+
+
+LaTeX Warning: Reference `fig:FCSNL_200rpm_low' on page 59 undefined on input l
+ine 334.
+
+
+LaTeX Warning: Reference `fig:FCSNL_200rpm_high' on page 59 undefined on input 
+line 334.
+
+[59 <./Chapters/CH4/Pictures/./PILoadVariation.pdf> <./Chapters/CH4/Pictures/FC
+SMidSpeedMidLoadSteadyState.pdf>]
+
+LaTeX Warning: Reference `fig:FCSNL_Dyn_low' on page 60 undefined on input line
+ 364.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [60 <./Cha
+pters/CH4/Pictures/FCSSteadyStateLowLoad200Rpm.pdf> <./Chapters/CH4/Pictures/FC
+SSteadyStateHighLoad200Rpm.pdf>]
+
+LaTeX Warning: Reference `fig:FCSNL_ParamVariation' on page 61 undefined on inp
+ut line 379.
+
+
+LaTeX Warning: Reference `fig:FCSNL_LoadVariation' on page 61 undefined on inpu
+t line 393.
+
+
+Overfull \hbox (0.14604pt too wide) in paragraph at lines 393--396
+\OT1/ptm/m/n/12 FCS{MPC main-tains the com-manded speed with-out fail-ures or s
+teady-state deviation|$\OML/cmm/m/it/12 i[]$
+[61 <./Chapters/CH4/Pictures/./FCSDynamicResponseLowLoad.pdf> <./Chapters/CH4/P
+ictures/FCSParameterVariation.pdf>]
+
+LaTeX Warning: Reference `fig:M2PCNL_1000rpm_low' on page 62 undefined on input
+ line 409.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_1000rpm_med' on page 62 undefined on input
+ line 409.
+
+
+Underfull \vbox (badness 6300) has occurred while \output is active [62 <./Chap
+ters/CH4/Pictures/FCSLoadVariation.pdf>] [63 <./Chapters/CH4/Pictures/MPCMidSpe
+edLowLoadSteadyState.pdf> <./Chapters/CH4/Pictures/MPCMidSpeedMidLoadSteadyStat
+e.pdf>]
+
+LaTeX Warning: Reference `fig:M2PCNL_100rpm_low' on page 64 undefined on input 
+line 436.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_100rpm_high' on page 64 undefined on input
+ line 436.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_200rpm_low' on page 64 undefined on input 
+line 436.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_200rpm_high' on page 64 undefined on input
+ line 436.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_Dyn_100to1000_low' on page 64 undefined on
+ input line 481.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_Dyn_100to1000_rated' on page 64 undefined 
+on input line 481.
+
+[64 <./Chapters/CH4/Pictures/./MPCSteadyStateLowLoad100Rpm.pdf> <./Chapters/CH4
+/Pictures/./MPCSteadyStateHighLoad100Rpm.pdf> <./Chapters/CH4/Pictures/./MPCSte
+adyStateLowLoad200Rpm.pdf> <./Chapters/CH4/Pictures/./MPCSteadyStateHighLoad200
+Rpm.pdf>]
+
+LaTeX Warning: Reference `fig:M2PCNL_ParamVariation' on page 65 undefined on in
+put line 510.
+
+
+LaTeX Warning: Reference `fig:PINL_ParamVariation' on page 65 undefined on inpu
+t line 510.
+
+
+LaTeX Warning: Reference `fig:FCSNL_ParamVariation' on page 65 undefined on inp
+ut line 510.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_LoadVariation' on page 65 undefined on inp
+ut line 525.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_LoadVariation' on page 65 undefined on inp
+ut line 525.
+
+[65 <./Chapters/CH4/Pictures/MPCDynamicResponseLowLoad.pdf> <./Chapters/CH4/Pic
+tures/MPCDynamicResponseHighLoad.pdf> <./Chapters/CH4/Pictures/MPCParameterVari
+ation.pdf>]) [66 <./Chapters/CH4/Pictures/MPCLoadVariation.pdf>]
+Chapter 5.
+(Chapters/CH5/CH5.tex
+Overfull \hbox (21.52083pt too wide) in paragraph at lines 8--9
+\OT1/ptm/m/n/12 This sec-tion de-vel-ops a con-tin-u-ous nar-ra-tive from stan-
+dard three-phase mod-el-ing to harmonic-
+
+Overfull \hbox (1.925pt too wide) in paragraph at lines 29--31
+\OT1/ptm/m/n/12 and then the Park trans-for-ma-tion to ro-tate into the fun-da-
+men-tal syn-chronous frame aligned
+
+LaTeX Warning: Reference `eq:clarke' on page 67 undefined on input line 54.
+
+
+LaTeX Warning: Reference `eq:park' on page 67 undefined on input line 54.
+
+[67]
+
+LaTeX Warning: Reference `eq:pm-6w' on page 68 undefined on input line 76.
+
+
+LaTeX Warning: Reference `eq:rel-6w-rotations' on page 68 undefined on input li
+ne 107.
+
+[68]
+
+LaTeX Warning: Reference `eq:distortion_voltage' on page 69 undefined on input 
+line 172.
+
+[69]
+Overfull \hbox (2.13744pt too wide) in paragraph at lines 211--211
+|[]\OT1/ptm/b/n/16 Hybrid Mod-u-lated Model Pre-dic-tive Con-troller with Non-
+
+LaTeX Warning: Reference `eq:v_d_new' on page 70 undefined on input line 212.
+
+
+LaTeX Warning: Reference `eq:v_q_new' on page 70 undefined on input line 212.
+
+
+LaTeX Warning: Reference `eq:id_total' on page 70 undefined on input line 246.
+
+
+LaTeX Warning: Reference `eq:iq_total' on page 70 undefined on input line 246.
+
+
+LaTeX Warning: Reference `eq:i_discrete' on page 70 undefined on input line 246
+.
+
+
+Overfull \hbox (76.89859pt too wide) detected at line 280
+[][][][][]
+[70]
+
+LaTeX Warning: Citation 'harmonics_MSRF' on page 71 undefined on input line 313
+.
+
+
+LaTeX Warning: Citation 'MSRF_2016' on page 71 undefined on input line 313.
+
+[71]
+
+LaTeX Warning: Reference `eq:expanded_current' on page 72 undefined on input li
+ne 406.
+
+[72]
+
+LaTeX Warning: Reference `eq:cost_function_total' on page 73 undefined on input
+ line 590.
+
+[73 <./Chapters/CH5/Pictures/hybrid_MPC_updated.pdf>]
+
+LaTeX Warning: Reference `eq:modulated_mpc_constraints_1' on page 74 undefined 
+on input line 601.
+
+
+LaTeX Warning: Reference `eq:modulated_mpc_constraints_3' on page 74 undefined 
+on input line 601.
+
+
+LaTeX Warning: Reference `eq:distortion_voltage' on page 74 undefined on input 
+line 660.
+
+
+Overfull \hbox (62.74841pt too wide) in paragraph at lines 662--668
+[]\OT1/ptm/m/n/12 Form the de-com-posed voltage-drop com-po-nents $[] \OML/cmm/
+m/it/12 ;  [][] ;  [][] :$ 
+[74]
+
+LaTeX Warning: Reference `eq:id5_predict' on page 75 undefined on input line 66
+9.
+
+
+LaTeX Warning: Reference `eq:id7_predict' on page 75 undefined on input line 66
+9.
+
+
+Overfull \hbox (18.38185pt too wide) detected at line 680
+[] \OT1/cmr/m/n/12 = [][] [] \OML/cmm/m/it/12 ;  [] \OT1/cmr/m/n/12 = [][] [] \
+OML/cmm/m/it/12 :
+
+LaTeX Warning: Reference `eq:duty_time_closed_form' on page 75 undefined on inp
+ut line 690.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_HE_1000rpm_low' on page 75 undefined on in
+put line 695.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_HE_1000rpm_med' on page 75 undefined on in
+put line 695.
+
+[75]
+
+LaTeX Warning: Reference `fig:M2PCNL_HE_100rpm_low' on page 76 undefined on inp
+ut line 766.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_HE_100rpm_high' on page 76 undefined on in
+put line 766.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_HE_200rpm_low' on page 76 undefined on inp
+ut line 766.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_HE_200rpm_high' on page 76 undefined on in
+put line 766.
+
+
+Underfull \vbox (badness 5345) has occurred while \output is active [76 <./Chap
+ters/CH5/Pictures/MPCMidSpeedLowLoadSteadyState.pdf> <./Chapters/CH5/Pictures/M
+PCMidSpeedMidLoadSteadyState.pdf> <./Chapters/CH5/Pictures/./MPCSteadyStateLowL
+oad100Rpm.pdf> <./Chapters/CH5/Pictures/./MPCSteadyStateHighLoad100Rpm.pdf> <./
+Chapters/CH5/Pictures/./MPCSteadyStateLowLoad200Rpm.pdf> <./Chapters/CH5/Pictur
+es/./MPCSteadyStateHighLoad200Rpm.pdf>]
+
+LaTeX Warning: Reference `fig:M2PCNL_HE_Dyn_100to1000_low' on page 77 undefined
+ on input line 769.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_HE_Dyn_100to1000_rated' on page 77 undefin
+ed on input line 769.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_HE_ParamVariation' on page 77 undefined on
+ input line 800.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_ParamVariation' on page 77 undefined on in
+put line 800.
+
+[77 <./Chapters/CH5/Pictures/MPCDynamicResponseLowLoad.pdf> <./Chapters/CH5/Pic
+tures/MPCDynamicResponseHighLoad.pdf>]
+
+LaTeX Warning: Reference `fig:M2PCNL_HE_LoadVariation' on page 78 undefined on 
+input line 817.
+
+
+LaTeX Warning: Reference `fig:M2PCNL_LoadVariation' on page 78 undefined on inp
+ut line 817.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [78 <./Cha
+pters/CH5/Pictures/MPCParameterVariation.pdf>] [79 <./Chapters/CH5/Pictures/MPC
+LoadVariation.pdf>]
+
+LaTeX Warning: Reference `tab:steady_state_results' on page 80 undefined on inp
+ut line 844.
+
+
+LaTeX Warning: Reference `fig:steady_state_100rpm' on page 80 undefined on inpu
+t line 844.
+
+
+LaTeX Warning: Reference `fig:steady_state_200rpm' on page 80 undefined on inpu
+t line 844.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [80 <./Cha
+pters/CH5/Pictures/./SteadyState100Rpm.pdf>] [81 <./Chapters/CH5/Pictures/./Ste
+adyState200Rpm.pdf> <./Chapters/CH5/Pictures/./hardware_setup.pdf>]
+
+LaTeX Warning: Reference `fig:DynamicHE_response' on page 82 undefined on input
+ line 885.
+
+
+LaTeX Warning: Reference `fig:DynamicAll_response' on page 82 undefined on inpu
+t line 885.
+
+[82 <./Chapters/CH5/Pictures/./DynamicResponseHE.pdf> <./Chapters/CH5/Pictures/
+./DynamicResponseAll.pdf>]
+
+LaTeX Warning: Reference `fig:ParameterVariation' on page 83 undefined on input
+ line 905.
+
+[83 <./Chapters/CH5/Pictures/./ParameterVariation.pdf>]
+
+LaTeX Warning: Reference `tab:cpu_load_results' on page 84 undefined on input l
+ine 919.
+
+) [84 <./Chapters/CH5/Pictures/./CPU_Load_PI.png (PNG copy)> <./Chapters/CH5/Pi
+ctures/./CPU_Load_MPC_NHE.png (PNG copy)> <./Chapters/CH5/Pictures/./CPU_Load_M
+PC_HE.png (PNG copy)>]
+Chapter 6.
+(Chapters/Conclusion/Conclusion.tex
+Overfull \hbox (4.78004pt too wide) in paragraph at lines 8--9
+\OT1/ptm/m/n/12 THD at $\OT1/cmr/m/n/12 1000 []$\OT1/ptm/m/n/12 ) and well-damp
+ed dy-nam-ics; FCS{MPC ex-hibits the ex-pected staircase-
+[85]
+Underfull \vbox (badness 1264) has occurred while \output is active [86]
+Overfull \hbox (13.47993pt too wide) in paragraph at lines 30--31
+\OT1/ptm/m/n/12 Overall, the the-sis demon-strates that MMPC|particularly with 
+har-monic ex-trac-tion|offers
+)
+
+LaTeX Warning: Empty bibliography on input line 438.
+
+[87] (MAIN.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `MAIN.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+
+Package biblatex Warning: Please (re)run BibTeX on the file(s):
+(biblatex)                MAIN
+(biblatex)                and rerun LaTeX afterwards.
+
+ )
+(see the transcript file for additional information)<C:/Program Files/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmbx8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cmextra/cme
+x8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/P
+rogram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmmib10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/c
+m/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><
+C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Fi
+les/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/c
+m/cmsy6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><
+C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program F
+iles/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX/fonts/typ
+e1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmri8a.
+pfb>
+Output written on MAIN.pdf (91 pages, 26057042 bytes).
+Transcript written on MAIN.log.

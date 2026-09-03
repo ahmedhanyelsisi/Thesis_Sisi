@@ -25,7 +25,7 @@ MEASUREMENT SETUP SHOT FROM THE LAB HAS TO BE INCLUDED HERE.
 \label{subsec:Ls-osc}
 
 Inductances are identified by measuring the electrical time constant on the oscilloscope and then converting it to \(L\) using the known phase resistance. At standstill, align the rotor electrically at \(0^\circ\) (d–axis) and apply a small DC step along the d–axis; record the current step response \(i_d(t)\). Repeat at \(90^\circ\) (q–axis) to obtain \(i_q(t)\). With \(\omega_e\simeq 0\) each axis behaves as a first–order system with time constant \(\tau\) measured at 63\% of the steady state current, so the inductances follow directly from the current respone measurements as shown in Figure~\ref{fig:fcs-diagram}:
-\begin{figure}[h]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\textwidth]{./InductanceMeas}
 	\caption{DC-Step Test for Motor Inductance Measurements}
@@ -67,7 +67,7 @@ Applying the above with the oscilloscope-measured \(E_{\mathrm{LL,rms}}\) at \(1
 \boxed{\lambda_f = 0.1227~\text{Wb}}.
 \]
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\textwidth]{./FluxLinkageMeas}
 	\caption{No-Load back-EMF Test at 1000 RPM}
@@ -115,7 +115,7 @@ In a PWM two-level voltage-source inverter (VSI) the actual pole voltages differ
 
 Consider one switching period \(T_s\). Let \(T_u^\ast,T_v^\ast,T_w^\ast\) be the ideal upper-device on-times produced by SVM. Practical gating inserts a dead interval so that each leg conducts slightly less (or slightly more) than scheduled depending on the current polarity. Defining \(\operatorname{sgn}(i_{ph})\!:=\!+1\) as shown in (\ref{eq:phasedir}) if the phase current flows into the machine and \(-1\) otherwise (sign convention as in Figure \ref{fig:InverterNonlinearities}), the average phase-to-neutral voltage including dead time \(t_{\mathrm{dead}}\), commutation skews \(t_{\mathrm{ON}},t_{\mathrm{OFF}}\), and device drops is given, per phase \(u\), by the standard form (\ref{eq:vun}), and (\ref{eq:vun_star}):
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\textwidth]{./InverterNonlinearities}
 	\caption{Ideal versus non-ideal switching and the resulting phase voltage: (a) ideal gating waveforms; (b) gating with inserted dead time; (c) actual phase voltage for \(i_{ph}>0\); (d) actual phase voltage for \(i_{ph}<0\).}
