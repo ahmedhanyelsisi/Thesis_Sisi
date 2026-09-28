@@ -334,12 +334,12 @@ At 1000 rpm, the load torque was stepped from 10\% to 100\% of rated in 20\% inc
 \label{sec:mmpc}
 
 \subsection{Methodology}
-The rationale for moving beyond FCS–MPC (Sec.~\ref{sec:fcsmpc}) is straightforward. Applying a single active vector per period makes the switching frequency state-dependent and pushes actuation to the hexagon edges, which increases current ripple, spreads the spectrum, and forces heuristic switching-penalty tuning. The modulated predictive controller adopted here preserves the same one-step, model-based “look ahead and choose” idea, but it optimizes a continuous average voltage that is realized by space–vector modulation (SVM). Practically, at each sampling instant we evaluate what would happen if each inverter vector were applied over the next period, select the two adjacent active vectors that best reduce the current error, and compute their dwell times (plus a zero vector) so that the average current error over the period is driven to zero. The outcome is a fixed switching frequency by construction, reduced ripple and acoustic noise, an explicit voltage-feasibility check, and a clean path to include non-idealities as effective voltage biases. In this work, the electrical prediction uses a Forward–Euler discretization for simplicity and deterministic real-time load.
+The rationale for moving beyond FCS–MPC (Sec.~\ref{sec:fcsmpc}) is straightforward. Using one active voltage vector in each control period makes the switching frequency depend on the operating state and drives the applied voltage toward the boundaries of the rectifier hexagon. This can increase grid current ripples and THD, broaden the harmonic spectrum, and require heuristic adjustment of switching-penalty terms. The modulated predictive controller used in this work retains the same one-step, model-based prediction principle, but optimizes a continuous average voltage that is implemented through space-vector modulation (SVM). At every sampling instant, the controller predicts the effect of applying each voltage vector during the following period, identifies the two neighboring active vectors that most effectively reduce the current error, and calculates their dwell times together with that of a zero vector. The resulting average action drives the period-averaged current error toward zero. This approach inherently provides a fixed switching frequency, lowers current ripple and acoustic noise, verifies voltage feasibility explicitly. For a simple and deterministic real-time implementation, the electrical grid and AFE model in this work is discretized using the Forward–Euler method.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{M2PC}
-  \caption{Control schematic for the Modulated Model Predictive Controller Drive.}
+  \includegraphics[width=\linewidth]{M2PC_GRID_IEEE}
+  \caption{Control schematic for the Modulated Model Predictive Controller for AFE Rectifier.}
   \label{fig:m2pc-diagram}
 \end{figure}
 
