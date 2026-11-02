@@ -59,16 +59,16 @@ The choice between FCS-MPC and CCS-MPC depends on the requirements of the AFE re
 
 % -------- Figures placed near the discussion; LaTeX will float them --------
 
-\section{Finite-Control-Set MPC for a Two-Level Inverter}
+\section{Finite-Control-Set MPC for Active Front-End Rectifier}
 \label{sec:fcsmpc}
 
 \subsection{Methodology}
-Every sampling period, the inverter must output exactly one switching state. The idea of FCS–MPC is simple: we list the few admissible states, we predict what the motor currents would look like if we applied each one, we score those predictions with a small cost, and we choose the state with the lowest score. No duty computation and no PWM are required in the pure form as shown in Figure~\ref{fig:fcs-diagram}.
+Every sampling period, the rectifier shall provide the optimal switching state from all the possible switching states. FCS–MPC can be summarized as follows: All the allowable switching states are considered, the grid currents corresponding to every switching state are calculated and predicted.The switching state corresponding to the lowest cost function is selected and directly applied to the system.The chosen switching state is applied to the system without any duty cycles calulated or any PWM signals applied as shown in Figure~\ref{fig:fcs-diagram}.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{FCS}
-  \caption{Control schematic for the FCS–MPC drive.}
+  \caption{Control schematic for the FCS–MPC controlled AFE rectifier.}
   \label{fig:fcs-diagram}
 \end{figure}
 

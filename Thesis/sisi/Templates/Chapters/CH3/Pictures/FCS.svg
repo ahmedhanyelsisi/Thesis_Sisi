@@ -1401,7 +1401,7 @@
        id="path381-07"
        sodipodi:nodetypes="cc" />
     <ellipse
-       style="fill:url(#linearGradient11);fill-opacity:1;stroke:#000007;stroke-width:0.897147;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.897147;stroke-dasharray:none;stroke-opacity:1"
        id="path382"
        cx="196.75211"
        cy="30.568136"
@@ -1409,23 +1409,20 @@
        ry="12.728569" />
     <text
        xml:space="preserve"
-       style="font-size:7.83828px;font-family:cmmi10;-inkscape-font-specification:cmmi10;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:none;fill-opacity:0.988304;stroke:#000000;stroke-width:0.204598;stroke-dasharray:none"
-       x="210.81461"
+       style="font-size:7.83828px;font-family:cmmi10;-inkscape-font-specification:cmmi10;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+       x="216.1445"
        y="47.339046"
        id="text383"
        transform="scale(0.91030369,1.0985345)"><tspan
          sodipodi:role="line"
          id="tspan383"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.204598"
-         x="210.81461"
-         y="47.339046">PMSM</tspan></text>
-    <ellipse
-       style="fill:#fdfdfd;fill-opacity:0.97733;stroke:#000000;stroke-width:0.897;stroke-dasharray:none"
-       id="path383"
-       cx="196.6566"
-       cy="30.405294"
-       rx="6.6145754"
-       ry="8.1980619" />
+         x="216.1445"
+         y="47.339046">GRID</tspan></text>
+    <path
+       id="grid-sine-wave"
+       d="M 189.8,30.6 C 192.1,25.1 194.4,25.1 196.7,30.6 C 199,36.1 201.3,36.1 203.6,30.6"
+       style="fill:none;stroke:#000000;stroke-width:0.9;stroke-linecap:round" />
     <g
        id="g7820"
        transform="matrix(1.05833,0,0,1.05833,175.35717,12.0373)"
@@ -1601,12 +1598,12 @@
        sodipodi:nodetypes="cc" />
     <path
        style="fill:#000000;fill-opacity:0.988304;stroke:#000000;stroke-width:1.01432;stroke-dasharray:none"
-       d="m 73.772236,82.02522 h 83.040124 l 33.96963,-0.11625"
+       d="m 73.772236,82.02522 h 83.040124 l 39.11563,-0.11625"
        id="path381-0-07"
        sodipodi:nodetypes="ccc" />
     <g
        id="g1859"
-       transform="matrix(0,-3.0705085,2.5797731,0,178.72597,63.494151)"
+       transform="matrix(0,-3.0705085,2.5797731,0,183.87197,63.494151)"
        ns167:version="1.12.0"
        ns167:texconverter="pdflatex"
        ns167:pdfconverter="inkscape"
@@ -1643,7 +1640,7 @@
     </g>
     <path
        style="fill:#000000;fill-opacity:0.988304;stroke:#000000;stroke-width:1;stroke-dasharray:none"
-       d="M 192.32248,84.83922 V 71.791675 l -0.13207,-5.337419"
+       d="M 197.46848,84.83922 V 71.791675 l -0.13207,-5.337419"
        id="path381-0-73"
        sodipodi:nodetypes="ccc" />
     <path
@@ -1653,7 +1650,7 @@
        sodipodi:nodetypes="cc" />
     <path
        style="fill:#000000;fill-opacity:0.988304;stroke:#000000;stroke-width:1.02342;stroke-dasharray:none"
-       d="M 71.448977,84.54507 H 157.5767 l 35.23269,-0.11617"
+       d="M 71.448977,84.54507 H 157.5767 l 40.37869,-0.11617"
        id="path381-0-07-9"
        sodipodi:nodetypes="ccc" />
     <path
@@ -1663,7 +1660,7 @@
        sodipodi:nodetypes="cc" />
     <path
        style="fill:#000000;fill-opacity:0.988304;stroke:#000000;stroke-width:1;stroke-dasharray:none"
-       d="M 190.31451,82.42536 V 71.138792 l -0.13303,-4.617048"
+       d="M 195.46051,82.42536 V 71.138792 l -0.13303,-4.617048"
        id="path381-0-73-5"
        sodipodi:nodetypes="ccc" />
     <text
