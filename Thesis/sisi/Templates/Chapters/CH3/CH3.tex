@@ -72,26 +72,26 @@ Every sampling period, the rectifier shall provide the optimal switching state f
   \label{fig:fcs-diagram}
 \end{figure}
 
+In every control loop, the Grid voltages, the Grid currents and the DC-Link voltage are measured via current and voltage sensors. The grid electrical angle and the grid angular frequency are estimated via PLL. And the previous switching state is currently applied from previous control action to track the grid current references required.
 
-At the start of the control loop we have the measured/estimated currents, the electrical angle and speed, the DC-bus voltage, and the switching state that is currently being applied (from the previous decision). We also have the current references that we want to track at the prediction instant.
 \begin{equation}
 \label{eq:fcs-known}
 \mathbf i[k]=\begin{bmatrix}i_d[k]\\ i_q[k]\end{bmatrix},\quad
-\theta_e[k],\ \omega_e[k],\ V_{\mathrm{dc}}[k],\ \mathbf S[k{-}1], \mathbf i^{\ast}[k{+}2]
+\theta[k],\ \omega[k],\ V_{\mathrm{dc}}[k],\ \mathbf S[k{-}1], \mathbf i^{\ast}[k{+}2]
 \end{equation}
 
 
-Each inverter leg is either low ($0$) or high ($1$):
+Each rectifier leg is either low ($0$) or high ($1$):
 \begin{equation}
 \label{eq:fcs-S}
 \mathbf S=\begin{bmatrix}S_a\\ S_b\\ S_c\end{bmatrix}\in\{0,1\}^3 .
 \end{equation}
-There are six active states and two zero states as shown in Figure \ref{fig:InverterStates}. We usually test the six active states and optionally the zeros at very low speed or during limiting.
+There are six active states and two zero states as shown in Figure \ref{fig:InverterStates}. We usually test the six active states and optionally the two zero voltage vectors as well.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{./InverterStates}
-	\caption{Two Level Inverter Switching States}
+	\caption{Two Level Rectifier Switching States}
 	\label{fig:InverterStates}
 \end{figure}
 
@@ -110,40 +110,40 @@ We then rotate to the synchronous frame at the current electrical angle:
 \begin{bmatrix} v_d(\mathbf S_{i}) \\[2pt] v_q(\mathbf S_{i}) \end{bmatrix}
 =
 \begin{bmatrix}
-\cos\theta_e[k] & \sin\theta_e[k]\\[2pt]
--\sin\theta_e[k] & \cos\theta_e[k]
+\cos\theta[k] & \sin\theta[k]\\[2pt]
+-\sin\theta[k] & \cos\theta[k]
 \end{bmatrix}
 \begin{bmatrix} v_\alpha(\mathbf S_{i}) \\[2pt] v_\beta(\mathbf S_{i}) \end{bmatrix}.
 \end{equation}
 
-We use the SPMSM electrical model in $dq$ and a one-step (or two-step) forward–Euler update. The continuous-time model is
+The AFE rectifier model discussed in the previous chapter in $dq$ frame is used by applying forward–Euler. The continuous-time model is
 \begin{equation}
 \label{eq:fcs-ct}
 \begin{bmatrix}\dot i_d\\[2pt]\dot i_q\end{bmatrix}
 =
-\frac{1}{L_s}
+\frac{1}{L}
 \begin{bmatrix}
-- R_s & \ \ \ \omega_e L_s\\[2pt]
-- \omega_e L_s & - R_s
+- R & \ \ \ \omega L\\[2pt]
+- \omega L & - R
 \end{bmatrix}
 \begin{bmatrix} i_d\\[2pt] i_q\end{bmatrix}
 +
-\frac{1}{L_s}\begin{bmatrix} v_d\\[2pt] v_q\end{bmatrix}
-+
-\frac{1}{L_s}\begin{bmatrix} 0\\[2pt] -\omega_e \lambda_f\end{bmatrix}.
+\frac{1}{L}\begin{bmatrix} v_{\mathrm{s}d}\\[2pt] v_{\mathrm{s}q}\end{bmatrix}
+-
+\frac{1}{L}\begin{bmatrix} v_{\mathrm{conv}d}\\[2pt] v_{\mathrm{conv}q}\end{bmatrix}.
 \end{equation}
-Freezing coefficients at time $k$, the one-step prediction under $\mathbf S$ is
+Freezing the quantities at time $k$, the one-step prediction using the applied switching state $\mathbf S[k{-}1]$ is
 \begin{equation}
 \label{eq:fcs-euler}
-\hat{\mathbf i}[k{+}1 ]
+\hat{\mathbf i}[k{+}1]
 = \mathbf i[k]
-+\frac{T_s}{L_s}\!\left(
++\frac{T_s}{L}\!\left(
 \begin{bmatrix}
-- R_s & \ \ \ \omega_e[k] L_s\\[2pt]
-- \omega_e[k] L_s & - R_s
+- R & \ \ \ \omega[k] L\\[2pt]
+- \omega[k] L & - R
 \end{bmatrix}\!\mathbf i[k]
-+\begin{bmatrix} v_d(\mathbf S[k-1])\\[2pt] v_q(\mathbf S[k-1])\end{bmatrix}
-+\begin{bmatrix} 0\\[2pt] -\omega_e[k]\lambda_f\end{bmatrix}
++\begin{bmatrix} v_{\mathrm{s}d}[k]\\[2pt] v_{\mathrm{s}q}[k]\end{bmatrix}
+-\begin{bmatrix} v_{\mathrm{conv}d}(\mathbf S[k{-}1])\\[2pt] v_{\mathrm{conv}q}(\mathbf S[k{-}1])\end{bmatrix}
 \right)\!.
 \end{equation}
 We first advance one step using the \emph{previous} state, then advance a second step with the \emph{candidate} state:
@@ -154,13 +154,13 @@ We first advance one step using the \emph{previous} state, then advance a second
 \begin{equation}
 \label{eq:fcs-delay-2}
 \hat{\mathbf i}^{i}[k{+}2]=\hat{\mathbf i}[k{+}1]
-+\frac{T_s}{L_s}\!\left(
++\frac{T_s}{L}\!\left(
 \begin{bmatrix}
-- R_s & \ \ \ \omega_e[k] L_s\\[2pt]
-- \omega_e[k] L_s & - R_s
+- R & \ \ \ \omega[k] L\\[2pt]
+- \omega[k] L & - R
 \end{bmatrix}\!\hat{\mathbf i}[k{+}1]
-+\begin{bmatrix} v_d(\mathbf S_{i})\\[2pt] v_q(\mathbf S_{i})\end{bmatrix}
-+\begin{bmatrix} 0\\[2pt] -\omega_e[k]\lambda_f\end{bmatrix}
++\begin{bmatrix} v_{\mathrm{s}d}[k]\\[2pt] v_{\mathrm{s}q}[k]\end{bmatrix}
+-\begin{bmatrix} v_{\mathrm{conv}d}(\mathbf S_{i})\\[2pt] v_{\mathrm{conv}q}(\mathbf S_{i})\end{bmatrix}
 \right)\!.
 \end{equation}
 We compare \eqref{eq:fcs-euler} to a $k{+}1$ reference when there is no delay, and \eqref{eq:fcs-delay-2} to a $k{+}2$ reference when there is a one-sample delay.
@@ -197,18 +197,18 @@ We choose the state with the smallest cost and hand it to the gate driver:
 \subsection{Algorithm Summary}
 % FCS-MPCC in dq-frame — Summarized Steps (paste-ready)
 \begin{enumerate}
-  \item Define controller data: \(T_s\), machine/inverter parameters, limits, weights, and delay/dead-time compensation settings.
-  \item Acquire signals each \(T_s\): \(i_d,i_q\), \(\theta_e,\omega_e\), \(V_{dc}\) (and any estimator outputs).
-  \item Set references from outer loops: \(i_d^\star, i_q^\star\); apply saturation and rate limits.
-  \item Enumerate feasible inverter switching states (e.g., 8 for a 2-level VSI).
-  \item For each candidate state: compute its stator voltage vector, apply dead-time/device-drop compensation, and transform to the \(dq\) frame using \(\theta_e(k)\).
-  \item Predict next-step \(i_d,i_q\) for each candidate using the discrete PMSM model (include one-step delay compensation; optionally use a two-step horizon).
-  \item Evaluate a cost for each candidate:
+  \item Define controller data: \(T_s\), AFE rectifier parameters, limits and cost function weights.
+  \item Acquire signals each \(T_s\): \(i_d,i_q,v_{\mathrm{s}d},v_{\mathrm{s}q}\), \(\theta,\omega\), \(V_{dc}\).
+  \item Set grid current references from outer loops: \(i_d^\star, i_q^\star\); apply saturation and rate limits.
+  \item Enumerate feasible rectifier switching states (e.g., 8 for a 2-level AFE rectifier).
+  \item For each candidate state: compute its possible switching state voltage vector and transform to the \(dq\) frame using \(\theta(k)\).
+  \item Predict next-step \(i_d,i_q\) for each candidate using the discrete AFE rectifier model (compensate for one-step delay; two-step horizon can be used).
+  \item Calculate the cost function for each candidate:
         primary term = current-tracking error w.r.t. \(i_d^\star,i_q^\star\), and the switching effort;.
-  \item Enforce constraints and discard infeasible candidates (current/voltage/thermal/speed).
-  \item Select the candidate with minimum cost..
-  \item Apply the selected switching state for the next control period.
-  \item Update observers/estimators and any parameter adaptation; refresh \(\theta_e,\omega_e\); repeat each \(T_s\).
+  \item Apply voltage vector limits and ignore unfeasiable candidates (current and voltage vectors).
+  \item Select the candidate with the lowest cost function from all the feasible candidates.
+  \item Apply the optimal switching state for the next control period.
+  \item Update any electrical angle compensation; refresh \(\theta\); repeat each \(T_s\).
 \end{enumerate}
 
 
