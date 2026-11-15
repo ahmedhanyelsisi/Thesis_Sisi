@@ -1,487 +1,404 @@
-\graphicspath{{./Chapters/CH4/Pictures/}}
-\let\cleardoublepage\clearpage
+\label{ch:unbalance}
+\section{Introduction}
+The previous chapters presented the modeling and control of the three-phase active front-end (AFE) rectifier under balanced grid conditions. Chapter~2 introduced the rectifier model and vector-oriented control, while Chapter~3 discussed finite-control-set and modulated model predictive control approaches. Under balanced sinusoidal operation, the three grid voltages have equal magnitudes and are separated by $120^\circ$. In this case, the fundamental voltage and current components can be represented as constant quantities in a synchronous reference frame, which simplifies the design of the current controller and the regulation of active and reactive power.
 
-\section{Overview}
-\label{subsec:ch4-overview}
+In practical power systems, however, the grid voltages may become unbalanced because of asymmetrical faults, unequal loads, or differences in the impedances of the three phases. Under these conditions, the grid voltage contains both positive- and negative-sequence components. The negative-sequence component rotates in the opposite direction to the positive-sequence component and appears as a double-frequency oscillation in the positive synchronous reference frame. Consequently, a controller designed for balanced operation may experience oscillations in its measured variables and increased difficulty in tracking the desired grid currents.
 
-This chapter closes the gap between the ideal drive models used so far and the bench-realistic behavior observed on hardware. We proceed in two stages. First, we measure and identify the permanent-magnet synchronous motor (PMSM) parameters needed by analysis and control—stator resistance, synchronous inductances (or \(L_d,L_q\)), permanent-magnet flux linkage, pole pairs, and the mechanical pair \((J,B)\) with optional Coulomb friction. The emphasis is on practical, repeatable procedures that can be executed with readily available instrumentation (e.g., an RLC meter and the drive).
+Voltage unbalance also affects the power exchanged between the grid and the rectifier. The interaction between positive- and negative-sequence voltage and current components can produce oscillations in the instantaneous active and reactive powers. Active-power oscillations may, in turn, cause a double-frequency ripple in the DC-link voltage. Depending on the selected current references, unbalanced operation can also lead to unequal phase currents and increased current stress on the converter components. These effects make it necessary to consider current quality, power oscillations, and DC-link voltage regulation together when evaluating the performance of the AFE rectifier.
 
-Second, we model the inverter’s non-ideal behavior and show how it alters the voltages actually seen by the machine. The focus is on effects that matter most in low-speed, high-precision operation: dead time, device conduction drops and on-state resistances, current-polarity–dependent commutation asymmetries, and (when relevant) sampling/actuation delays and DC-bus ripple. We derive a compact average model that injects these distortions as additive biases to the ideal \(\alpha\beta/dq\) voltages, and we outline a straightforward bench characterization (“DC test”) that captures load-dependent deviations in a small lookup table. The identified motor parameters and the calibrated inverter model are then plugged into the simulation environment used throughout the thesis, providing a consistent basis for evaluating and tuning the model-predictive and PI–FOC controllers under realistic conditions.
+The control objectives under unbalanced conditions are not always independent. For a conventional three-phase, three-wire converter, the available current components limit the number of objectives that can be achieved simultaneously. For example, maintaining balanced grid currents and eliminating active-power oscillations may require different current references. The resulting choice also depends on the converter's current and voltage limits. Ma et al.~\cite{ma2015} discuss these controllability limitations. Their findings provide a useful basis for examining the trade-offs of the three-wire AFE considered in this thesis.
 
+This chapter extends the analysis of the previous chapters to unbalanced grid operation. It first describes the positive- and negative-sequence components and their representation in stationary and synchronous reference frames. It then examines their effects on grid currents, instantaneous power, and DC-link voltage that arise under voltage unbalance. This analysis establishes the background for assessing and developing AFE rectifier control strategies under non-ideal grid conditions.
 
-
-\section{Motor Parameters Measurement}
-\label{subsec:ch4-MotorParameters}
-\subsection{Motor Stator Resistance Measurement}
-The stator resistance \(R_s\) was measured with a two-wire LCR meter in series-RL mode at a low test frequency (typically 100–300 Hz), with the rotor stationary. For a wye-connected machine, the meter reading was taken line-to-line with the third terminal open, using the \emph{exact same long phase leads and harness} as in the bench setup—by design, no OPEN/SHORT compensation or lead subtraction was applied so that the identified resistance reflects the total copper path seen by the drive. Denoting the raw meter reading by \(R_{LL}^{(\mathrm{meas})}\), the per-phase value used in the \(dq\) model is
-\[
-R_s \;=\; \tfrac{1}{2}\,R_{LL}^{(\mathrm{meas})} =\tfrac{1}{2}\times 2.57~\Omega=1.25~\Omega.
-\]
-This harness-inclusive \(R_s=1.25~\Omega\) is the value adopted in the simulations and controller design.
-
-MEASUREMENT SETUP SHOT FROM THE LAB HAS TO BE INCLUDED HERE.
-
-\subsection{Motor Stator Inductance Measurement}
-\label{subsec:Ls-osc}
-
-Inductances are identified by measuring the electrical time constant on the oscilloscope and then converting it to \(L\) using the known phase resistance. At standstill, align the rotor electrically at \(0^\circ\) (d–axis) and apply a small DC step along the d–axis; record the current step response \(i_d(t)\). Repeat at \(90^\circ\) (q–axis) to obtain \(i_q(t)\). With \(\omega_e\simeq 0\) each axis behaves as a first–order system with time constant \(\tau\) measured at 63\% of the steady state current, so the inductances follow directly from the current respone measurements as shown in Figure~\ref{fig:fcs-diagram}:
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth]{./InductanceMeas}
-	\caption{DC-Step Test for Motor Inductance Measurements}
-	\label{fig:InductanceMeas}
-\end{figure}
-
-
-With the previously identified per-phase resistance \(R_s=1.25~\Omega\), the motor inductances are then computed by the following equations:
+\section{Transformations and sequence components}
+For a phase quantity \(x_{abc}=[x_a,x_b,x_c]^T\), the amplitude-invariant Clarke transformation is
+\begin{equation}\label{eq:ch4-clarke}
+\begin{bmatrix}x_\alpha\\x_\beta\\x_0\end{bmatrix}=
+\frac23\begin{bmatrix}1&-\frac12&-\frac12\\0&\frac{\sqrt3}{2}&-\frac{\sqrt3}{2}\\\frac12&\frac12&\frac12\end{bmatrix}
+\begin{bmatrix}x_a\\x_b\\x_c\end{bmatrix}.
+\end{equation}
+Its inverse is
 \begin{equation}
-\label{eq:Ld-from-tau-osc}
-L_d \;=\; R_s\,\tau_d, 
-\qquad
-L_q \;=\; R_s\,\tau_q,
+\begin{bmatrix}x_a\\x_b\\x_c\end{bmatrix}=
+\begin{bmatrix}1&0&1\\-\frac12&\frac{\sqrt3}{2}&1\\-\frac12&-\frac{\sqrt3}{2}&1\end{bmatrix}
+\begin{bmatrix}x_\alpha\\x_\beta\\x_0\end{bmatrix}.
+\end{equation}
+The zero-sequence variable is the arithmetic mean of the phase quantities. Zero-sequence voltage may exist relative to a chosen reference; however, a conventional three-wire AFE has \(i_a+i_b+i_c=0\), so zero-sequence line current cannot flow. Other topologies with an appropriate return path permit additional control variables \cite{ma2015}.
+
+Let \(\underline x=x_\alpha+jx_\beta\), \(\theta=\omega t+\theta_0\), and \(\underline X^\pm=x_d^\pm+jx_q^\pm\). Under a fundamental-frequency steady-state model,
+\begin{equation}\label{eq:seq}
+\underline x=\underline X^+e^{j\theta}+\underline X^-e^{-j\theta}.
+\end{equation}
+Positive and negative sequences rotate in opposite directions because of their opposite phase order. This expression applies separately to grid voltage \(\underline v_{\mathrm{s}}=v_\alpha+jv_\beta\), converter voltage \(\underline v_{\mathrm{conv}}=v_{\mathrm{conv}\alpha}+jv_{\mathrm{conv}\beta}\), and current \(\underline i=i_\alpha+ji_\beta\). The sequence coefficients \(\underline V_{\mathrm{s}}^\pm=v_{\mathrm{s}d}^\pm+jv_{\mathrm{s}q}^\pm\) represent the grid voltage in the corresponding synchronous frames. The voltage unbalance factor is \(u=|\underline V_{\mathrm{s}}^-|/|\underline V_{\mathrm{s}}^+|\), provided that \(|\underline V_{\mathrm{s}}^+|>0\).
+
+For \(s=+1\) or \(-1\), the positive or negative Park transformation is
+\begin{equation}\label{eq:ch4-park}
+\begin{bmatrix}x_d^s\\x_q^s\end{bmatrix}=
+\begin{bmatrix}\cos\theta&s\sin\theta\\-s\sin\theta&\cos\theta\end{bmatrix}
+\begin{bmatrix}x_\alpha\\x_\beta\end{bmatrix},\quad
+\underline x_{dq}^s=e^{-js\theta}\underline x.
+\end{equation}
+The inverse is \(\underline x=e^{js\theta}\underline x_{dq}^s\). In the positive frame, \eqref{eq:seq} becomes \(\underline X^++\underline X^-e^{-j2\theta}\); in the negative frame it becomes \(\underline X^-+\underline X^+e^{j2\theta}\). Hence each sequence is constant in its own frame and the opposite sequence appears at twice the fundamental frequency. This property underlies dual-frame current control \cite{song1999}.
+
+\section{Rectifier and DC-link models}
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=stealth,thick]
+\draw (0,0) rectangle (2.0,1.0);
+\node[align=center] at (1,0.5) {Three-phase\\grid};
+\draw (3.1,0) rectangle (5.1,1.0);
+\node[align=center] at (4.1,0.5) {Filter\\\(R,L\)};
+\draw (6.2,0) rectangle (8.2,1.0);
+\node[align=center] at (7.2,0.5) {PWM\\rectifier};
+\draw (9.3,0) rectangle (11.3,1.0);
+\node[align=center] at (10.3,0.5) {DC link\\and load};
+\draw[->] (2,0.5)--node[above] {\(p_{\mathrm{in}}\)} (3.1,0.5);
+\draw[->] (5.1,0.5)--node[above] {\(p_{\mathrm{out}}\)} (6.2,0.5);
+\draw[->] (8.2,0.5)--(9.3,0.5);
+\end{tikzpicture}
+\caption{Power-flow convention for the AFE and AC filter. Filter losses and stored-energy change separate \(p_{\mathrm{in}}\) from \(p_{\mathrm{out}}\).}
+\label{fig:powerflow}
+\end{figure}
+Assume equal filter inductances \(L\), resistances \(R\), and averaged converter phase voltages. The phase equations, with current toward the rectifier, are
+\begin{equation}\label{eq:abc}
+L\frac{di_k}{dt}=v_k-Ri_k-v_{\mathrm{conv}k},\qquad k\in\{a,b,c\}.
+\end{equation}
+Applying \eqref{eq:ch4-clarke} gives the stationary-frame model
+\begin{equation}\label{eq:model}
+L\dot{\underline i}=\underline v_{\mathrm{s}}-R\underline i-\underline v_{\mathrm{conv}}.
+\end{equation}
+For either synchronous rotation \(s\omega\), differentiation of \(\underline i=e^{js\theta}\underline i_{dq}^s\) yields
+\begin{equation}\label{eq:dqmodel}
+\begin{aligned}
+L\dot i_d^s&=v_{\mathrm{s}d}^s-Ri_d^s-v_{\mathrm{conv}d}^s+s\omega L i_q^s,\\
+L\dot i_q^s&=v_{\mathrm{s}q}^s-Ri_q^s-v_{\mathrm{conv}q}^s-s\omega L i_d^s.
+\end{aligned}
+\end{equation}
+The cross-coupling signs reverse in the negative frame. These equations apply to the complete signal in the selected frame or to the extracted corresponding sequence.
+
+Define grid and converter-terminal powers as \(p_{\mathrm{in}}=\sum v_ki_k\) and \(p_{\mathrm{out}}=\sum v_{\mathrm{conv}k}i_k\). With \(W_L=\tfrac12L\sum i_k^2\), multiplication of \eqref{eq:abc} by current and summation gives
+\begin{equation}\label{eq:energy}
+p_{\mathrm{in}}=p_{\mathrm{out}}+R\sum_{k=a,b,c}i_k^2+\frac{dW_L}{dt}.
+\end{equation}
+For an ideal converter, DC-link capacitance \(C\), voltage \(V_{\mathrm{dc}}\), and load power \(p_{\rm load}\),
+\begin{equation}\label{eq:dc}
+\frac{d}{dt}\left(\frac12 CV_{\mathrm{dc}}^2\right)=p_{\mathrm{out}}-p_{\rm load}.
+\end{equation}
+Converter losses can be included as an additional subtraction. Equations \eqref{eq:energy} and \eqref{eq:dc} show why the grid input power and power supplied to the DC link cannot generally be treated as identical \cite{li2010journal}.
+
+\section{Instantaneous active and reactive powers}
+For a zero-sequence-free system, choose
+\begin{equation}\label{eq:pq}
+p=\frac32(v_\alpha i_\alpha+v_\beta i_\beta),\qquad
+q=\frac32(v_\beta i_\alpha-v_\alpha i_\beta).
+\end{equation}
+Thus \(p+jq=\tfrac32\underline v_{\mathrm{s}}\,\underline i^*\). The \(3/2\) factor results from amplitude-invariant Clarke scaling. In this convention, positive \(q\) corresponds to a current lagging positive-sequence voltage.
+
+Let \(A=\underline V_{\mathrm{s}}^+\underline I^{+*}+\underline V_{\mathrm{s}}^-\underline I^{-*}\), \(B=\underline V_{\mathrm{s}}^+\underline I^{-*}\) and \(D=\underline V_{\mathrm{s}}^-\underline I^{+*}\). Substitution of \eqref{eq:seq} gives
+\begin{equation}\label{eq:complex}
+p+jq=\frac32\left(A+Be^{j2\theta}+De^{-j2\theta}\right).
+\end{equation}
+Opposite-sequence products produce power oscillations at twice the grid frequency. The power waveforms are
+\begin{equation}
+p=P_0+P_c\cos2\theta+P_s\sin2\theta,\quad
+q=Q_0+Q_c\cos2\theta+Q_s\sin2\theta.
+\end{equation}
+The coefficients are
+\begin{equation}\label{eq:coeff}
+\begin{aligned}
+P_0&=\tfrac32\Re A,& Q_0&=\tfrac32\Im A,\\
+P_c&=\tfrac32\Re(B+D),& P_s&=-\tfrac32\Im(B-D),\\
+Q_c&=\tfrac32\Im(B+D),& Q_s&=\tfrac32\Re(B-D).
+\end{aligned}
+\end{equation}
+These coefficients are explicit functions of positive- and negative-sequence \(dq\) components through the definitions of \(A\), \(B\) and \(D\). Additional voltage or current harmonics generate other power frequencies. The particular instantaneous reactive-power definition matters: Li et al. use an orthogonal time-delayed voltage in their unbalanced-grid formulation, so its ripple terms must not be silently equated with \eqref{eq:pq} \cite{li2010journal}.
+
+For compact reference generation, define \(a_+=v_{\mathrm{s}d}^+\), \(a_-=v_{\mathrm{s}d}^-\), \(b_+=v_{\mathrm{s}q}^+\), and \(b_-=v_{\mathrm{s}q}^-\), where \(v_{\mathrm{s}d}^+\) and \(v_{\mathrm{s}q}^+\) are the positive-sequence grid voltage components and \(v_{\mathrm{s}d}^-\) and \(v_{\mathrm{s}q}^-\) are the negative-sequence components. Let \(\bm i=[i_d^+,i_q^+,i_d^-,i_q^-]^T\) be the current vector. Then
+\begin{equation}\label{eq:matrix}
+\begin{bmatrix}P_0\\Q_0\\P_c\\P_s\\Q_c\\Q_s\end{bmatrix}
+=\frac32
+\begin{bmatrix}
+a_+&b_+&a_-&b_-\\
+b_+&-a_+&b_-&-a_-\\
+a_-&b_-&a_+&b_+\\
+b_-&-a_-&-b_+&a_+\\
+b_-&-a_-&b_+&-a_+\\
+-a_-&-b_-&a_+&b_+
+\end{bmatrix}\bm i.
 \end{equation}
 
-Following the procedure above, \(\tau_d\) equals 2.1227~\text{ms}  and \(\tau_q\) equals 2.1716~\text{ms} were read from the oscilloscope, and the inductances were computed via \eqref{eq:Ld-from-tau-osc} with \(R_s=1.25~\Omega\), yielding
-\[
-L_d=2.67~\text{mH},\qquad L_q=2.75~\text{mH}.
-\]
-These are the inductance values used in the electrical model and subsequent controller design.
+The four real current components cannot generally impose six independent power coefficients. Selecting four independent rows permits a solution when the resulting matrix is nonsingular, subject to current and converter-voltage constraints.
 
-MEASUREMENT SETUP SHOT FROM THE LAB HAS TO BE INCLUDED HERE.
-
-\subsection{Motor Flux Linkage Measurement}
-\label{subsec:lambda-emf-ll}
-
-The motor is driven as a generator by a prime mover at \(1000~\mathrm{rpm}\) with open stator terminals. Using a differential probe, the line–to–line no-load back-EMF is recorded on the oscilloscope as shown in Figure~\ref{fig:FluxLinkage} and its fundamental RMS value \(E_{\mathrm{LL,rms}}\) is extracted (single-tone FFT or narrowband filter at the electrical frequency). With pole–pair count \(p=4\), the speeds are
-\[
-\omega_m = 2\pi\frac{1000}{60}\ \text{rad/s},\qquad
-\omega_e = p\,\omega_m,
-\]
-and the flux linkage is computed directly from the scope measurement by
-\[
-\lambda_f \;=\; \frac{\sqrt{2}}{\sqrt{3}}\;\frac{E_{\mathrm{LL,rms}}}{\omega_e}.
-\]
-
-Applying the above with the oscilloscope-measured \(E_{\mathrm{LL,rms}}\) at \(1000~\mathrm{rpm}\) gives
-\[
-\boxed{\lambda_f = 0.1227~\text{Wb}}.
-\]
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth]{./FluxLinkageMeas}
-	\caption{No-Load back-EMF Test at 1000 RPM}
-	\label{fig:FluxLinkage}
-\end{figure}
-
-
-\subsection{Viscous Friction Measurement}
-\label{subsec:viscous-friction}
-
-The motor is driven at a sequence of constant mechanical speeds covering the operating range (e.g., from low rpm up to the rated region). At each target speed the drive is held until the signals stabilize—i.e., the speed derivative is negligible and the torque/current readings have settled—so that transients are removed. The steady values \((\omega_m,\,T_e)\) are then logged. Repeating this for all speed points produces a set of steady-state pairs suitable for identification.
-
-A smooth curve of torque versus speed is drawn by interpolating the measured points to aid visualization. The friction parameters are obtained by fitting the standard affine model
-\[
-T_e(\omega_m)=B\,\omega_m+T_c,
-\]
-where the slope \(B\) is the viscous friction coefficient \([\mathrm{N\,m\,s/rad}]\) and the \emph{intercept} \(T_c\) is the constant (Coulomb) friction torque \([\mathrm{N\,m}]\). The line fit (ordinary least squares) is performed on the measured \((\omega_m,\,T_e)\) data as shown in Figure~\ref{fig:ViscousFriction}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{./ViscousFriction}
-	\caption{Steady-State Torque-Speed Characteristic Test for Viscous Friction Identification}
-	\label{fig:ViscousFriction}
-\end{figure}
-
-\subsection{Motor Inertia Measurement}
-\label{subsec:inertia-coastdown}
-
-The rotor inertia \(J\) is identified from a \emph{free deceleration} test. The motor is accelerated to a target speed and then commanded to zero electromagnetic torque (e.g., \(i_q\!\to\!0\) or inverter disabled). The mechanical speed \(\omega_m(t)\) is logged until near standstill. Under the viscous–Coulomb friction model used in this chapter,
-\[
-J\,\dot{\omega}_m \;=\; -\,B\,\omega_m \;-\; T_c,
-\]
-so a linear fit of \(\dot{\omega}_m\) versus \(\omega_m\) yields \(\dot{\omega}_m = a\,\omega_m + b\) with \(a=-B/J\) and \(b=-T_c/J\). 
-
-Applying the above to the recorded coast–down data and using \(B=0.004775~\mathrm{N\,m\,s/rad}\) and \(T_c=0.2~\mathrm{N\,m}\), the identified rotor inertia is
-\[
-\boxed{J = 0.00636~\mathrm{kg\,m^2}}.
-\]
-
-\section{Inverter Non-Linearities Average Model for a Two-Level VSI}
-\label{sec:vsi-nonlinear-model}
-
-\subsection{Analytical Modeling}
-In a PWM two-level voltage-source inverter (VSI) the actual pole voltages differ from the ideal SVM targets because of dead time, finite turn-on/off delays, and device on-state drops in the transistor and anti-parallel diode. The resulting mismatch introduces low-frequency distortion in the phase voltages, which propagates to current ripple, harmonic torque, and degraded tracking effects that are well documented in the literature. 
-
-Consider one switching period \(T_s\). Let \(T_u^\ast,T_v^\ast,T_w^\ast\) be the ideal upper-device on-times produced by SVM. Practical gating inserts a dead interval so that each leg conducts slightly less (or slightly more) than scheduled depending on the current polarity. Defining \(\operatorname{sgn}(i_{ph})\!:=\!+1\) as shown in (\ref{eq:phasedir}) if the phase current flows into the machine and \(-1\) otherwise (sign convention as in Figure \ref{fig:InverterNonlinearities}), the average phase-to-neutral voltage including dead time \(t_{\mathrm{dead}}\), commutation skews \(t_{\mathrm{ON}},t_{\mathrm{OFF}}\), and device drops is given, per phase \(u\), by the standard form (\ref{eq:vun}), and (\ref{eq:vun_star}):
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth]{./InverterNonlinearities}
-	\caption{Ideal versus non-ideal switching and the resulting phase voltage: (a) ideal gating waveforms; (b) gating with inserted dead time; (c) actual phase voltage for \(i_{ph}>0\); (d) actual phase voltage for \(i_{ph}<0\).}
-	\label{fig:InverterNonlinearities}
-\end{figure}
-
-
-\begin{equation}
-\label{eq:phasedir}
-\operatorname{sgn}(i_{ph}) =
-\begin{cases}
-  1,  & i_{ph} > 0,\\[2pt]
- -1,  & i_{ph} < 0.
-\end{cases}
+\section{DC-link ripple}
+Suppose the net converter-terminal power has a small double-frequency component \(\widehat P_2\cos(2\omega t+\phi)\), with approximately constant load power. Write \(V_{\mathrm{dc}}=V_0+\widetilde v\), where \(|\widetilde v|\ll V_0\). Linearizing \eqref{eq:dc} gives
+\begin{equation}\label{eq:ripple}
+CV_0\frac{d\widetilde v}{dt}=\widehat P_2\cos(2\omega t+\phi),\qquad
+\widehat V_2\simeq\frac{\widehat P_2}{2\omega CV_0}.
 \end{equation}
+The amplitudes are peak values; the ripple frequency is \(100\) Hz for a \(50\)-Hz supply and \(120\) Hz for a \(60\)-Hz supply. This approximation excludes switching ripple and assumes a nearly constant DC-side load. From \eqref{eq:energy}, eliminating grid active-power ripple does not necessarily eliminate converter-terminal power ripple, because filter magnetic energy and resistive loss may still oscillate.
 
-\begin{equation}
-\label{eq:vun}
-v_{un}=\frac{V_{\!dc}-V_{\!CE}+V_D}{3T_s}\,\bigl(2T_u-T_v-T_w\bigr)
--\frac{V_{CE0}+V_{D0}}{6}\bigl(2\,\operatorname{sgn}i_u-\operatorname{sgn}i_v-\operatorname{sgn}i_w\bigr)
--\frac{R_{CE}+R_D}{2}\,i_u,
+\section{Current-reference objectives}
+Four fundamental current components allow a choice such as prescribed \(P_0,Q_0\) and \(P_c=P_s=0\), prescribed \(P_0,Q_0\) and \(Q_c=Q_s=0\), or prescribed average powers with zero negative-sequence current. In practice the demands must also respect phase-current and converter-voltage limits.
+
+For example, when \(Q_0=0\), \(\Delta=|\underline V_{\mathrm{s}}^+|^2-|\underline V_{\mathrm{s}}^-|^2\ne0\), and \(P^\star\) is the desired average grid power, the references
+\begin{equation}\label{eq:ipc}
+\underline I^{+\star}=\frac{2P^\star}{3\Delta}\underline V_{\mathrm{s}}^+,\qquad
+\underline I^{-\star}=-\frac{2P^\star}{3\Delta}\underline V_{\mathrm{s}}^-
 \end{equation}
-with the ideal counterpart
-\begin{equation}
-\label{eq:vun_star}
-v_{un}^\ast=\frac{V_{\!dc}-V_{\!CE}+V_D}{3T_s}\,\bigl(2T_u^\ast-T_v^\ast-T_w^\ast\bigr).
+give \(P_0=P^\star\), \(Q_0=0\), and \(P_c=P_s=0\) in \eqref{eq:complex}. The denominator illustrates the growing current demand as the sequence magnitudes approach equality. Current limiting and power curtailment may then be necessary.
+
+Alternatively, set \(\underline I^-=0\) to obtain balanced fundamental currents. For desired average powers \(P^\star,Q^\star\),
+\begin{equation}\label{eq:balanced}
+\underline I^{+\star}=\frac{2}{3}\frac{P^\star-jQ^\star}{\underline V_{\mathrm{s}}^{+*}}.
 \end{equation}
-Here the transistor and diode drops are captured by the usual current\-dependent linearizations
-\begin{equation}
-\label{eq:lin-drops}
-V_{\!CE}=V_{CE0}+R_{CE}\,\lvert i_{\!ph}\rvert,\qquad
-V_D=V_{D0}+R_D\,\lvert i_{\!ph}\rvert,
+This achieves the desired average powers but generally leaves both active- and reactive-power ripple because negative-sequence voltage interacts with positive-sequence current.
+
+\section{Continuous-time power-flow analysis in stationary and \(dq\) frames}
+\label{sec:li_wu_continuous}
+This section rewrites the principal relationships in real-valued, component and matrix form expressing equations in the stationary-frame. Grid voltage is \(v\), current directed toward the converter is \(i\), and converter AC terminal voltage is \(v_{\mathrm{conv}}\). \(p_{\mathrm{in}}\) denotes grid-side power and \(p_{\mathrm{out}}\) denotes converter-terminal power. The output of the AFE rectifier is connected to the DC link, whereas the input terminal is on the grid side of the AC filter. The AC-filter resistance is \(R\), its inductance is \(L\), and \(\theta(t)=\omega t+\theta_0\) unless stated otherwise.
+
+The relationships below are continuous-time averaged converter equations. Quantities evaluated from ideal switching states can contain components at the switching frequency. The fundamental-frequency power coefficients are obtained after adopting the stated averaged-waveform model. A fixed-frequency, sinusoidal steady state is assumed only where a constant sequence coefficient or quarter-cycle delay is explicitly introduced. The differential equations themselves do not require steady state.
+
+\subsection{Three-phase and stationary-frame converter equations}
+Let the upper-switch functions of the three bridge legs be \(S_a,S_b,S_c\). For an ideal two-level converter and a three-wire AC connection. The AC terminal voltages relative to the floating AC neutral are expressed as:
+\begin{equation}\label{eq:li_switching_abc}
+\begin{bmatrix}v_{\mathrm{conv}a}\\v_{\mathrm{conv}b}\\v_{\mathrm{conv}c}\end{bmatrix}
+=\frac{V_{\mathrm{dc}}}{3}
+\begin{bmatrix}
+2&-1&-1\\-1&2&-1\\-1&-1&2
+\end{bmatrix}
+\begin{bmatrix}S_a\\S_b\\S_c\end{bmatrix}.
 \end{equation}
-and the \emph{dead-time kernel}
-\begin{equation}
-\label{eq:Lambda}
-\Lambda=\frac{(V_{\!dc}-V_{\!CE}+V_D)\,(t_{\mathrm{dead}}+t_{\mathrm{ON}}-t_{\mathrm{OFF}})}{3T_s}+\frac{V_{CE0}+V_{D0}}{6}
+The same equation can be used for the averaged switching functions in an averaged model. The AC-side continuous-time model is
+\begin{equation}\label{eq:li_dynamics_ab}
+\begin{aligned}
+L\frac{di_\alpha}{dt}&=v_\alpha-Ri_\alpha-v_{\mathrm{conv}\alpha},\\
+L\frac{di_\beta}{dt}&=v_\beta-Ri_\beta-v_{\mathrm{conv}\beta},\\
+v_{\mathrm{conv}\alpha}&=V_{\mathrm{dc}}s_\alpha,\qquad
+v_{\mathrm{conv}\beta}=V_{\mathrm{dc}}s_\beta .
+\end{aligned}
 \end{equation}
-collects the polarity-dependent bias. Equations \eqref{eq:vun}–\eqref{eq:Lambda} summarize the combined effect of dead time, timing skews, and device drops on the average phase voltage.
+Here \(s_\alpha,s_\beta\) are the amplitude-invariant Clarke components of the three switching functions. Their relationship to the phase variables follows from \eqref{eq:ch4-clarke}; no zero-sequence current is present in the ideal three-wire model. If the converter is commanded with averaged switching functions, \eqref{eq:li_dynamics_ab} describes the fundamental and low-frequency behavior rather than individual switching transitions.
 
-Stacking the three phases, the error \(\boldsymbol{v}_{\!err}=\boldsymbol{v}^\ast-\boldsymbol{v}\) admits a compact expression:
-\begin{equation}
-\label{eq:verr-abc}
-\begin{bmatrix} v_{un}^{err}\\ v_{vn}^{err}\\ v_{wn}^{err}\end{bmatrix}
-=\Lambda
-\begin{bmatrix} 2&-1&-1\\ -1&2&-1\\ -1&-1&2\end{bmatrix}
-\begin{bmatrix}\operatorname{sgn}i_u\\ \operatorname{sgn}i_v\\ \operatorname{sgn}i_w\end{bmatrix}
-+\frac{R_{CE}+R_D}{2}\begin{bmatrix} i_u\\ i_v\\ i_w\end{bmatrix}.
+The DC-link current equation is
+\begin{equation}\label{eq:li_dc_current}
+C\frac{dV_{\mathrm{dc}}}{dt}
+=i_{\rm rec}-i_{\rm load},\qquad
+i_{\rm rec}=\frac32\left(s_\alpha i_\alpha+s_\beta i_\beta\right).
 \end{equation}
-This makes two ingredients explicit: (i) a polarity kernel driven by current signs that flips as the phase currents cross zero, and (ii) a small resistive drop proportional to phase current.
-
-Using the Clarke–Park transformations, the theoretical distortion voltages appearing in the synchronous model are
-\begin{equation}
-\label{eq:vdqth}
-\begin{bmatrix} v_d^{th}\\ v_q^{th}\end{bmatrix}
-= \;3\,K_{3s\!\to r}\,\Lambda
-\begin{bmatrix}\operatorname{sgn}i_u\\ \operatorname{sgn}i_v\\ \operatorname{sgn}i_w\end{bmatrix}
-+K_{3s\!\to r}\,\frac{R_{CE}+R_D}{2}\begin{bmatrix} i_u\\ i_v\\ i_w\end{bmatrix},
+The direction of \(i_{\rm rec}\) is positive into the DC-link node. Multiplying \eqref{eq:li_dc_current} by \(V_{\mathrm{dc}}\) yields
+\begin{equation}\label{eq:li_dc_power_ct}
+\frac{d}{dt}\!\left(\frac12CV_{\mathrm{dc}}^2\right)
+=\frac32\left(v_{\mathrm{conv}\alpha} i_\alpha+v_{\mathrm{conv}\beta} i_\beta\right)
+-V_{\mathrm{dc}}i_{\rm load}.
 \end{equation}
-where \(K_{3s\!\to r}\) is the standard \(3\! \to\! 2\) Park matrix evaluated at electrical angle \(\theta_e\),
-\begin{equation}
-\label{eq:K32}
-K_{3s\!\to r}=\frac{2}{3}
-\begin{pmatrix}
-\cos\theta_e & \cos(\theta_e\!-\!2\pi/3) & \cos(\theta_e\!+\!2\pi/3)\\[2pt]
--\sin\theta_e & -\sin(\theta_e\!-\!2\pi/3) & -\sin(\theta_e\!+\!2\pi/3)
-\end{pmatrix}\!.
+The bridge is assumed lossless in \eqref{eq:li_dc_power_ct}. The formula remains valid for a time-varying \(V_{\mathrm{dc}}\), provided \(v_{\mathrm{conv}\alpha}=V_{\mathrm{dc}}s_\alpha\) and \(v_{\mathrm{conv}\beta}=V_{\mathrm{dc}}s_\beta\) are evaluated at the same instant. It makes clear that a constant converter power alone does not produce constant voltage if the load power varies at the same time.
+
+\subsection{Positive- and negative-sequence \(dq\) dynamics}
+For a steady fundamental voltage and current, write the individual sequence components in real form. For any stationary-frame vector \((x_\alpha,x_\beta)\),
+\begin{equation}\label{eq:li_real_sequence}
+\begin{aligned}
+x_\alpha={}&x_d^+\cos\theta-x_q^+\sin\theta
++x_d^-\cos\theta+x_q^-\sin\theta,\\
+x_\beta={}&x_d^+\sin\theta+x_q^+\cos\theta
+-x_d^-\sin\theta+x_q^-\cos\theta .
+\end{aligned}
 \end{equation}
-In this form the non\-idealities enter the \(dq\) electrical equations as an additive bias to the commanded voltages. The cited analysis further notes that bus voltage and dead time dominate the distortion magnitude; the impact weakens as operating speed rises, and the dominant ripple in \(dq\) appears around \(6\omega_e\) (six times the electrical frequency), consistent with three\-phase symmetry. 
+The coefficients \(x_d^+,x_q^+\) are expressed in the positive synchronous frame and \(x_d^-,x_q^-\) in the negative synchronous frame. Equation \eqref{eq:li_real_sequence} applies separately to grid voltage \(v\), current \(i\), converter voltage \(v_{\mathrm{conv}}\), and the averaged switching vector \(s\), provided the corresponding fundamental sequence coefficients are used. It is equivalent to the compact complex representation in \eqref{eq:seq} but shows every sine and cosine explicitly.
 
-With \(\boldsymbol{v}_{dq}^{th}\) known from \eqref{eq:vdqth}, the synchronous PMSM model reads
-\begin{equation}
-\label{eq:pmsm-with-dist}
-\begin{bmatrix} v_d\\ v_q\end{bmatrix}
-=\begin{bmatrix} R & -\omega_e L_q\\ \omega_e L_d & R\end{bmatrix}
-\begin{bmatrix} i_d\\ i_q\end{bmatrix}
-+\begin{bmatrix} 0\\ \omega_e\lambda_f\end{bmatrix}
-+\begin{bmatrix} v_d^{th}\\ v_q^{th}\end{bmatrix},
+The sequence current dynamics are obtained from \eqref{eq:li_dynamics_ab} by the transformations in \eqref{eq:ch4-park}:
+\begin{equation}\label{eq:li_wu_dq_expanded}
+\begin{aligned}
+L\frac{di_d^+}{dt}&=v_{\mathrm{s}d}^+-Ri_d^+-v_{\mathrm{conv}d}^++\omega Li_q^+,&
+L\frac{di_q^+}{dt}&=v_{\mathrm{s}q}^+-Ri_q^+-v_{\mathrm{conv}q}^+-\omega Li_d^+,\\
+L\frac{di_d^-}{dt}&=v_{\mathrm{s}d}^--Ri_d^--v_{\mathrm{conv}d}^--\omega Li_q^-,&
+L\frac{di_q^-}{dt}&=v_{\mathrm{s}q}^--Ri_q^--v_{\mathrm{conv}q}^-+\omega Li_d^- .
+\end{aligned}
 \end{equation}
-so that any controller (PI, MPC, or observer\-based) can treat \([v_d^{th}\ v_q^{th}]^\top\) as a known feedforward bias (``theoretical'' part) and reserve an estimator for the small residual coming from parameter spread or temperature.
+The opposite signs of the cross-coupling terms follow from opposite frame rotation. The equations describe the dynamics of separately identified sequence components; expressing the total measured current in either frame still includes the opposite-sequence \(2\omega\) term. If the grid frequency changes, \(\omega\) in the frame equations is replaced by \(d\theta/dt\), and the validity of any fixed \(T/4\) delay must be reconsidered.
 
+\subsection{Grid active and reactive powers in \(dq\) variables}
+With amplitude-invariant scaling, the grid-side power definitions in \eqref{eq:pq} are
+\begin{equation}\label{eq:li_pq_real}
+p_{\mathrm{in}}=\frac32(v_\alpha i_\alpha+v_\beta i_\beta),\qquad
+q_{\mathrm{in}}=\frac32(v_\beta i_\alpha-v_\alpha i_\beta).
+\end{equation}
+Substituting \eqref{eq:li_real_sequence} for the voltage and current gives
+\begin{equation}\label{eq:li_grid_pq_ripple}
+\begin{aligned}
+p_{\mathrm{in}}&=P_{\mathrm{in},0}+P_{\mathrm{in},c}\cos2\theta+P_{\mathrm{in},s}\sin2\theta,\\
+q_{\mathrm{in}}&=Q_{\mathrm{in},0}+Q_{\mathrm{in},c}\cos2\theta+Q_{\mathrm{in},s}\sin2\theta .
+\end{aligned}
+\end{equation}
+The six coefficients can be written directly in \(dq\) components:
+\begin{equation}\label{eq:li_grid_P_real}
+\begin{aligned}
+P_{\mathrm{in},0}&=\frac32(v_{\mathrm{s}d}^+i_d^++v_{\mathrm{s}q}^+i_q^+
+                  +v_{\mathrm{s}d}^-i_d^-+v_{\mathrm{s}q}^-i_q^-),\\
+P_{\mathrm{in},c}&=\frac32(v_{\mathrm{s}d}^-i_d^++v_{\mathrm{s}q}^-i_q^+
+                  +v_{\mathrm{s}d}^+i_d^-+v_{\mathrm{s}q}^+i_q^-),\\
+P_{\mathrm{in},s}&=\frac32(v_{\mathrm{s}q}^-i_d^+-v_{\mathrm{s}d}^-i_q^+
+                  -v_{\mathrm{s}q}^+i_d^-+v_{\mathrm{s}d}^+i_q^-).
+\end{aligned}
+\end{equation}
+The coefficient \(P_{\mathrm{in},0}\) contains products of voltage and current from the same sequence. The coefficients \(P_{\mathrm{in},c}\) and \(P_{\mathrm{in},s}\) contain cross-sequence products. The latter therefore disappear for balanced positive-sequence voltage and current, but can persist if either the negative-sequence voltage or current is nonzero.
 
-\subsection{PI Controller Simulation Modeling Under Inverter-Nonlinearities Effects}
-This section validates the complete drive model and controllers through a focused suite of studies: (i) steady-state operation to verify ripple, losses, and harmonic content; (ii) low-speed operation to probe back-EMF limits and non-idealities; (iii)  dynamic performance under speed/current steps; (iv) parameter variation to gauge robustness against model mismatch; and (v) load variation to assess torque disturbance rejection.
-\subsubsection{Steady State Operation}
-With dead time and device drops enabled, the PI drive at 1000 rpm exhibits high harmonic content that a moderate-bandwidth controller (\(\approx\)20~Hz) cannot suppress. At \emph{low load} (10\% rated torque, \(0.3~\mathrm{N\,m}\)) the phase-current THD reaches 16.4\% (see Fig.~\ref{fig:PINL_1000rpm_low}); at \emph{medium load} (50\% rated torque, \(1.75~\mathrm{N\,m}\)) it falls to 4.3\% (see Fig.~\ref{fig:PINL_1000rpm_med}). The pattern is consistent with PWM non-idealities injecting polarity-dependent voltage biases that map, via three-phase symmetry, into prominent \(5^\text{th}\) and \(7^\text{th}\) harmonics; because these behave as additive voltage sources rather than simple plant shifts, a PI loop with limited crossover cannot reject them effectively, yielding elevated THD even though average torque and speed regulation remain correct.
+Using the cross-product reactive-power convention in \eqref{eq:li_pq_real}, the reactive coefficients are
+\begin{equation}\label{eq:li_grid_Q_real}
+\begin{aligned}
+Q_{\mathrm{in},0}&=\frac32(v_{\mathrm{s}q}^+i_d^+-v_{\mathrm{s}d}^+i_q^+
+                  +v_{\mathrm{s}q}^-i_d^--v_{\mathrm{s}d}^-i_q^-),\\
+Q_{\mathrm{in},c}&=\frac32(v_{\mathrm{s}q}^-i_d^+-v_{\mathrm{s}d}^-i_q^+
+                  +v_{\mathrm{s}q}^+i_d^--v_{\mathrm{s}d}^+i_q^-),\\
+Q_{\mathrm{in},s}&=\frac32(-v_{\mathrm{s}d}^-i_d^+-v_{\mathrm{s}q}^-i_q^+
+                  +v_{\mathrm{s}d}^+i_d^-+v_{\mathrm{s}q}^+i_q^-).
+\end{aligned}
+\end{equation}
+These equations are the expanded real form of \eqref{eq:matrix}. They do not add independent control degrees of freedom: the four fundamental current variables remain \(i_d^+,i_q^+,i_d^-,i_q^-\). With two prescribed average powers, only two further independent scalar constraints can generally be imposed without changing topology or adding other current components.
 
-\begin{figure}[H]
-  \centering
-  % --- (a) Low load under non-ideal inverter ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{./PIMidSpeedLowLoadSteadyState}
-    \caption{Low load: \(T=0.3~\mathrm{N\,m}\). \\THD \(=16.4\%\).}
-    \label{fig:PINL_1000rpm_low}
-  \end{subfigure}\hfill
-  % --- (b) Medium load under non-ideal inverter ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{./PIMidSpeedMidLoadSteadyState}
-    \caption{Medium load: \(T=1.75~\mathrm{N\,m}\).\\ THD \(=4.3\%\).}
-    \label{fig:PINL_1000rpm_med}
-  \end{subfigure}
+\subsection{Filter and converter-terminal power components}
+it is emphasized that the instantaneous input, filter and output powers must satisfy the same energy balance \cite{wu2008}. In stationary coordinates the resistance and inductor powers are
+\begin{equation}\label{eq:li_wu_filter_ct}
+\begin{aligned}
+p_R&=\frac32R(i_\alpha^2+i_\beta^2),\\
+p_L&=\frac32L\left(i_\alpha\frac{di_\alpha}{dt}
+                      +i_\beta\frac{di_\beta}{dt}\right)
+     =\frac{dW_L}{dt},\\
+p_{\mathrm{out}}&=p_{\mathrm{in}}-p_R-p_L .
+\end{aligned}
+\end{equation}
+These are continuous-time identities for equal \(R,L\), including transients and current harmonics. The instantaneous inductor power can have either sign because the inductor alternately stores and releases energy; it should not be treated as a dissipative loss.
 
-  \caption{PI steady-state at 50\% rated speed (1000 rpm) with inverter non-linearities enabled (dead time, device drops). The figure reports  phase currents, \(d\)- and \(q\)-axis currents, and the THD.}
-  \label{fig:PINL_1000rpm}
-\end{figure}
+For fixed fundamental sequence currents, define
+\begin{equation}\label{eq:li_wu_hj}
+\begin{aligned}
+S_i&=(i_d^+)^2+(i_q^+)^2+(i_d^-)^2+(i_q^-)^2,\\
+H&=i_d^+i_d^-+i_q^+i_q^-,\qquad
+J=i_q^+i_d^--i_d^+i_q^- .
+\end{aligned}
+\end{equation}
+Direct expansion of \eqref{eq:li_real_sequence} gives
+\begin{equation}\label{eq:li_wu_filter_2w}
+\begin{aligned}
+p_R&=\frac32RS_i+3R(H\cos2\theta-J\sin2\theta),\\
+p_L&=-3\omega L(H\sin2\theta+J\cos2\theta).
+\end{aligned}
+\end{equation}
+If either current sequence is zero, \(H=J=0\), so the ideal fundamental-current contribution to \(p_L\) is zero and \(p_R\) is constant. With both sequences present, their interaction creates the double-frequency filter-power terms in \eqref{eq:li_wu_filter_2w}. This is an important distinction from the grid-power oscillation, which also depends on the negative-sequence voltage.
 
-\subsubsection{Low Speed Operation}
-With dead time and device drops enabled, the PI drive at 200 rpm (10\% rated) shows pronounced distortion: at low load (10\% rated torque, \(0.3~\mathrm{N\,m}\)) the phase-current THD reaches 23.2\% (Fig.~\ref{fig:PINL_200rpm_low}), while at high load (100\% rated torque, \(3.5~\mathrm{N\,m}\)) it falls to 6.9\% (Fig.~\ref{fig:PINL_200rpm_high}). The pattern reflects polarity-dependent voltage biases that project into strong odd harmonics (notably \(5^\text{th}\)/\(7^\text{th}\)), which a PI loop with \(\approx\)20~Hz crossover cannot effectively reject. At 100 rpm (5\% rated), the same non-idealities consume much of the voltage headroom and the loop fails to settle—see Fig.~\ref{fig:PINL_100rpm_unstable}—indicating insufficient robustness of the present PI design in this extreme low-speed, non-ideal regime.
+Writing \(p_{\mathrm{out}}=P_{\mathrm{out},0}+P_{\mathrm{out},c}\cos2\theta+P_{\mathrm{out},s}\sin2\theta\), substitution into \eqref{eq:li_wu_filter_ct} yields
+\begin{equation}\label{eq:li_wu_output_coeff}
+\begin{aligned}
+P_{\mathrm{out},0}&=P_{\mathrm{in},0}-\frac32RS_i,\\
+P_{\mathrm{out},c}&=P_{\mathrm{in},c}-3RH+3\omega LJ,\\
+P_{\mathrm{out},s}&=P_{\mathrm{in},s}+3RJ+3\omega LH .
+\end{aligned}
+\end{equation}
+These three equations connect the input-power coefficients to the converter-terminal power and show explicitly why \(P_{\mathrm{in},c}=P_{\mathrm{in},s}=0\) does not generally imply \(P_{\mathrm{out},c}=P_{\mathrm{out},s}=0\). Conversely, some control strategies can enforce \(P_{\mathrm{out},c}=P_{\mathrm{out},s}=0\) by allowing nonzero input-power coefficients. The associated converter-power ripple amplitude is
+\begin{equation}\label{eq:li_wu_output_amplitude}
+\widehat P_{\mathrm{out},2}=\sqrt{P_{\mathrm{out},c}^{\,2}+P_{\mathrm{out},s}^{\,2}}.
+\end{equation}
+Equations \eqref{eq:li_wu_filter_2w}--\eqref{eq:li_wu_output_amplitude} assume constant fundamental sequence-current coefficients. During transients, \eqref{eq:li_wu_filter_ct} remains the appropriate starting point because derivatives of the changing sequence components contribute to the inductor power.
 
-% Requires in preamble:
-% \usepackage{graphicx}
-% \usepackage{subcaption}
+\subsection{DC-link voltage: exact differential equation and harmonic response}
+Under the assumption of a resistive DC load, it is shown how oscillating converter output current leads to DC-link voltage ripple \cite{wu2008}. For a load resistance \(R_l\), define \(G=1/R_l\). Equation \eqref{eq:li_dc_current} becomes
+\begin{equation}\label{eq:wu_resistive_ode}
+C\frac{dV_{\mathrm{dc}}}{dt}+GV_{\mathrm{dc}}=i_{\rm rec}(t).
+\end{equation}
+This equation is exact for a constant resistor and a prescribed rectifier output current. Its solution is
+\begin{equation}\label{eq:wu_resistive_solution}
+V_{\mathrm{dc}}(t)=V_{\mathrm{dc}}(0)e^{-Gt/C}
++\frac1C\int_0^t e^{-G(t-\tau)/C}i_{\rm rec}(\tau)\,d\tau .
+\end{equation}
+The first term is the natural response. The second term shows the filtering of the current supplied by the bridge. In a closed-loop rectifier, \(i_{\rm rec}\) depends on the AC current, switching command, and DC voltage; the expression is not an assertion that this current is independent of the rest of the system.
 
-% ---------- PI @ 10% rated (200 rpm) under inverter non-linearities ----------
-\begin{figure}[H]
-  \centering
-  % Low load (10% rated torque)
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{./PISteadyStateLowLoad200Rpm}
-    \caption{Low load: \(T=0.3~\mathrm{N\,m}\). THD \(=23.2\%\).}
-    \label{fig:PINL_200rpm_low}
-  \end{subfigure}\hfill
-  % High/rated load (100% rated torque)
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{./PISteadyStateHighLoad200Rpm}
-    \caption{Rated load: \(T=3.5~\mathrm{N\,m}\). THD \(=6.9\%\).}
-    \label{fig:PINL_200rpm_high}
-  \end{subfigure}
+For an illustrative steady periodic current component at angular frequency \(\Omega\), let
+\begin{equation}
+i_{\rm rec}=I_0+I_c\cos\Omega t+I_s\sin\Omega t .
+\end{equation}
+After the natural response has decayed, \(V_{\mathrm{dc}}=V_0+V_c\cos\Omega t+V_s\sin\Omega t\), where
+\begin{equation}\label{eq:wu_voltage_coefficients}
+\begin{aligned}
+V_0&=\frac{I_0}{G},\\
+V_c&=\frac{GI_c-\Omega C I_s}{G^2+(\Omega C)^2},\\
+V_s&=\frac{\Omega C I_c+GI_s}{G^2+(\Omega C)^2},\\
+\widehat V_\Omega&=\frac{\sqrt{I_c^2+I_s^2}}{\sqrt{G^2+(\Omega C)^2}} .
+\end{aligned}
+\end{equation}
+At \(\Omega=2\omega\), these equations describe the second-harmonic current contribution to the DC-link voltage for the specified resistive load. The load conductance affects both magnitude and phase. The simpler power-ripple approximation in \eqref{eq:ripple} neglects that load response and is valid under its separately stated constant-load-power and small-ripple assumptions; it must not be substituted for \eqref{eq:wu_voltage_coefficients} without checking the load model.
 
-  \caption{PI controller at 200 rpm (10\% rated) with inverter non-linearities enabled (dead time, device drops). Each panel shows The figure reports  phase currents, \(d\)- and \(q\)-axis currents, and the THD. Prominent odd harmonics (notably 5th/7th) elevate THD at low load; the higher fundamental at rated load reduces the relative distortion.}
-  \label{fig:PINL_200rpm}
-\end{figure}
+More generally, if the output current has components at \(2\omega,4\omega,\ldots\), each component can be inserted into \eqref{eq:wu_voltage_coefficients} using its own \(\Omega\), and the resulting voltage components superposed because \eqref{eq:wu_resistive_ode} is linear in \(V_{\mathrm{dc}}\) for a prescribed current. The bridge output power, however, is the product \(p_{\mathrm{out}}=V_{\mathrm{dc}}i_{\rm rec}\). Multiplying two waveforms containing DC, \(2\omega\), and \(4\omega\) terms can generate DC and components at \(2\omega,4\omega,6\omega\), and \(8\omega\). This product explains the higher even-order power terms and their presence depends on the harmonic content and operating conditions and is not implied by a model containing only constant fundamental sequence coefficients.
 
-% ---------- PI @ 5% rated (100 rpm) under inverter non-linearities: unstable case ----------
-\begin{figure}[H]
-  \centering
-  % Replace with your exported plot/image
-  \includegraphics[width=0.6\linewidth]{./PISteadyStateLowLoad100Rpm}
-  \caption{PI controller at 100 rpm (5\% rated) with inverter non-linearities enabled. The combination of dead time/device drops and limited loop bandwidth leads to failure to settle (unstable/oscillatory response). The figure reports  phase currents, \(d\)- and \(q\)-axis currents, and the THD.}
-  \label{fig:PINL_100rpm_unstable}
-\end{figure}
+%\subsection{Second- and fourth-harmonic bridge current in \(dq\) form}
+% Consider a simplified harmonic model in which the averaged switching vector contains positive- and negative-sequence fundamental components, while the AC current contains fundamental and third-harmonic components. Let \(S_d^\pm,S_q^\pm\) be the fundamental switching coefficients, \(i_d^\pm,i_q^\pm\) the fundamental current coefficients, and \(i_{3d}^\pm,i_{3q}^\pm\) the third-harmonic coefficients in frames rotating at \(\pm3\omega\). This is a restricted illustration, not a complete converter harmonic model; switching harmonics, other current orders and time-varying coefficients can add further terms.
 
-\subsubsection{Dynamic Performance}
-With dead time and device drops enabled, speed steps within the 5–50\% band reveal a low-speed limitation: when the request includes 5\% (100~rpm), the PI loop fails to settle at both low load and rated load. For commands \(\mathbf{\ge}10\%\) of rated (200–1000~rpm), the same controller tracks cleanly with well-damped transients and negligible steady-state error. These behaviors are consolidated in the two summary plots: Fig.~\ref{fig:PINL_Dyn_low} (low load, multiple speed transitions) and Fig.~\ref{fig:PINL_Dyn_rated} (rated load, multiple speed transitions).
+%For compact real \(dq\) notation define
+%\begin{equation}\label{eq:wu_dot_cross}
+%\begin{aligned}
+%D(\bm S,\bm i)&=S_d i_d+S_q i_q,\\
+%K(\bm S,\bm i)&=S_q i_d-S_d i_q.
+%\end{aligned}
+%\end{equation}
+%Substituting these components into \eqref{eq:li_dc_current} yields
+%\begin{equation}\label{eq:wu_idc_024}
+%i_{\rm rec}=I_0+I_{2c}\cos2\theta+I_{2s}\sin2\theta
+                  %+I_{4c}\cos4\theta+I_{4s}\sin4\theta .
+%\end{equation}
+%The average component is
+%\begin{equation}
+%I_0=\frac32\left[D(\bm S^+,\bm i^+)+D(\bm S^-,\bm i^-)\right].
+%\end{equation}
+%The double-frequency coefficients are
+%\begin{equation}\label{eq:wu_i2}
+%\begin{aligned}
+%I_{2c}=\frac32\bigl[&
+%D(\bm S^+,\bm i^-)+D(\bm S^-,\bm i^+)\\
+%&+D(\bm S^-,\bm i_3^-)+D(\bm S^+,\bm i_3^+)\bigr],\\
+%I_{2s}=\frac32\bigl[&
+%-K(\bm S^+,\bm i^-)+K(\bm S^-,\bm i^+)\\
+%&-K(\bm S^-,\bm i_3^-)+K(\bm S^+,\bm i_3^+)\bigr].
+%\end{aligned}
+%\end{equation}
+%The fourth-frequency coefficients are
+%\begin{equation}\label{eq:wu_i4}
+%\begin{aligned}
+%I_{4c}&=\frac32\left[D(\bm S^+,\bm i_3^-)
+                         %+D(\bm S^-,\bm i_3^+)\right],\\
+%I_{4s}&=\frac32\left[-K(\bm S^+,\bm i_3^-)
+                         %+K(\bm S^-,\bm i_3^+)\right].
+%\end{aligned}
+%\end{equation}
+%The first two terms of each double-frequency coefficient come from fundamental positive--negative interactions. The remaining terms in \eqref{eq:wu_i2} and all terms in \eqref{eq:wu_i4} depend on the assumed third-harmonic currents. Thus a \(4\omega\) component in this example is not created by a pair of fixed fundamental sequences alone.
 
-\begin{figure}[H]
-  \centering
-  % --- (a) Low load ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image stacking multiple speed transitions
-    \includegraphics[width=\linewidth]{./DynamicResponsePILowLoad}
-    \caption{Low load (\(T=0.3~\mathrm{N\,m}\)). Includes 5–50\% speed transitions; fails to settle at 5\% (100 rpm), tracks cleanly for \(\ge\)10\%.}
-    \label{fig:PINL_Dyn_low}
-  \end{subfigure}\hfill
-  % --- (b) Rated load ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image stacking multiple speed transitions
-    \includegraphics[width=\linewidth]{./DynamicResponsePIHighLoad}
-    \caption{Rated load (\(T=3.5~\mathrm{N\,m}\)). Same behavior: unstable at 5\%, well-damped for \(\ge\)10\%.}
-    \label{fig:PINL_Dyn_rated}
-  \end{subfigure}
+%For a resistive load, the corresponding second- and fourth-harmonic DC voltage coefficients follow by applying \eqref{eq:wu_voltage_coefficients} separately with \(\Omega=2\omega\), \((I_c,I_s)=(I_{2c},I_{2s})\), and with \(\Omega=4\omega\), \((I_c,I_s)=(I_{4c},I_{4s})\). Their peak magnitudes are
+%\begin{equation}\label{eq:wu_v24}
+%\begin{aligned}
+%\widehat V_2&=\frac{\sqrt{I_{2c}^2+I_{2s}^2}}
+                    %{\sqrt{G^2+(2\omega C)^2}},\\
+%\widehat V_4&=\frac{\sqrt{I_{4c}^2+I_{4s}^2}}
+                    %{\sqrt{G^2+(4\omega C)^2}} .
+%\end{aligned}
+%\end{equation}
+%These are derived representations of the harmonic coupling described by Wu et al., written in the chapter's frame convention. They apply to the specified assumed switching and current spectra and a constant resistive load; they are not a claim that the cited paper used exactly the same symbols or truncation.
 
-  \caption{PI dynamic performance under inverter non-linearities (dead time, device drops) with multiple speed transitions in the 5–50\% band. Each subfigure shows command vs.\ speed, \(i_q\), and phase currents. The controller fails to settle at 5\% (100 rpm) but tracks cleanly for \(\ge\)10\% of rated speed across both load conditions.}
-  \label{fig:PINL_Dyn}
-\end{figure}
+\subsection{AC current harmonics and their coupling to power}
+The fundamental-sequence model gives a particularly compact \(0\) and \(2\omega\) power decomposition. To include current harmonics without assuming a particular controller, write the stationary current as a sum of rotating components
+\begin{equation}\label{eq:wu_harmonic_general}
+\begin{aligned}
+i_\alpha(t)&=\sum_h I_h\cos(\sigma_h h\omega t+\phi_h),\\
+i_\beta(t)&=\sum_h I_h\sin(\sigma_h h\omega t+\phi_h),
+\qquad \sigma_h\in\{-1,+1\}.
+\end{aligned}
+\end{equation}
+Here \(h\) is a positive harmonic order, \(\sigma_h\) describes its rotation direction, and \(I_h\) is a peak space-vector magnitude. A fundamental voltage interacting with a current component of order \(h\) can produce power components at the corresponding sum or difference of their signed angular frequencies. Thus a third-harmonic current can contribute \(2\omega\) or \(4\omega\) terms depending on its sequence, while higher odd-order currents can produce higher even-order power terms. Interactions among multiple current harmonics also affect \(p_R\) and \(p_L\) through the quadratic expressions in \eqref{eq:li_wu_filter_ct}.
 
-\subsubsection{Parameter Variation}
-To probe worst-case robustness, the PI controller was evaluated at 10\% rated speed (200~rpm) with inverter non-idealities (dead time, device drops) while the motor model used for tuning was biased by \(R_s{+}25\%\) and \(L_{d,q}{-}25\%\). This perturbation shortens the electrical time constant (\(\tau=L/R \rightarrow 0.60\,\tau\)), shifts the plant pole, and detunes the PI crossover/cutoff relative to the true plant. As illustrated in Fig.~\ref{fig:PINL_ParamVariation}, the phase-current THD increases from 23.2\% (nominal parameters) to 24.2\% under the bias—a modest but measurable degradation consistent with reduced disturbance-rejection margin when the PI bandwidth drifts in the presence of additive inverter distortion.
-\begin{figure}[H]
-  \centering
-  % Replace with your exported composite plot (e.g., speed, dq-currents, phase currents, THD bars)
-  \includegraphics[width=0.8\linewidth]{./PIParameterVariation}
-  \caption{PI controller under parameter variation with inverter non-linearities at 200 rpm (10\% rated).}
-  \label{fig:PINL_ParamVariation}
-\end{figure}
-
-\subsubsection{Load Variation}	
-With dead time and device drops enabled, the motor was held at 1000 rpm while the load torque was stepped from 10\% to 100\% of rated in 20\% increments, each plateau maintained to steady state. As shown in Fig.~\ref{fig:PINL_LoadVariation}, the PI loop preserves the commanded speed without appreciable droop; the \(q\)-axis current \(i_q\) rises in clean, proportional steps to furnish the added torque, and the phase currents—though exhibiting extra ripple from non-idealities—remain bounded and well behaved. Transients are short and well damped across all steps, evidencing robust disturbance rejection despite the inverter’s harmonic bias.
-% Requires in preamble:
-% \usepackage{graphicx}
-
-\begin{figure}[H]
-  \centering
-  % Replace with your exported composite plot:
-  % (left) speed response, (middle) q-axis current, (right) phase currents
-  \includegraphics[width=0.6\linewidth]{./PILoadVariation}
-  \caption{PI controller under load variation at 50\% rated speed (1000 rpm) with inverter non-linearities
-  (dead time, device drops). The composite plot shows motor speed, \(i_q\), and phase currents during torque steps
-  from 10\% to 100\% of rated in 20\% increments.}
-  \label{fig:PINL_LoadVariation}
-\end{figure}
-
-\subsection{Finite Control Set Model Predictive Simulation Modeling Under Inverter-Nonlinearities Effects}
-\subsubsection{Steady State Operation}
-With dead time and device drops enabled, the FCS–MPC at 1000 rpm and 50\% rated load (\(1.75~\mathrm{N\,m}\)) yields a phase–current THD of 17\% (see Fig.~\ref{fig:FCSNL_1000rpm_med}). The elevated distortion is consistent with single–vector actuation interacting with polarity–dependent voltage biases to project strong odd harmonics—especially \(5^\text{th}\) and \(7^\text{th}\). At this operating point the THD is slightly higher than the PI baseline reported at the same speed (\(\approx\)16.4\%; see Fig.~\ref{fig:PINL_1000rpm_low}).
-
-\begin{figure}[H]
-  \centering
-  % Replace with your exported plot/image
-  \includegraphics[width=0.6\linewidth]{FCSMidSpeedMidLoadSteadyState}
-  \caption{FCS–MPC steady state at 50\% rated speed (1000 rpm) and 50\% rated load (\(1.75~\mathrm{N\,m}\)) with inverter non-linearities (dead time, device drops). The plot shows phase currents, \(d\)- and \(q\)-axis currents, and THD.}
-  \label{fig:FCSNL_1000rpm_med}
-\end{figure}
-
-\subsubsection{Low Speed Operation}
-With dead time and device drops enabled, the FCS–MPC struggles at the most challenging operating point: in sensorless mode at 5\% rated speed (100~rpm) and low load, the controller cannot stabilize because the weak back-EMF and single-vector actuation make the effective voltage quantization too coarse for reliable angle/torque regulation. From 10\% rated (200~rpm) upward the loop settles; at low load the harmonic content remains high—THD 34\%, as shown in Fig.~\ref{fig:FCSNL_200rpm_low}—whereas at high load the larger commanded voltage reduces the vector mismatch and THD drops to 5.6\%, see Fig.~\ref{fig:FCSNL_200rpm_high}. Compared to PI at the same conditions (23\% at low load, 6.9\% at high load), FCS is inferior at light load but shows an advantage at high torque.
-% Requires in preamble:
-% \usepackage{graphicx}
-% \usepackage{subcaption}
-
-\begin{figure}[H]
-  \centering
-  % --- (a) Low load @ 10% speed (200 rpm) ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{FCSSteadyStateLowLoad200Rpm}
-    \caption{Low load: \(T=0.3~\mathrm{N\,m}\). THD \(=34\%\).}
-    \label{fig:FCSNL_200rpm_low}
-  \end{subfigure}\hfill
-  % --- (b) High/rated load @ 10% speed (200 rpm) ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{FCSSteadyStateHighLoad200Rpm}
-    \caption{Rated load: \(T=3.5~\mathrm{N\,m}\). THD \(=5.6\%\).}
-    \label{fig:FCSNL_200rpm_high}
-  \end{subfigure}
-
-  \caption{FCS–MPC at 10\% rated speed (200 rpm) with inverter non-linearities (dead time, device drops). 
-  Each panel shows phase currents, \(i_{dq}\), and THD.}
-  \label{fig:FCSNL_200rpm}
-\end{figure}
-
-\subsubsection{Dynamic Performance}
-With dead time and device drops enabled, the FCS–MPC was commanded over 5–50\% rated (100–1000~rpm) at \emph{low load} (\(0.3~\mathrm{N\,m}\)). As shown in Fig.~\ref{fig:FCSNL_Dyn_low}, tracking at higher set-points is acceptable, but the step-down to 10\% (200~rpm) loses stability: weak back-EMF and additive voltage bias degrade the sensorless angle SNR, bias one-step predictions, and—under single-vector actuation—lead to suboptimal vector choices and coarse staircase voltages; the loop oscillates and fails to settle, evidencing degraded dynamic robustness in this regime.
-% Requires in preamble:
-% \usepackage{graphicx}
-
-\begin{figure}[H]
-  \centering
-  % Replace with your exported plot/image for the low-load dynamic test
-  \includegraphics[width=0.6\linewidth]{./FCSDynamicResponseLowLoad}
-  \caption{FCS–MPC dynamic performance under inverter non-linearities at low load (\(T=0.3~\mathrm{N\,m}\)).
-  The figure aggregates multiple speed transitions within the 5–50\% rated band (100–1000 rpm), showing command vs.\ speed,
-  \(d\)- and \(q\)-axis currents, and phase currents.}
-  \label{fig:FCSNL_Dyn_low}
-\end{figure}
-
-\subsubsection{Parameter Variation}
-At 10\% rated speed (200~rpm) with dead time and device drops enabled, the FCS–MPC was run using a deliberately biased prediction model (\(R_s{+}25\%\), \(L_{d,q}{-}25\%\)) while the plant remained unchanged. As illustrated in Fig.~\ref{fig:FCSNL_ParamVariation}, under the low-load case (\(T\!\approx\!0.3~\mathrm{N\,m}\)) the phase-current THD increases from 34\% (nominal model) to 40\%. This is characteristic of FCS: one-step predictions pick a single vector each sample, so \(R\!-\!L\) errors misrank candidates and, in the presence of polarity-dependent inverter biases, exacerbate the staircase voltage, amplifying harmonics and torque ripple.
-% Requires in preamble:
-% \usepackage{graphicx}
-
-\begin{figure}[H]
-  \centering
-  % Replace with your exported composite plot (e.g., speed, dq currents, phase currents, THD bars)
-  \includegraphics[width=0.6\linewidth]{FCSParameterVariation}
-  \caption{FCS–MPC with inverter non-linearities (dead time, device drops) under parameter variation at 10\% rated speed (200 rpm, low load \(T\!\approx\!0.3~\mathrm{N\,m}\)).
-  The prediction model is biased with \(R_s{+}25\%\) and \(L_{d,q}{-}25\%\) while the plant is unchanged. The composite plot shows \(d\)- and \(q\)-axis currents, phase currents, and THD.}
-  \label{fig:FCSNL_ParamVariation}
-\end{figure}
-
-\subsubsection{Load Variation}
-With dead time and device drops enabled, the motor was held at 1000 rpm while the load torque stepped from 10\% to 100\% of rated in 20\% increments. As shown in Fig.~\ref{fig:FCSNL_LoadVariation}, the FCS–MPC maintains the commanded speed without failures or steady-state deviation—\(i_q\) rises in proportional steps and the average torque matches the request—yet the phase currents exhibit pronounced ripple and the electromagnetic torque shows a high ripple floor. This follows from FCS’s single-vector actuation, whose staircase phase voltage, compounded by polarity-dependent inverter biases, injects strong low-order harmonics despite robust regulation during the load sweep.
-% Requires in preamble:
-% \usepackage{graphicx}
-
-\begin{figure}[H]
-  \centering
-  % Replace with your exported composite plot (speed, i_q, phase currents, torque ripple if available)
-  \includegraphics[width=0.6\linewidth]{FCSLoadVariation}
-  \caption{FCS–MPC under load variation at 50\% rated speed (1000 rpm) with inverter non-linearities
-  (dead time, device drops). The composite plot shows motorspeed, \(i_q\), and phase currents during torque steps
-  from 10\% to 100\% of rated in 20\% increments.}
-  \label{fig:FCSNL_LoadVariation}
-\end{figure}
-
-\subsection{Modulated Model Predictive Controller Simulation Modeling Under Inverter-Nonlinearities Effects}
-\subsubsection{Steady State Operation}
-With dead time and device drops enabled at 1000 rpm, the M2PC sustains tight regulation and markedly lower distortion than PI or FCS across loads. At \emph{low load} (10\% rated torque, \(0.3~\mathrm{N\,m}\)) the phase-current THD is 8\% (vs.\ \(\sim\)16\% for PI), see Fig.~\ref{fig:M2PCNL_1000rpm_low}; at medium load (50\% rated torque, \(1.75~\mathrm{N\,m}\)) it falls to 2\% (vs.\ \(\sim\)4\% for PI and \(\sim\)17\% for FCS), see Fig.~\ref{fig:M2PCNL_1000rpm_med}. The advantage stems from optimizing a continuous average voltage each sample and realizing it via fixed-frequency SVM, which concentrates spectral energy at the carrier and treats non-idealities as additive biases that can be explicitly compensated—thereby suppressing the staircase ripple that penalizes FCS and outperforming the moderate-bandwidth PI loop at the same operating point.
-
-\begin{figure}[H]
-  \centering
-  % --- (a) Low load (10% rated torque) ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{MPCMidSpeedLowLoadSteadyState}
-    \caption{Low load: \(T=0.3~\mathrm{N\,m}\). \\THD \(=8\%\).}
-    \label{fig:M2PCNL_1000rpm_low}
-  \end{subfigure}\hfill
-  % --- (b) Medium load (50% rated torque) ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{MPCMidSpeedMidLoadSteadyState}
-    \caption{Medium load: \(T=1.75~\mathrm{N\,m}\).\\ THD \(=2\%\).}
-    \label{fig:M2PCNL_1000rpm_med}
-  \end{subfigure}
-
-  \caption{M2PC steady state at 50\% rated speed (1000 rpm) with inverter non-linearities (dead time, device drops). Each panel shows \(i_{dq}\), phase currents, and THD at both load levels.}
-  \label{fig:M2PCNL_1000rpm}
-\end{figure}
+In a conventional three-wire system, zero-sequence line current cannot flow. A triplen harmonic that is identical in all three phase currents is therefore excluded; any third-harmonic component considered in a three-wire analysis must be compatible with the zero-sum phase-current constraint. The existence and magnitude of a third- or higher-order current are properties of the converter and closed-loop response, not unavoidable consequences of voltage unbalance alone.
 
 \newpage
-\subsubsection{Low Speed Operation}
-With dead time and device drops enabled, the M2PC remains robust in sensorless operation at very low speeds. At 5\% rated (100~rpm), the phase-current THD is 6.9\% at low load (\(0.3~\mathrm{N\,m}\), see Fig.~\ref{fig:M2PCNL_100rpm_low}) and 1.1\% at rated load (\(3.5~\mathrm{N\,m}\), see Fig.~\ref{fig:M2PCNL_100rpm_high}); at this speed both PI and FCS are unstable. At 10\% rated (200~rpm), MPC yields 6.6\% THD at low load (\(0.5~\mathrm{N\,m}\), see Fig.~\ref{fig:M2PCNL_200rpm_low}) and 1.1\% at rated load (\(3.5~\mathrm{N\,m}\), see Fig.~\ref{fig:M2PCNL_200rpm_high}), compared to \(\sim\)34\%/5.6\% for FCS and \(\sim\)23\%/6.9\% for PI.
-% Requires in preamble:
-% \usepackage{graphicx}
-% \usepackage{subcaption}
-
-\begin{figure}[H]
-  \centering
-
-  % --- (a) 5% rated (100 rpm), low load ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{./MPCSteadyStateLowLoad100Rpm}
-    \caption{5\% speed (100 rpm), low load \(T=0.3~\mathrm{N\,m}\); THD \(=6.9\%\).}
-    \label{fig:M2PCNL_100rpm_low}
-  \end{subfigure}\hfill
-  % --- (b) 5% rated (100 rpm), rated load ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{./MPCSteadyStateHighLoad100Rpm}
-    \caption{5\% speed (100 rpm), rated load \(T=3.5~\mathrm{N\,m}\); THD \(=1.1\%\).}
-    \label{fig:M2PCNL_100rpm_high}
-  \end{subfigure}
-
-  \vspace{0.6em}
-
-  % --- (c) 10% rated (200 rpm), low load ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{./MPCSteadyStateLowLoad200Rpm}
-    \caption{10\% speed (200 rpm), low load \(T=0.5~\mathrm{N\,m}\); THD \(=6.6\%\).}
-    \label{fig:M2PCNL_200rpm_low}
-  \end{subfigure}\hfill
-  % --- (d) 10% rated (200 rpm), rated load ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{./MPCSteadyStateHighLoad200Rpm}
-    \caption{10\% speed (200 rpm), rated load \(T=3.5~\mathrm{N\,m}\); THD \(=1.1\%\).}
-    \label{fig:M2PCNL_200rpm_high}
-  \end{subfigure}
-
-  \caption{M2PC at low speeds with inverter non-linearities (dead time, device drops). Each panel shows motor speed, \(i_q\), and phase currents. MPC remains stable at 5\% and 10\% of rated speed and achieves low THD across loads.}
-  \label{fig:M2PCNL_low_speed}
-\end{figure}
-
-\subsubsection{Dynamic Performance}
-With dead time and device drops enabled, the M2PC tracks speed commands within the 10–50\% band (100–1000~rpm) cleanly at both low load (\(0.3~\mathrm{N\,m}\); see Fig.~\ref{fig:M2PCNL_Dyn_100to1000_low}) and rated load (\(3.5~\mathrm{N\,m}\); see Fig.~\ref{fig:M2PCNL_Dyn_100to1000_rated}). In all transitions the measured speed follows the reference with overshoot \(\mathbf{<10\%}\) and negligible steady-state error, while \(i_q\) steps proportionally to torque demand. Thanks to optimizing a continuous average voltage each sample and realizing it at fixed switching frequency, the phase currents remain smooth and torque ripple is far lower than FCS and distinctly lower than PI throughout acceleration and deceleration.
-% Requires in preamble:
-% \usepackage{graphicx}
-% \usepackage{subcaption}
+\subsection{Modeling and Simulations}
+This section validates the complete drive model and controllers through a focused suite of studies: (i) steady-state operation to verify ripple, losses, and harmonic content; (ii) low-speed operation to probe back-EMF limits and non-idealities; (iii)  dynamic performance under speed/current steps; (iv) parameter variation to gauge robustness against model mismatch; and (v) load variation to assess torque disturbance rejection.
+\subsubsection{Steady State Operation}
+With an ideal plant/inverter (no non-linearities or disturbances), the modulated MPC (SVM-based) holds 1000 rpm with very low harmonic content across loads: at low load (10\% rated torque, \(0.3~\mathrm{N\,m}\)) the phase-current THD is 0.4\% (see Fig.~\ref{fig:M2PCIdeal_1000rpm_low}), and at medium load (50\% rated torque, \(1.75~\mathrm{N\,m}\)) it is 0.7\% (see Fig.~\ref{fig:M2PCIdeal_1000rpm_med}). The improved spectral cleanliness stems from optimizing a continuous average voltage each sample and realizing it via SVM at fixed switching frequency, which suppresses staircase ripple. In this ideal setting the modulated MPC delivers robust steady-state operation with lower THD than PI at the same speed/load and far below FCS, while maintaining tight speed regulation.
 
 \begin{figure}[H]
   \centering
@@ -489,52 +406,132 @@ With dead time and device drops enabled, the M2PC tracks speed commands within t
   \begin{subfigure}{0.485\textwidth}
     \centering
     % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{MPCDynamicResponseLowLoad}
-    \caption{Low load: \(T=0.3~\mathrm{N\,m}\). Overshoot \(<10\%\); smooth \(i_q\)/phase currents.}
-    \label{fig:M2PCNL_Dyn_100to1000_low}
+    \includegraphics[width=\linewidth]{./MPCMidSpeedLowLoadSteadyState}
+    \caption{Low load: \(T=0.3~\mathrm{N\,m}\),\\ THD \(=0.4\%\).}
+    \label{fig:M2PCIdeal_1000rpm_low}
+  \end{subfigure}\hfill
+  % --- (b) Medium load ---
+  \begin{subfigure}{0.485\textwidth}
+    \centering
+    % Replace with your exported plot/image
+    \includegraphics[width=\linewidth]{./MPCMidSpeedMidLoadSteadyState}
+    \caption{Medium load: \(T=1.75~\mathrm{N\,m}\),\\ THD \(=0.7\%\).}
+    \label{fig:M2PCIdeal_1000rpm_med}
+  \end{subfigure}
+
+  \caption{Modulated MPC (SVM-based) steady state at 50\% rated speed (1000 rpm, ideal model). Each panel shows phase currents, \(i_{dq}\), and THD. The modulated formulation yields very low harmonic content at both loads.}
+  \label{fig:M2PCIdeal_1000rpm}
+\end{figure}
+
+\subsubsection{Low Speed Operation}
+Under an ideal plant/inverter (no non-linearities or disturbances), the modulated MPC maintains accurate sensorless control at very low speeds. At 5\% rated (100~rpm), the phase-current THD is 0.3\% at low load (\(0.3~\mathrm{N\,m}\), see Fig.~\ref{fig:M2PCIdeal_100rpm_low}) and 0.4\% at rated load (\(3.5~\mathrm{N\,m}\), see Fig.~\ref{fig:M2PCIdeal_100rpm_high}); at 10\% rated (200~rpm), the THD is 0.5\% at low load (\(0.3~\mathrm{N\,m}\), see Fig.~\ref{fig:M2PCIdeal_200rpm_low}) and 0.1\% at rated load (\(3.5~\mathrm{N\,m}\), see Fig.~\ref{fig:M2PCIdeal_200rpm_high}). Across these cases the controller tracks with negligible steady-state error and fixed-frequency, SVM-based actuation that suppresses staircase ripple. Overall, the low-speed THD is comparable to or better than the PI baseline and far below FCS, evidencing robust performance under all tested loads in the absence of disturbances.
+% Requires in preamble:
+% \usepackage{graphicx}
+% \usepackage{subcaption}
+
+% ---------- MPC at 5% rated (100 rpm) ----------
+\begin{figure}[t]
+  \centering
+  % Low load
+  \begin{subfigure}{0.485\textwidth}
+    \centering
+    % Replace with your exported plot/image
+    \includegraphics[width=\linewidth]{./MPCSteadyStateLowLoad100Rpm}
+    \caption{Low load: \(T=0.3~\mathrm{N\,m}\); THD \(=0.3\%\).}
+    \label{fig:M2PCIdeal_100rpm_low}
+  \end{subfigure}\hfill
+  % Rated load
+  \begin{subfigure}{0.485\textwidth}
+    \centering
+    % Replace with your exported plot/image
+    \includegraphics[width=\linewidth]{./MPCSteadyStateHighLoad100Rpm}
+    \caption{Rated load: \(T=3.5~\mathrm{N\,m}\); THD \(=0.4\%\).}
+    \label{fig:M2PCIdeal_100rpm_high}
+  \end{subfigure}
+  \caption{Modulated MPC (SVM-based) at 5\% rated speed (100 rpm, ideal model). Each panel shows phase currents, \(i_{dq}\), and THD.}
+  \label{fig:M2PCIdeal_100rpm}
+\end{figure}
+
+% ---------- MPC at 10% rated (200 rpm) ----------
+\begin{figure}[t]
+  \centering
+  % Low load
+  \begin{subfigure}{0.485\textwidth}
+    \centering
+    % Replace with your exported plot/image
+    \includegraphics[width=\linewidth]{./MPCSteadyStateLowLoad200Rpm}
+    \caption{Low load: \(T=0.3~\mathrm{N\,m}\); THD \(=0.5\%\).}
+    \label{fig:M2PCIdeal_200rpm_low}
+  \end{subfigure}\hfill
+  % Rated load
+  \begin{subfigure}{0.485\textwidth}
+    \centering
+    % Replace with your exported plot/image
+    \includegraphics[width=\linewidth]{./MPCSteadyStateHighLoad200Rpm}
+    \caption{Rated load: \(T=3.5~\mathrm{N\,m}\); THD \(=0.1\%\).}
+    \label{fig:M2PCIdeal_200rpm_high}
+  \end{subfigure}
+  \caption{Modulated MPC (SVM-based) at 10\% rated speed (200 rpm, ideal model). Each panel shows phase currents, \(i_{dq}\), and THD.}
+  \label{fig:M2PCIdeal_200rpm}
+\end{figure}
+
+\subsubsection{Dynamic Performance}
+With an ideal plant/inverter (no non-linearities or disturbances), the modulated MPC tracks speed commands within the 10–50\% band (100~rpm \(\rightarrow\) 1000~rpm) cleanly at both load extremes. At \emph{low load} (10\% rated, \(0.3~\mathrm{N\,m}\)), Fig.~\ref{fig:M2PCDyn_100to1000_low} shows overshoot \(\mathbf{<10\%}\) and negligible steady-state error; at rated load (\(3.5~\mathrm{N\,m}\)), Fig.~\ref{fig:M2PCDyn_100to1000_rated} exhibits similarly well-damped behavior with a modestly slower rise. In both cases, the SVM-realized average voltage yields markedly smoother \(i_q\)/phase currents—far lower torque ripple than FCS and noticeably lower than PI—confirming robust dynamic performance across the tested range.
+% Requires in preamble:
+% \usepackage{graphicx}
+% \usepackage{subcaption}
+
+\begin{figure}[t]
+  \centering
+  % --- (a) Low load ---
+  \begin{subfigure}{0.485\textwidth}
+    \centering
+    % Replace with your exported plot/image
+    \includegraphics[width=\linewidth]{./MPCDynamicResponseLowLoad}
+    \caption{Low load: \(T=0.3~\mathrm{N\,m}\). Overshoot \(<10\%\); negligible steady-state error; smooth \(i_q\)/phase currents.}
+    \label{fig:M2PCDyn_100to1000_low}
   \end{subfigure}\hfill
   % --- (b) Rated load ---
   \begin{subfigure}{0.485\textwidth}
     \centering
     % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{MPCDynamicResponseHighLoad}
-    \caption{Rated load: \(T=3.5~\mathrm{N\,m}\). Overshoot \(<10\%\); very low torque ripple.}
-    \label{fig:M2PCNL_Dyn_100to1000_rated}
+    \includegraphics[width=\linewidth]{./MPCDynamicResponseHighLoad}
+    \caption{Rated load: \(T=3.5~\mathrm{N\,m}\). Overshoot \(<10\%\); slightly slower rise; very low torque ripple.}
+    \label{fig:M2PCDyn_100to1000_rated}
   \end{subfigure}
 
-  \caption{M2PC dynamic response with inverter non-linearities (dead time, device drops) for speed changes within the \(10\%\!\to\!50\%\) rated band (100–1000 rpm). Each panel shows command vs.\ speed, \(i_q\), and phase currents.}
-  \label{fig:M2PCNL_Dyn_100to1000}
+  \caption{Modulated MPC (SVM-based) dynamic response (ideal model) for speed changes within the \(10\%\!\to\!50\%\) rated band (100~rpm to 1000~rpm). Each panel shows command vs.\ speed, \(i_q\), and phase currents. The modulated formulation yields markedly smoother currents and lower torque ripple than FCS and PI.}
+  \label{fig:M2PCDyn_100to1000}
 \end{figure}
 
 \subsubsection{Parameter Variation}
-At 5\% rated speed (100~rpm) with dead time and device drops enabled, the M2PC was run using a biased prediction model (\(R_s{+}25\%\), \(L_{d,q}{-}25\%\)). As shown in Fig.~\ref{fig:M2PCNL_ParamVariation}, the phase-current THD remains 8\%, markedly lower than the PI and FCS results under the same bias (Fig.~\ref{fig:PINL_ParamVariation}: \(\sim\)24\%; Fig.~\ref{fig:FCSNL_ParamVariation}: \(\sim\)40\%). The fixed-frequency SVM realization of an optimized continuous average voltage makes MPC largely insensitive to moderate \(R\!-\!L\) errors and limits the impact of additive inverter distortions, yielding robust low-speed performance.
+At 5\% rated speed (100~rpm), using a biased prediction model (\(R_s{+}25\%\), \(L_{d,q}{-}25\%\)) leaves the modulated MPC’s steady-state quality unchanged: phase-current THD stays at 0.3\% (Fig.~\ref{fig:M2PCParamVariation}). The fixed-frequency, SVM-based actuation and per-sample voltage optimization make the controller largely insensitive to moderate \(R\!-\!L\) errors—more robust than PI (1.3\% \(\rightarrow\) 1.7\%) and far better than FCS (32\% \(\rightarrow\) 41\%).
+
 % Requires in preamble:
 % \usepackage{graphicx}
 
 \begin{figure}[H]
   \centering
-  % Replace with your exported composite plot (e.g., speed, dq currents, phase currents, THD bar)
-  \includegraphics[width=0.6\linewidth]{MPCParameterVariation}
-  \caption{M2PC under parameter variation with inverter non-linearities (dead time, device drops) at
-  5\% rated speed (100 rpm). The prediction model is biased with \(R_s{+}25\%\) and \(L_{d,q}{-}25\%\).
-  The composite plot shows \(d\)- and \(q\)-axis currents, phase currents, and THD.}
-  \label{fig:M2PCNL_ParamVariation}
+  % Replace with your exported composite plot (speed, dq currents, phase currents, THD)
+  \includegraphics[width=0.6\linewidth]{./MPCParameterVariation}
+  \caption{Modulated MPC under parameter variation at 5\% rated speed (100 rpm, ideal model).
+  The prediction model uses \(R_s{+}25\%\) and \(L_{d,q}{-}25\%\). The figure reports  phase currents, \(d\)- and \(q\)-axis currents, and the THD comparison, which remains at \(\mathbf{0.3\%}\)—indistinguishable from the no-variation case—indicating high robustness of bandwidth/cutoff and harmonic performance.}
+  \label{fig:M2PCParamVariation}
 \end{figure}
 
 \subsubsection{Load Variation}
-With dead time and device drops enabled, the motor was held at 1000 rpm while the load torque was stepped from 10\% to 100\% of rated in 20\% increments. As shown in Fig.~\ref{fig:M2PCNL_LoadVariation}, the M2PC maintains the commanded speed without droop, while \(i_q\) increases in clean, proportional steps to furnish the added torque and the phase currents remain smooth thanks to the fixed-frequency SVM realization of the optimized average voltage. The short, well-damped transients visible in Fig.~\ref{fig:M2PCNL_LoadVariation} evidence robust disturbance rejection and low ripple despite inverter non-linearities.
+At 1000 rpm the load torque was stepped from 10\% to 100\% of rated in 20\% increments, each held to steady state. As shown in Fig.~\ref{fig:M2PCLoadVariation}, the modulated MPC maintains the commanded speed without droop; \(i_q\) increases in clean, proportional steps to furnish the added torque, and the phase currents remain smooth thanks to the fixed-frequency SVM realization of the optimized average voltage. Transients are well damped and steady-state ripple stays low throughout, evidencing robust disturbance rejection under load changes.
 % Requires in preamble:
 % \usepackage{graphicx}
 
 \begin{figure}[H]
   \centering
-  % Replace with your exported composite plot:
-  % (left) speed response, (middle) q-axis current, (right) phase currents
-  \includegraphics[width=0.6\linewidth]{MPCLoadVariation}
-  \caption{M2PC under load variation at 50\% rated speed (1000 rpm) with inverter non-linearities
-  (dead time, device drops). The composite figure shows command vs.\ speed, \(i_q\), and phase currents during torque steps
-  from 10\% to 100\% of rated in 20\% increments.}
-  \label{fig:M2PCNL_LoadVariation}
+  % Replace with your exported composite plot that contains
+  % (left) speed response, (middle) dq-currents, (right) phase currents
+  \includegraphics[width=0.6\linewidth]{./MPCLoadVariation}
+  \caption{Modulated MPC under load variation at 50\% rated speed (1000 rpm, ideal model).
+  The composite figure shows motor speed, \(q\)-axis currents, and phase currents during torque steps from 10\% to 100\% of rated in 20\% increments.}
+  \label{fig:M2PCLoadVariation}
 \end{figure}
 
-
+% bridge to proposed controller
