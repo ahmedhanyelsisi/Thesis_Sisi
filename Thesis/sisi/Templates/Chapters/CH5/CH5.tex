@@ -1,951 +1,658 @@
-\graphicspath{{./Chapters/CH5/Pictures/}}
-\let\cleardoublepage\clearpage
-\newcommand{\dfeq}[1]{\;\overset{\text{def}}{=}\;\label{eq:#1}}
+% Chapter source. Required packages/libraries are listed in ch5_preamble.tex.
+% Contains its own \chapter command; do not add a second one in the main file.
+% Existing Chapter 4 equation labels are referenced without modification.
+\chapter{Proposed IOPC-Integrated Modulated Predictive Current Control in the Stationary Reference Frame}
+\label{ch:proposed-iopc-mmpcc}
 
+\section{Introduction}
+The preceding chapters established the mathematical model of the three-phase active front-end (AFE) rectifier, its conventional control, and the principles of finite-control-set and modulated model predictive control. The modulated approach introduced in Chapter~3 selects two adjacent active voltage vectors and a zero vector, allowing the converter to apply a controlled average voltage during each modulation period. This methodology is extended here through an independent formulation in the stationary $\alpha\beta$ reference frame. Chapter~4 provides the underlying stationary-frame plant model and the power-flow relationships under unbalanced grid voltage.
 
-\section{Harmonic Extraction Methodology}
+Under voltage unbalance, satisfactory current tracking alone does not determine the power delivered to the DC link. The reference currents must account for the interaction between the grid voltage, converter-terminal voltage, and filter energy. In particular, eliminating the oscillation of grid-side active power does not generally eliminate the oscillation of converter-terminal active power. The difference follows from the resistance loss and time-varying energy of the AC filter. Consequently, a predictive controller requires a reference-generation stage that explicitly selects the intended power objectives.
 
-This section develops a continuous narrative from standard three-phase modeling to harmonic-oriented synchronous frames used to render the characteristic 5th and 7th current components as constant (dc) quantities. Consider a surface-mounted PMSM (SPMSM) with non-salient inductances $L_d=L_q=L$, stator resistance $R_s$, permanent-magnet flux linkage $\psi_f$, and electrical rotor speed $\omega$. Let $(i_a,i_b,i_c)$ be the phase currents and $\theta$ the electrical angle. We first apply the Clarke transformation to obtain a stationary two-axis representation,
+This chapter develops an integrated input-output power control and modulated model predictive current control (IOPC--MMPCC) architecture. IOPC specifies the stationary-frame current references using the power conditions developed by Li et al.~\cite{li2010journal}. MMPCC then tracks these references by predicting the grid currents, optimizing the duty cycles of each adjacent vector pair, and selecting the feasible combination with the smallest predicted current error. The complete proposed control law operates in $\alpha\beta$ coordinates. No Park transformation or separate positive- and negative-sequence rotating-frame current regulator is required.
 
-\begin{align}
-i_a(t) &= I_1 \cos(\omega t+\theta_1) + I_5 \cos(5\omega t+\theta_5) + I_7 \cos(7\omega t+\theta_7), \label{eq:abc-a}\\
-i_b(t) &= I_1 \cos\!\Big(\omega t-\tfrac{2\pi}{3}+\theta_1\Big)
-        + I_5 \cos\!\Big(5\omega t+\tfrac{2\pi}{3}+\theta_5\Big)
-        + I_7 \cos\!\Big(7\omega t-\tfrac{2\pi}{3}+\theta_7\Big), \label{eq:abc-b}\\
-i_c(t) &= I_1 \cos\!\Big(\omega t+\tfrac{2\pi}{3}+\theta_1\Big)
-        + I_5 \cos\!\Big(5\omega t-\tfrac{2\pi}{3}+\theta_5\Big)
-        + I_7 \cos\!\Big(7\omega t+\tfrac{2\pi}{3}+\theta_7\Big). \label{eq:abc-c}
-\end{align}
+The contribution is the explicit integration of a published IOPC reference generator with a stationary-frame, delay-compensated, constrained modulated predictive current regulator. The IOPC equations themselves are not claimed as new. The development also establishes causal converter-voltage feedback, future-reference evaluation, duty-cycle feasibility, and the limits of the resulting power objectives. It is a theoretical controller design; neither experimental validation nor a general claim of novelty relative to all published predictive controllers is made.
 
+The chapter first reviews alternative control strategies and compares IPC, OPC, and IOPC. It then develops the IOPC reference equations, describes the integrated architecture, derives the predictive model and constrained modulation problem, and presents the complete algorithm. Practical limitations and the conditions requiring subsequent validation conclude the development.
+
+\section{Review of Control Strategies Under Unbalanced Grid Conditions}
+\label{sec:ch5-review}
+The broader development of three-phase PWM rectifiers is reviewed in \cite{ch5-singh2004,ch5-rodriguez2005}. For the unbalanced-grid problem, the following review follows the classification in Li et al.~\cite{li2010journal}. The original publications are cited to identify the relevant contributions. Where an original work has not been inspected independently, the discussion is explicitly based on Li et al.'s account; the accompanying audit records the source-access status. This distinction prevents a secondary literature summary from being presented as an independent verification of every cited method.
+
+\subsection{Dual Positive- and Negative-Sequence Control}
+A fundamental unbalanced voltage contains components with opposite directions of rotation. A controller can represent each component in its corresponding synchronous frame, where the selected sequence becomes constant while the opposite sequence appears at twice the fundamental frequency. Two PI current regulators can then control the extracted components. The dual-current scheme of Song and Nam~\cite{song1999} uses this principle, with filtering to separate the two sequence currents. Rioual et al.~\cite{ch5-rioual1996} provide an earlier generalized unbalanced-network formulation; their role in this development is discussed by Li et al.~\cite{li2010journal}.
+
+The resulting structure offers explicit control of the sequence currents, but it requires transformations, sequence separation, and coordination of the current references. Filters that reject the opposite-sequence component introduce dynamics and affect the transient response. The processing burden depends on the extraction method and implementation; the use of two frames does not itself imply an impractical controller. Li et al. also describe coordinated converter control by Xu~\cite{ch5-xu2008}, in which the positive-frame main controller is supplemented by a negative-frame controller. These approaches provide useful background, but their rotating frames are not adopted in the proposed implementation.
+
+\subsection{Stationary-Frame Resonant Control}
+A conventional PI regulator has finite gain at the nonzero fundamental frequency of stationary-frame current references. Its integral action therefore does not, by itself, guarantee zero sinusoidal tracking error. A proportional-resonant (PR) regulator introduces the corresponding internal model at the desired frequency. The ideal form used in Li et al.~\cite{li2010journal} is
 \begin{equation}
-\begin{bmatrix} i_\alpha \\[2pt] i_\beta \end{bmatrix}
-= \frac{2}{3}
-\begin{bmatrix}
-1 & -\tfrac{1}{2} & -\tfrac{1}{2} \\
-0 & \tfrac{\sqrt{3}}{2} & -\tfrac{\sqrt{3}}{2}
-\end{bmatrix}
-\begin{bmatrix} i_a \\[2pt] i_b \\[2pt] i_c \end{bmatrix},
-\label{eq:clarke}
+G_{\mathrm{PR}}(s)=K_{p,c}+K_r\frac{s}{s^2+\omega_s^2},
+\label{eq:ch5-pr}
 \end{equation}
-and then the Park transformation to rotate into the fundamental synchronous frame aligned with the rotor flux,
+where $K_{p,c}$ is the proportional gain, $K_r$ is the resonant gain, and $\omega_s$ is the fundamental angular frequency. The ideal resonant term has unbounded gain at $\omega_s$; practical implementations must consider damping, frequency mismatch, discretization, and closed-loop stability.
+
+Zmood and Holmes~\cite{ch5-zmood2003} establish the connection between stationary resonant regulation and synchronous PI regulation. Additional resonant branches can target selected harmonics, increasing the number of controller states and the need to check stability. Li et al. discuss frequency-domain regulation and multiple-harmonic compensation in \cite{ch5-zmood2001,ch5-bojoi2005,ch5-liserre2006,ch5-hwang2006}, together with unbalanced-grid applications in \cite{ch5-hwang2007,ch5-roiu2008,ch5-etxeberria2007,ch5-hu2009}. The later journal treatment by Roiu et al.~\cite{ch5-roiu2010} also implements stationary-frame current-reference generation and resonant current regulation.
+
+These methods show that unbalance does not require rotating-frame current controllers. In the present architecture, the inner resonant current regulator is replaced by a predictive regulator. Resonant signal processing may still be used to estimate fundamental and quadrature voltages; this signal-processing role is distinct from closed-loop current regulation.
+
+\subsection{Instantaneous Power-Based Control}
+The power-control objective and the current-regulation method are separate design choices. IPC, OPC, and IOPC specify different power conditions, while PI, PR, or predictive controllers may be used to track the resulting current references. With current directed from the grid toward the converter, Chapter~4, \eqref{eq:energy}, gives
 \begin{equation}
-\begin{bmatrix} i_d \\[2pt] i_q \end{bmatrix}
-=
-\underbrace{\begin{bmatrix}
-\cos\theta & \sin\theta \\
--\sin\theta & \cos\theta
-\end{bmatrix}}_{R(\theta)}
-\begin{bmatrix} i_\alpha \\[2pt] i_\beta \end{bmatrix},
-\qquad
-\psi_d = L\,i_d+\psi_f,\ \ \psi_q = L\,i_q .
-\label{eq:park}
+p_{\mathrm{in}}=p_{\mathrm{out}}+p_R+p_L,\qquad
+p_R=\frac32R\lVert\mathbf i\rVert^2,\quad
+p_L=\frac{d}{dt}\left(\frac34L\lVert\mathbf i\rVert^2\right).
+\label{eq:ch5-power-balance}
 \end{equation}
-In this fundamental $dq$ frame, the SPMSM voltage equations take the well-known form
+Here $\mathbf i=[i_\alpha\ i_\beta]^T$, $p_{\mathrm{in}}$ is measured before the AC filter, and $p_{\mathrm{out}}$ is the power at the converter AC terminals. For an ideal bridge, $p_{\mathrm{out}}$ enters the DC link. The inductor term represents reversible energy exchange, not dissipative loss. Both filter terms can contain a double-frequency component.
+
+The reactive quantities used in the following IPC/OPC/IOPC comparison follow Li et al.'s quadrature-voltage convention. Their relation to Chapter~4's cross-product convention is established in Section~\ref{sec:ch5-iopc}. A bar denotes the fundamental steady-state average, and a tilde denotes the oscillating part.
+
+\subsubsection{Input-Power Control}
+The IPC conditions are
 \begin{equation}
-\boxed{
-\begin{aligned}
-u_d &= R_s i_d + \frac{d\psi_d}{dt} - \omega\,\psi_q,\\
-u_q &= R_s i_q + \frac{d\psi_q}{dt} + \omega\,\psi_d,
-\end{aligned}}
-\label{eq:fundamental-dq}
+\overline p_{\mathrm{in}}=P_{\mathrm{ref}},\qquad
+\overline q_{\mathrm{in}}^{\mathrm Q}=0,\qquad
+\widetilde p_{\mathrm{in}}=0.
+\label{eq:ch5-ipc-objectives}
 \end{equation}
-and the electromagnetic torque reduces to $T_e=\tfrac{3}{2}p\,\psi_f\,i_q$ for the non-salient case (pole pairs $p$).
+They regulate average input power and suppress its fundamental double-frequency oscillation. Li et al. associate this category with \cite{ch5-rioual1996,song1999}. Equation~\eqref{eq:ch5-power-balance} nevertheless gives $\widetilde p_{\mathrm{out}}=-\widetilde p_R-\widetilde p_L$ when $\widetilde p_{\mathrm{in}}=0$. The filter can therefore transfer oscillating power to the DC side even when the grid-side power is constant. IPC alone does not ensure a ripple-free DC-link voltage.
 
-At this point the literature makes a crucial observation: if 5th and 7th current harmonics are present in the three-phase variables, they do \emph{not} become constant in the fundamental frame. Instead, after \eqref{eq:clarke}–\eqref{eq:park} their projections appear as sinusoids at $\mp 6\omega$ (respectively) superimposed on $(i_d,i_q)$. A convenient schematic is
+\subsubsection{Output-Power Control}
+OPC instead imposes
 \begin{equation}
-\begin{bmatrix} i_d \\[2pt] i_q \end{bmatrix}
-\approx
-\begin{bmatrix} \bar i_d \\[2pt] \bar i_q \end{bmatrix}
-+
-I_5
-\begin{bmatrix}
-\cos(-6\omega t+\phi_5) \\[2pt]
-\sin(-6\omega t+\phi_5)
-\end{bmatrix}
-+
-I_7
-\begin{bmatrix}
-\cos(+6\omega t+\phi_7) \\[2pt]
-\sin(+6\omega t+\phi_7)
-\end{bmatrix}
-+\cdots,
-\label{eq:pm-6w}
+\overline p_{\mathrm{out}}=P_{\mathrm{ref}},\qquad
+\overline q_{\mathrm{out}}^{\mathrm Q}=0,\qquad
+\widetilde p_{\mathrm{out}}=0.
+\label{eq:ch5-opc-objectives}
 \end{equation}
-so in the fundamental frame the 5th “precesses” backward at $-6\omega$ and the 7th forward at $+6\omega$. This motivates the next step: define \emph{harmonic synchronous frames} that co-rotate with the targeted harmonic so that it becomes dc.
+The output-power strategy of Yin et al.~\cite{ch5-yin2008} is discussed in Li et al.~\cite{li2010journal}. Regulating converter-terminal power directly addresses the low-frequency energy entering the DC link. For constant load power and negligible bridge losses, suppression of its double-frequency oscillation removes the corresponding forced DC-voltage ripple. Load changes, switching ripple, and nonidealities remain separate effects. Zero average output reactive power does not impose zero average input reactive power; the filter separates the two terminals.
 
-There are two equivalent ways to formalize these frames that are widely used and consistent if one keeps sign conventions straight. The first is to view them as additional rotations \emph{relative to} the fundamental frame. Because the 5th and 7th appear at $\mp 6\omega$ in \eqref{eq:pm-6w}, we rotate the fundamental axes by $\pm 6\omega t$ to freeze those oscillations:
+\subsubsection{Input-Output Power Control}
+IOPC combines the input average-power conditions with output ripple suppression:
 \begin{equation}
-\begin{bmatrix} i_{d5} \\[2pt] i_{q5} \end{bmatrix}
-=
-\underbrace{\begin{bmatrix}
-\cos(-6\omega t) & \sin(-6\omega t)\\
--\sin(-6\omega t) & \cos(-6\omega t)
-\end{bmatrix}}_{R(6\omega t)}
-\begin{bmatrix} i_d \\[2pt] i_q \end{bmatrix},
-\qquad
-\begin{bmatrix} i_{d7} \\[2pt] i_{q7} \end{bmatrix}
-=
-\underbrace{\begin{bmatrix}
-\cos(6\omega t) & \sin(6\omega t)\\
--\sin(6\omega t) & \cos(6\omega t)
-\end{bmatrix}}_{R(-6\omega t)}
-\begin{bmatrix} i_d \\[2pt] i_q \end{bmatrix}.
-\label{eq:rel-6w-rotations}
+\boxed{\overline p_{\mathrm{in}}=P_{\mathrm{ref}},\qquad
+\overline q_{\mathrm{in}}^{\mathrm Q}=0,\qquad
+\widetilde p_{\mathrm{out}}=0.}
+\label{eq:ch5-iopc-objectives}
 \end{equation}
-
-\begin{align}
-i_{d\text{5}}
-  &= I_1 \cos\!\big(6\omega t + \theta_1\big)
-   + I_5 \cos\!\big(\theta_5\big)
-   + I_7 \cos\!\big(12\omega t + \theta_7\big),\\
-i_{q\text{5}}
-  &= I_1 \sin\!\big(6\omega t + \theta_1\big)
-   + I_5 \sin\!\big(\theta_5\big)
-   + I_7 \sin\!\big(12\omega t + \theta_7\big).
-\end{align}
-
-Under \eqref{eq:rel-6w-rotations}, the 5th-order component becomes a dc vector in $(d_5,q_5)$ and the 7th-order component becomes a dc vector in $(d_7,q_7)$. The second, equivalent viewpoint is to define the harmonic-frame electrical angles directly with respect to the stator as $\theta_5=5\theta$ and $\theta_7=7\theta$, and then compose Clarke and Park using those angles. A compact direct map from phases to the 5th frame is
-\begin{equation}
-\begin{bmatrix}
-i_{d5}\\[2pt] i_{q5}
-\end{bmatrix}
-= \frac{2}{3}
-\begin{bmatrix}
-\cos(5\theta) & \cos\!\big(5\theta-\tfrac{2\pi}{3}\big) & \cos\!\big(5\theta+\tfrac{2\pi}{3}\big)\\[3pt]
--\sin(5\theta) & -\sin\!\big(5\theta-\tfrac{2\pi}{3}\big) & -\sin\!\big(5\theta+\tfrac{2\pi}{3}\big)
-\end{bmatrix}
-\begin{bmatrix} i_a\\[2pt] i_b\\[2pt] i_c \end{bmatrix},
-\label{eq:abc-d5q5}
-\end{equation}
-with the 7th-frame map obtained by replacing $5\theta$ with $7\theta$ and adjusting the signs consistently and applying DC low pass filter. In their own frames the targeted components are constant:
-\begin{equation}
-\boxed{
-\begin{aligned}
-i_{d5,h} &= I_5\cos\theta_5,\qquad &i_{q5,h} &= I_5\sin\theta_5,\\
-i_{d7,h} &= I_7\cos\theta_7,\qquad &i_{q7,h} &= I_7\sin\theta_7,
-\end{aligned}}
-\label{eq:dc-in-harmonic-frames}
-\end{equation}
-where $(I_5,\theta_5)$ and $(I_7,\theta_7)$ are the amplitudes and initial phases of the 5th and 7th components.
-
-\section{Harmonic Sources in PMSM: Inverter Non-Linearities Effects}
-Nonlinearities in the inverter’s operation introduce significant distortions between the reference voltage commands and the actual output voltages. These nonlinearities degrade system performance, causing harmonic distortions, torque ripple, and instability in sensorless control schemes. The distortion voltage equations for the inverter nonlinearities in the synchronous reference frame (dq-axis) are expressed as follows:
-\begin{equation}
-\begin{bmatrix}
-\delta v_d{}_{th} \\
-\delta v_q{}_{th}
-\end{bmatrix}
-= 
-3K_{abc}^{dq} \Lambda
-\begin{bmatrix}
-\text{sgn}(i_u) \\
-\text{sgn}(i_v) \\
-\text{sgn}(i_w)
-\end{bmatrix}
-+
-K_{abc}^{dq} \frac{(R_{cc} + R_d)}{2}
-\begin{bmatrix}
-i_u \\
-i_v \\
-i_w
-\end{bmatrix},
-\label{eq:distortion_voltage}
-\end{equation}
-
-where $\Lambda$ is defined as follows:
-
-\begin{equation}
-\Lambda = \frac{(V_{dc} - V_{ce} + V_d)(T_{\text{dead}} + T_{\text{ON}} - T_{\text{OFF}})}{3T_s} + \frac{V_{\text{ce0}} + V_{\text{d0}}}{6},
-\label{eq:Lambda}
-\end{equation}
-and $K_{abc}^{dq}$ is the following transformation matrix: 
-\begin{equation}
-K_{abc}^{dq} = 
-\frac{2}{3}
-\begin{pmatrix}
-\cos\theta_e & \cos\left(\theta_e - \frac{2\pi}{3}\right) & \cos\left(\theta_e + \frac{2\pi}{3}\right) \\
--\sin\theta_e & -\sin\left(\theta_e - \frac{2\pi}{3}\right) & -\sin\left(\theta_e + \frac{2\pi}{3}\right)
-\end{pmatrix}
-\label{eq:transformation_matrix}
-\end{equation}
-
-\noindent By utilizing the distortion voltage equation (\ref{eq:distortion_voltage}) that capture the nonlinear behavior of power electronic inverters, the voltage dynamics in the(dq-axis) frame are updated as follows;
-
-\begin{equation}
-v_d - \delta v_{d\mathrm{th}} = R_s i_d + L_d \frac{d i_d}{d t} - \omega_e L_q i_q 
-\label{eq:v_d_new}
-\end{equation}
-\begin{equation}
-v_q - \delta v_{q\mathrm{th}} = R_s i_q + L_q \frac{d i_q}{d t} + \omega_e L_d i_d + \omega_e \lambda_f 
-\label{eq:v_q_new}
-\end{equation}
-
-For conventional two-level VSIs employing pulse-width modulation (PWM), the dominant low-order harmonics in line currents are the $5^{\text{th}}$ and $7^{\text{th}}$ orders. These arise from Fourier decomposition of switched voltage waveforms. Therefore, most harmonic mitigation strategies focus on suppressing the $5^{\text{th}}$ and $7^{\text{th}}$ orders to minimize total harmonic distortion (THD) and improve power quality. The following presents the Fourier series-based analysis used to quantify the total harmonic distortion (THD) in the stator current in abc frame  
-
-\begin{equation}
-i_a = I_1 cos(\omega t+\theta_1) + I_5 cos(5\omega t+\theta_5) +  I_7 cos(7\omega t+\theta_7)
-\end{equation}
-\begin{equation}
-i_b =I_1 cos(\omega t - 2 \pi/3 +\theta_1) + I_5 cos(5\omega t + 2 \pi/3 +\theta_5) + I_7 cos(7\omega t - 2\pi/3 +\theta_7)
-\end{equation}
-\begin{equation}
-i_c = I_1 cos(\omega t + 2 \pi/3 +\theta_1) +I_5 cos(5\omega t - 2 \pi/3 +\theta_5) + I_7 cos(7\omega t + 2 \pi/3 +\theta_7)
-\end{equation}
-
-Then, the motor currents under odd harmonics in $d-q$ frame are;
-\begin{equation}
-i_d = I_1 cos(\theta_1) + I_5cos(-6\omega t + \theta_5) + I_7cos(6\omega t + \theta_7) = i_d{}_{1} + i_d{}_{5} + i_d{}_{7} 
-\label{eq:id_total}
-\end{equation}
-\begin{equation}
-i_q = I_1 sin(\theta_1) + I_5sin(-6\omega t + \theta_5) + I_7sin(6\omega t + \theta_7) = i_q{}_{1} + i_q{}_{5} + i_q{}_{7},
-\label{eq:id_total}
-\end{equation}
-
-
-
-in which, the $5^{th}$ and $7^{th}$ harmonics in the abc frame appear in the fundamental \(dq\)-frame as sixth-order harmonics, but with opposite rotation directions: the 5th harmonic maps to a negative 6th harmonic (rotating backward at \(6\omega_e\)), while the 7th harmonic maps to a positive 6th harmonic (rotating forward at \(6\omega_e\)).
-
-To deal with such harmonics in current signals, PMSMs are commonly controlled by proportional–integral (PI) control techniques augmented by harmonic compensators. The reference current is regulated and periodic disturbances are attenuated in order to suppress stator current harmonics and torque ripples. At low speeds, where inverter nonlinearities and back-electromotive force (EMF) harmonics have a more significant influence, these methods typically rely on additional resonant controllers tuned to specific harmonic orders or on feedforward voltage compensation to counteract known distortion sources. However, such approaches treat harmonic suppression indirectly, requiring separate loops or fixed-frequency compensators that may lose effectiveness under parameter variations, frequency drifts, or dynamic operating conditions. In contrast, MMPC can explicitly incorporate harmonic mitigation objectives into its cost function, enabling simultaneous current regulation and ripple suppression within a unified optimization framework. This direct inclusion allows MPC to adaptively address harmonic components across varying speeds and load conditions, offering improved performance and robustness compared to conventional cascaded compensator-based schemes.
-
-\section{Hybrid Modulated Model Predictive Controller with Non-Linearities Harmonics Prediction}
-The primary objective of this paper is to adopt the MMPC approach for operation at a fixed switching frequency, while also mitigating inverter nonlinearities through active compensation of low-order harmonics in the stator current of the PMSM. Due to the discrete nature of MMPC, we apply Euler’s forward discretization to \ref{eq:v_d_new} and \ref{eq:v_q_new}, resulting in the following expressions for the current dynamics:
-\begin{equation}
-\begin{aligned}
-\begin{bmatrix}
-i_d[k+1]\\
-i_q[k+1]
-\end{bmatrix}
-&=
-\left(1-\frac{R T_s}{L}\right)
-\begin{bmatrix}
-i_d[k]\\
-i_q[k]
-\end{bmatrix}
-+
-\frac{T_s}{L}
-\begin{bmatrix}
-v_d[k]-\delta v_d{}_{th}[k]\\
-v_q[k]-\delta v_q{}_{th}[k]
-\end{bmatrix} \\
-&\quad
-+ \omega T_s
-\begin{bmatrix}
-i_q[k]\\
--\,i_d[k]
-\end{bmatrix}
-+
-\frac{\omega T_s}{L}
-\begin{bmatrix}
-0\\
-\lambda_m
-\end{bmatrix}
-\end{aligned}
-\label{eq:i_discrete}
-\end{equation}
-where  $T_s$ is the sampling time, $k$ is the sampling index, and $L=L_q=L_d$. By substituting the total current components from equations \ref{eq:id_total} \ref{eq:iq_total} into \ref{eq:i_discrete}, the expanded current dynamics become:
-
-\begin{equation}
-\begin{aligned}
-\begin{bmatrix}
-i_d{}_{1}[k+1] + i_d{}_{5}[k+1] + i_d{}_{7}[k+1]\\
-i_q{}_{1}[k+1] + i_q{}_{5}[k+1] + i_q{}_{7}[k+1]
-\end{bmatrix}
-&=
-\left(1-\frac{R T_s}{L}\right)
-\begin{bmatrix}
-i_d{}_{1}[k] + i_d{}_{5}[k] + i_d{}_{7}[k]\\
-i_q{}_{1}[k] + i_q{}_{5}[k] + i_q{}_{7}[k]
-\end{bmatrix}
-+
-\frac{T_s}{L}
-\begin{bmatrix}
-v_d[k] - \delta v_{dth}[k]\\
-v_q[k] - \delta v_{qth}[k]
-\end{bmatrix}\\
-&\quad
-+ \omega T_s
-\begin{bmatrix}
-i_q{}_{1}[k] + i_q{}_{5}[k] + i_q{}_{7}[k]\\
--\big(i_d{}_{1}[k] + i_d{}_{5}[k] + i_d{}_{7}[k]\big)
-\end{bmatrix}
-+
-\frac{\omega T_s}{L}
-\begin{bmatrix}
-0\\
-\lambda_m
-\end{bmatrix}
-\end{aligned}
-\label{eq:expanded_current}
-\end{equation}
-Here, we can see that the stator currents in the \(dq\)-frame is expressed as a summation of the fundamental and dominant harmonic components, particularly the 5th and 7th. Consequently, the voltage-drop terms $\delta v_{d}{}_{th}, \delta v_{q}{}_{th}$ are decomposed based on the harmonic orders present in the current waveforms. This decomposition is given by:
-\begin{equation}
-\begin{aligned}
-\begin{bmatrix}
-\delta v_{dth}[k]\\
-\delta v_{qth}[k]
-\end{bmatrix}
-=
-\begin{bmatrix}
-\delta v_d{}_{1}[k] + \delta v_d{}_{5}[k] + \delta v_d{}_{7}[k]\\
-\delta v_q{}_{1}[k] + \delta v_q{}_{5}[k] + \delta v_q{}_{7}[k]
-\end{bmatrix}
-\end{aligned}
-\end{equation}
-A control technique such as MMPC allows the algorithm to predict and regulate each harmonic independently. This capability enables targeted suppression of unwanted current harmonics while maintaining accurate tracking of the fundamental current. Based on these objectives, the following cost function is defined for a single-step prediction:
-\begin{equation}
-\begin{aligned}
-J(v_j) &=
-Q_d \left\| i_{d1,v_j}[k+1] - i_d^{*} \right\|^2
-+ Q_q \left\| i_{q1,v_j}[k+1] - i_q^{*} \right\|^2 \\
-&\quad
-+ \sum_{h} w_h \left(
-\left\| i_{dh,v_j}[k+1] \right\|^2
-+ \left\| i_{qh,v_j}[k+1] \right\|^2
-\right)
-\end{aligned}
-\label{eq:cost_function_total}
-\end{equation}
-in which, \( i_{d1,v_i} \) and \( i_{q1,v_i} \) denote the fundamental predicted current resulting from applying the voltage vector \( v_i \). Here also, ${i_{d}^*,i_{q}^*}$ represent the reference currents provided by the outer control loop, and ${Q_d,Q_q, w_h}$ are positive  weights. The first two terms penalize the tracking error between the predicted and reference currents, while the third and forth terms impose penalties on the magnitudes of specific harmonic components, particularly the $5^{th}$ and $7^{th}$ harmonics, through their associated weights $w_h$. 
-\par
-The key challenge at this stage lies in accurately predicting the harmonic components of the current, denoted by $\left\lbrace i_{dh}[k+1], i_{qh}[k+1]\right\rbrace $, over the prediction horizon. Precise estimation of these harmonic currents is essential for correctly evaluating the cost function $J$. Therefore, the controller must incorporate an accurate model or estimation strategy capable of capturing the harmonic behavior of the motor current—particularly the 5\textsuperscript{th} and 7\textsuperscript{th} harmonics.
-
-Here, we adopt the technique presented in \cite{harmonics_MSRF,MSRF_2016} for harmonic elimination using multiple synchronous rotating frames (MSRFs), in which current harmonics of different orders are transformed into their respective rotating reference frames. Using this MSRF-based approach, we derive the current dynamic equations to enable precise prediction of both the fundamental and harmonic components of the motor currents, which is crucial for achieving effective harmonic suppression in predictive control schemes.
-
-To isolate and analyze specific harmonics, such as the 5\textsuperscript{th} and 7\textsuperscript{th}, the three-phase currents in the stationary abc-frame are first transformed into the fundamental $dq$ synchronous reference frame using the Clarke and Park transformations, denoted collectively by $T_{abc}$. Subsequently, an additional transformation is applied to shift from the fundamental $dq$ frame to the desired harmonic reference frames. For example, the transformation from the fundamental $dq$ frame to the fifth-order synchronous reference frame is given by:
-\begin{align}
-\begin{bmatrix}
-i_d \\
-i_q
-\end{bmatrix}_{5\text{th-frame}}
-&= T_{dq1}^{dq5} \cdot
-\begin{bmatrix}
-i_d \\
-i_q
-\end{bmatrix}
-\end{align}
-Thus, the complete transformation from the abc frame to the fifth-order synchronous $dq$ frame becomes:
-\begin{equation}
-\begin{bmatrix}
-i_d \\
-i_q
-\end{bmatrix}_{5\text{th-frame}}
-=
-T_{dq1}^{dq5} \cdot T_{abc} \cdot
-\begin{bmatrix}
-i_a \\
-i_b \\
-i_c
-\end{bmatrix}
-\end{equation}
-Similarly, the transformation to the seventh-order frame is:
-\begin{equation}
-\begin{bmatrix}
-i_d \\
-i_q
-\end{bmatrix}_{7\text{th-frame}}
-=
-T_{dq1}^{dq7} \cdot T_{abc} \cdot
-\begin{bmatrix}
-i_a \\
-i_b \\
-i_c
-\end{bmatrix}
-\end{equation}
-where
-\begin{align}
-T_{dq1}^{dq5}&=
-\begin{bmatrix}
-cos(-6\omega t)&sin(-6\omega t)\\
--sin(-6\omega t)&cos(-6\omega t)
-\end{bmatrix}\\
-T_{dq1}^{dq7}&=
-\begin{bmatrix}
-cos(6\omega t)&sin(6\omega t)\\
--sin(6\omega t)&cos(6\omega t)
-\end{bmatrix}
-\end{align}
-This transformation occurs because the synchronous \(dq\)-frame rotates at the fundamental angular speed, effectively shifting harmonic orders by \(-1\) and reversing the sequence of negative-sequence harmonics. As a result, placing the $5^{th}$ and $7^{th}$ harmonic models in their respective \(\pm 6\omega_e\) rotating frames allows them to appear as DC quantities, greatly simplifying their prediction and suppression in the controller design. As we see in the following transformed frame, the current signals are projected onto the fifth-order synchronous frame, and their decomposition yields:
-\begin{align}
-i_{d,5\text{th-frame}} &= I_1 \cos(6\omega t + \theta_1) + I_5 \cos(\theta_5) + I_7 \cos(12\omega t + \theta_7) \\
-i_{q,5\text{th-frame}} &= I_1 \sin(6\omega t + \theta_1) + I_5 \sin(\theta_5) + I_7 \sin(12\omega t + \theta_7)
-\end{align}
-where, the fifth-order harmonic appears as a DC component in this frame, and can be expressed as:
-\begin{equation}
-\begin{bmatrix}
-i_{d5} \\
-i_{q5}
-\end{bmatrix}_{5th-frame}
-= I_5
-\begin{bmatrix}
-\cos \theta_5 \\
-\sin \theta_5
-\end{bmatrix}
-\end{equation}
-Likewise, projecting the currents onto the seventh-order synchronous frame results in:
-\begin{equation}
-\begin{aligned}
-i_{d,7\text{th-frame}} &= I_1 \cos(6\omega t - \theta_1) + I_5 \cos(12\omega t - \theta_5) + I_7 \cos(\theta_7) \\
-i_{q,7\text{th-frame}} &= -I_1 \sin(6\omega t + \theta_1) - I_5 \sin(12\omega t - \theta_5) + I_7 \sin(\theta_7)
-\end{aligned}
-\end{equation}
-in which, the seventh-order harmonic also manifests as a DC component:
-\begin{equation}
-\begin{bmatrix}
-i_{d7} \\
-i_{q7}
-\end{bmatrix}_{7th-frame}
-= I_7
-\begin{bmatrix}
-\cos \theta_7 \\
-\sin \theta_7
-\end{bmatrix}
-\end{equation}
-This property enables a low-pass filter to extract the DC components representing the fifth- and seventh-order harmonics in their respective rotating frames, which can then be directly used in the motor model equations to predict each harmonic.
-% Predictive updates (fundamental, 5th-frame, 7th-frame)
-Using the principle of superposition, the current dynamics are decomposed into three independent subsystems: the fundamental d–q frame for torque-producing currents, and the fifth- and seventh-harmonic d–q frames for the main harmonic distortions. Recalling \ref{eq:expanded_current}, each harmonic is predicted separately within its rotating reference frame using the d–q model equations as follows:
-\begin{equation}
-\begin{aligned}
-\begin{bmatrix}
-i_{d1}[k+1]\\
-i_{q1}[k+1]
-\end{bmatrix}
-&=
-\left(1 - \frac{R T_s}{L}\right)
-\begin{bmatrix}
-i_{d1}[k]\\
-i_{q1}[k]
-\end{bmatrix}
-+
-\frac{T_s}{L}
-\begin{bmatrix}
-v_d[k] - \delta v_{d1}[k]\\
-v_q[k] - \delta v_{q1}[k]
-\end{bmatrix}\\
-&\quad
-+ \omega T_s
-\begin{bmatrix}
-i_{q1}[k]\\
--\,i_{d1}[k]
-\end{bmatrix}
-+
-\frac{\omega T_s}{L}
-\begin{bmatrix}
-0\\
-\lambda_m
-\end{bmatrix}
-\end{aligned}
-\label{eq:id1_predict}
-\end{equation}
-
-\begin{equation}
-\begin{aligned}
-\begin{bmatrix}
-i_{d5}[k+1]\\
-i_{q5}[k+1]
-\end{bmatrix}_{\text{5th-frame}}
-&=
-\left(1 - \frac{R T_s}{L}\right)
-\begin{bmatrix}
-i_{d5}[k]\\
-i_{q5}[k]
-\end{bmatrix}_{\text{5th-frame}}
-+
-\frac{T_s}{L}
-\begin{bmatrix}
--\,\delta v_{d5}[k]\\
--\,\delta v_{q5}[k]
-\end{bmatrix}_{\text{5th-frame}}\\
-&\quad
-+ \omega T_s
-\begin{bmatrix}
-i_{q5}[k]\\
--\,i_{d5}[k]
-\end{bmatrix}_{\text{5th-frame}}
-\end{aligned}
-\label{eq:id5_predict}
-\end{equation}
-
-\begin{equation}
-\begin{aligned}
-\begin{bmatrix}
-i_{d7}[k+1]\\
-i_{q7}[k+1]
-\end{bmatrix}_{\text{7th-frame}}
-&=
-\left(1 - \frac{R T_s}{L}\right)
-\begin{bmatrix}
-i_{d7}[k]\\
-i_{q7}[k]
-\end{bmatrix}_{\text{7th-frame}}
-+
-\frac{T_s}{L}
-\begin{bmatrix}
--\,\delta v_{d7}[k]\\
--\,\delta v_{q7}[k]
-\end{bmatrix}_{\text{7th-frame}}\\
-&\quad
-+ \omega T_s
-\begin{bmatrix}
-i_{q7}[k]\\
--\,i_{d7}[k]
-\end{bmatrix}_{\text{7th-frame}}
-\end{aligned}
-\label{eq:id7_predict}
-\end{equation}
-
-% How the current components at instant k are obtained
-
-\begin{equation}
-\begin{aligned}
-\begin{bmatrix}
-i_{d1}[k]\\
-i_{q1}[k]
-\end{bmatrix}
-&=
-\mathrm{LPF}
-\begin{bmatrix}
-i_d[k]\\
-i_q[k]
-\end{bmatrix},
-\\[6pt]
-\begin{bmatrix}
-i_{d5}[k]\\
-i_{q5}[k]
-\end{bmatrix}_{\text{5th-frame}}
-&=
-\mathrm{LPF}\!\left(
-T_{dq1}^{dq5}
-\begin{bmatrix}
-i_d[k]\\
-i_q[k]
-\end{bmatrix}
-\right),
-\\[6pt]
-\begin{bmatrix}
-i_{d7}[k]\\
-i_{q7}[k]
-\end{bmatrix}_{\text{7th-frame}}
-&=
-\mathrm{LPF}\!\left(
-T_{dq1}^{dq7}
-\begin{bmatrix}
-i_d[k]\\
-i_q[k]
-\end{bmatrix}
-\right)
-\end{aligned}
-\end{equation}
-
-% Voltage-drop components
-
-\begin{equation}
-\begin{aligned}
-\begin{bmatrix}
-\delta v_{d1}[k]\\
-\delta v_{q1}[k]
-\end{bmatrix}
-&=
-\mathrm{LPF}
-\begin{bmatrix}
-\delta v_d{}_{th}[k]\\
-\delta v_q{}_{th}[k]
-\end{bmatrix},
-\\[6pt]
-\begin{bmatrix}
-\delta v_{d5}[k]\\
-\delta v_{q5}[k]
-\end{bmatrix}_{\text{5th-frame}}
-&=
-\mathrm{LPF}\!\left(
-T_{dq1}^{dq5}
-\begin{bmatrix}
-\delta v_d{}_{th}[k]\\
-\delta v_q{}_{th}[k]
-\end{bmatrix}
-\right),
-\\[6pt]
-\begin{bmatrix}
-\delta v_{d7}[k]\\
-\delta v_{q7}[k]
-\end{bmatrix}_{\text{7th-frame}}
-&=
-\mathrm{LPF}\!\left(
-T_{dq1}^{dq7}
-\begin{bmatrix}
-\delta v_d{}_{th}[k]\\
-\delta v_q{}_{th}[k]
-\end{bmatrix}
-\right)
-\end{aligned}
-\end{equation}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\linewidth]{hybrid_MPC_updated}
-\caption{Proposed Hybrid-MMPC scheme for PMSM drives, combining MMPC approach, and harmonic prediction in multiple synchronous rotating frames }
-\label{fig:Proposed_M2PC}
-\end{figure}
-
-To realize optimal voltage application within a single sampling period, the control strategy involves selecting two active voltage vectors, \( \mathbf{v}_{\text{opt}} \) and \( \mathbf{v}'_{\text{opt}} \), along with the zero vector \( \mathbf{v}_0 \). The sub-indices 0, 1, and 2 correspond to the zero vector \( \mathbf{v}_0 \), the optimal voltage vector \( \mathbf{v}_{\text{opt}} \), and the second optimal vector \( \mathbf{v}'_{\text{opt}} \), respectively, selected based on minimizing the cost function defined in~\eqref{eq:cost_function_total}. These vectors are time-modulated during the sampling interval such that their weighted average closely approximates the desired voltage, thereby reducing the current tracking error to nearly zero. the following equations clarify this objective;
-
-\begin{align}
-\sum_{j=0}^{2} T_j\, i_{d,v_j}[k+1] &= T_s\, i_d^{*} \label{eq:modulated_mpc_constraints_1}\\
-\sum_{j=0}^{2} T_j\, i_{q,v_j}[k+1] &= T_s\, i_q^{*} \label{eq:modulated_mpc_constraints_2}
-\end{align}
-where
-\begin{equation}
-\sum_{j=0}^{2} T_j = T_s
-\label{eq:modulated_mpc_constraints_3}
-\end{equation}
-Here, equations~\eqref{eq:modulated_mpc_constraints_1}–\eqref{eq:modulated_mpc_constraints_3} define a linear system of equations used to determine the optimal duty times \( T_0, T_1, T_2 \) associated with the selected voltage vectors \( v_j \). These equations ensure that the weighted sum of the resulting currents aligns with the desired current reference \( (i_d^*, i_q^*) \) over one sampling interval \( T_s \), while also satisfying the time constraint on vector modulation. The duty times \( T_0, T_1, T_2 \) can be computed by solving the following linear system:
-\begin{equation}
-\begin{bmatrix}
-i_{d,v_0}[k+1] & i_{d,v_1}[k+1] & i_{d,v_2}[k+1] \\
-i_{q,v_0}[k+1] & i_{q,v_1}[k+1]  & i_{q,v_2}[k+1]  \\
-1        & 1        & 1
-\end{bmatrix}
-\begin{bmatrix}
-T_0 \\ T_1 \\ T_2
-\end{bmatrix}
-=
-\begin{bmatrix}
-T_s i_d^* \\ T_s i_q^* \\ T_s
-\end{bmatrix}
-\label{eq:duty_time_solution}
-\end{equation}
-
-\noindent
-Thus, the optimal duty vector is computed as:
-\begin{equation}
-\begin{bmatrix}
-T_0 \\ T_1 \\ T_2
-\end{bmatrix}
-=
-\begin{bmatrix}
-i_{d,v_0}[k+1] & i_{d,v_1}[k+1] & i_{d,v_2}[k+1] \\
-i_{q,v_0}[k+1] & i_{q,v_1}[k+1]  & i_{q,v_2}[k+1]  \\
-1        & 1        & 1
-\end{bmatrix}^{-1}
-\begin{bmatrix}
-T_s i_d^* \\ T_s i_q^* \\ T_s
-\end{bmatrix}
-\label{eq:duty_time_closed_form}
-\end{equation}
-
-\section{Control Algorithm Summary}
-% Harmonic Current Prediction and Compensation — plain enumerate (no algorithm packages)
-
-\begin{enumerate}
-  \item Measure the phase currents and transform them to the fundamental $d$–$q$ frame.
-
-  \item Obtain the separated components
-  $
-  \begin{bmatrix} i_{d1}[k]\\ i_{q1}[k]\end{bmatrix},\ 
-  \begin{bmatrix} i_{d5}[k]\\ i_{q5}[k]\end{bmatrix}_{\text{5th-frame}},\ 
-  \begin{bmatrix} i_{d7}[k]\\ i_{q7}[k]\end{bmatrix}_{\text{7th-frame}}.
-  $
-
-  \item Compute the one-step-ahead nominal prediction (fundamental frame):
-  \[
-  \begin{bmatrix} i_{d1}[k+1]\\ i_{q1}[k+1]\end{bmatrix}
-  =
-  \left(1-\frac{R T_s}{L}\right)
-  \begin{bmatrix} i_{d1}[k]\\ i_{q1}[k]\end{bmatrix}
-  + \frac{T_s}{L}\begin{bmatrix} v_d[k]\\ v_q[k]\end{bmatrix}
-  + \omega T_s \begin{bmatrix} i_{q1}[k]\\ -\,i_{d1}[k]\end{bmatrix}
-  + \frac{\omega T_s}{L}\begin{bmatrix} 0\\ \lambda_m\end{bmatrix}.
-  \]
-
-  \item Using the predicted currents from Step 3, compute the nonlinear voltage drop $\delta v_{\mathrm{th}}$ from (\ref{eq:distortion_voltage}).
-
-  \item Form the decomposed voltage-drop components
-  $
-  \begin{bmatrix}\delta v_{d1}[k]\\ \delta v_{q1}[k]\end{bmatrix},\
-  \begin{bmatrix}\delta v_{d5}[k]\\ \delta v_{q5}[k]\end{bmatrix}_{\text{5th-frame}},\
-  \begin{bmatrix}\delta v_{d7}[k]\\ \delta v_{q7}[k]\end{bmatrix}_{\text{7th-frame}}.
-  $
-
-  \item Predict currents in the 5th and 7th frames using (\ref{eq:id5_predict}) and (\ref{eq:id7_predict}).
-
-  \item Transform the predicted harmonic-frame currents back to the fundamental frame:
-  \[
-  \begin{bmatrix} i_{d5}[k+1]\\ i_{q5}[k+1] \end{bmatrix}
-  = \left(T_{dq1}^{dq5}\right)^{-1}
-    \begin{bmatrix} i_{d5h}[k+1]\\ i_{q5h}[k+1]\end{bmatrix},
-  \qquad
-  \begin{bmatrix} i_{d7}[k+1]\\ i_{q7}[k+1] \end{bmatrix}
-  = \left(T_{dq1}^{dq7}\right)^{-1}
-    \begin{bmatrix} i_{d7h}[k+1]\\ i_{q7h}[k+1]\end{bmatrix}.
-  \]
-
-  \item Evaluate the cost function $J(v_i)$ using the predicted currents.
-
-  \item Store the pair $(J, v_i)$ for later selection.
-
-  \item Repeat Steps 1–9 for $i=0,\ldots,7$.
-
-  \item Select the optimal and sub-optimal switching vectors $(v_1, v_2)$ that yield the minimum $J$.
-
-  \item Compute the duty times $T_0, T_1, T_2$ using (\ref{eq:duty_time_closed_form}).
-\end{enumerate}
-\section{Simulation Modeling}
-This section validates the complete drive model and controllers through a focused suite of studies: (i) steady-state operation to verify ripple, losses, and harmonic content; (ii) low-speed operation to probe back-EMF limits and non-idealities; (iii)  dynamic performance under speed/current steps; (iv) parameter variation to gauge robustness against model mismatch; and (v) load variation to assess torque disturbance rejection.
-\subsection{Steady State Operation}
-At 1000 rpm with dead time and device drops enabled, the MMPC augmented with harmonic extraction sustains tight regulation and further reduces ripple relative to the basic MMPC. At low load (10\% rated torque, \(0.3~\mathrm{N\,m}\)) the phase-current THD drops to 6.5\% (vs.\ \(\sim\)8\% basic), see Fig.~\ref{fig:M2PCNL_HE_1000rpm_low}; at medium load (50\% rated torque, \(1.75~\mathrm{N\,m}\)) it falls to 0.8\% (vs.\ \(\sim\)2\% basic), see Fig.~\ref{fig:M2PCNL_HE_1000rpm_med}. These improvements—about \(1.5\) and \(1.2\) percentage points, respectively—reflect extraction/cancellation of the dominant low-order odd harmonics injected by non-ideal switching, while preserving fixed-frequency SVM actuation and excellent steady-state speed regulation.
-% Requires in preamble:
-% \usepackage{graphicx}
-% \usepackage{subcaption}
-
-\begin{figure}[H]
-  \centering
-  % --- (a) Low load with harmonic extraction ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{MPCMidSpeedLowLoadSteadyState}
-    \caption{Low load: \(T=0.3~\mathrm{N\,m}\). THD \(=6.5\%\) (vs.\ \(8\%\) basic).}
-    \label{fig:M2PCNL_HE_1000rpm_low}
-  \end{subfigure}\hfill
-  % --- (b) Medium load with harmonic extraction ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{MPCMidSpeedMidLoadSteadyState}
-    \caption{Medium load: \(T=1.75~\mathrm{N\,m}\). THD \(=0.8\%\) (vs.\ \(2\%\) basic).}
-    \label{fig:M2PCNL_HE_1000rpm_med}
-  \end{subfigure}
-
-  \caption{MMPC with harmonic extraction at 50\% rated speed (1000 rpm) under inverter non-linearities (dead time, device drops). Each panel shows \(i_{dq}\), phase currents, and THD.}
-  \label{fig:M2PCNL_HE_1000rpm}
-\end{figure}
-
-
-\subsection{Low Speed Operation}
-
-\begin{figure}[H]
-  \centering
-
-  % --- Row 1: 5% rated speed (100 rpm) ---
-  \begin{subfigure}{0.4\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{./MPCSteadyStateLowLoad100Rpm}
-    \caption{5\% speed (100 rpm), low load \(T=0.3~\mathrm{N\,m}\); THD \(=2.8\%\).}
-    \label{fig:M2PCNL_HE_100rpm_low}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.4\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{./MPCSteadyStateHighLoad100Rpm}
-    \caption{5\% speed (100 rpm), rated load \(T=3.5~\mathrm{N\,m}\); THD \(=0.8\%\).}
-    \label{fig:M2PCNL_HE_100rpm_high}
-  \end{subfigure}
-
-  \vspace{0.6em}
-
-  % --- Row 2: 10% rated speed (200 rpm) ---
-  \begin{subfigure}{0.4\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{./MPCSteadyStateLowLoad200Rpm}
-    \caption{10\% speed (200 rpm), low load \(T=0.5~\mathrm{N\,m}\); THD \(=2.9\%\).}
-    \label{fig:M2PCNL_HE_200rpm_low}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.4\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{./MPCSteadyStateHighLoad200Rpm}
-    \caption{10\% speed (200 rpm), rated load \(T=3.5~\mathrm{N\,m}\); THD \(=0.6\%\).}
-    \label{fig:M2PCNL_HE_200rpm_high}
-  \end{subfigure}
-
-  \caption{Proposed MMPC-HE at low speeds under inverter non-linearities (dead time, device drops). Each panel shows \(i_{dq}\), phase currents, and THD.}
-  \label{fig:M2PCNL_HE_low_speeds}
-\end{figure}
-With dead time and device drops enabled, the MMPC with harmonic extraction maintains stable sensorless operation and markedly reduces distortion at very low speeds. At 5\% rated (100~rpm), the phase-current THD is 2.8\% at low load (\(0.3~\mathrm{N\,m}\); see Fig.~\ref{fig:M2PCNL_HE_100rpm_low}) versus \(\sim\)6.9\% for the MMPC, and 0.8\% at rated load (\(3.5~\mathrm{N\,m}\); see Fig.~\ref{fig:M2PCNL_HE_100rpm_high}) versus \(\sim\)1.1\%. At 10\% rated (200~rpm), THD is 2.9\% at low load (\(0.5~\mathrm{N\,m}\); see Fig.~\ref{fig:M2PCNL_HE_200rpm_low}) compared with \(\sim\)6.6\% for the basic scheme, and 0.6\% at rated load (\(3.5~\mathrm{N\,m}\); see Fig.~\ref{fig:M2PCNL_HE_200rpm_high}) compared with \(\sim\)1.1\%. These gains arise from extracting/cancelling dominant low-order distortion components injected by non-ideal switching while preserving fixed-frequency SVM actuation and accurate one-step prediction, yielding the best low-speed THD among all controllers studied.
-
-\subsection{Dynamic Performance}
-With dead time and device drops enabled, the MMPC-HE tracks speed commands across the 10–50\% band (100–1000~rpm) cleanly at both load extremes—low load (\(0.3~\mathrm{N\,m}\); see Fig.~\ref{fig:M2PCNL_HE_Dyn_100to1000_low}) and rated load (\(3.5~\mathrm{N\,m}\); see Fig.~\ref{fig:M2PCNL_HE_Dyn_100to1000_rated}). In all transitions the measured speed follows the reference with overshoot \(\mathbf{<10\%}\) and negligible steady-state error; \(i_q\) steps proportionally, and the phase currents remain notably smooth, yielding lower torque ripple than all other controllers. Importantly, the harmonic–extraction stage—implemented as selective cancellation of low-order distortion in the commanded average voltage—does not alter the closed-loop dynamics: rise/settling times and damping are essentially unchanged from the baseline MMPC.
-% Requires in preamble:
-% \usepackage{graphicx}
-% \usepackage{subcaption}
-
-\begin{figure}[H]
-  \centering
-  % --- (a) Low load ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{MPCDynamicResponseLowLoad}
-    \caption{Low load: \(T=0.3~\mathrm{N\,m}\). Overshoot \(<10\%\); smooth \(i_q\)/phase currents; very low torque ripple.}
-    \label{fig:M2PCNL_HE_Dyn_100to1000_low}
-  \end{subfigure}\hfill
-  % --- (b) Rated load ---
-  \begin{subfigure}{0.485\textwidth}
-    \centering
-    % Replace with your exported plot/image
-    \includegraphics[width=\linewidth]{MPCDynamicResponseHighLoad}
-    \caption{Rated load: \(T=3.5~\mathrm{N\,m}\). Overshoot \(<10\%\); damping and settling comparable to baseline MPC.}
-    \label{fig:M2PCNL_HE_Dyn_100to1000_rated}
-  \end{subfigure}
-
-  \caption{Dynamic performance of MMPC-HE under inverter non-linearities
-  (dead time, device drops) for speed changes within the \(10\%\!\to\!50\%\) rated band (100–1000 rpm). Each panel shows
-  command vs.\ speed, \(i_q\), and phase currents.}
-  \label{fig:M2PCNL_HE_Dyn_100to1000}
-\end{figure}
-
-\subsection{Parameter Variation}
-At 5\% rated speed (100~rpm) with dead time and device drops enabled, the proposed controller was stressed with a biased prediction model (\(R_s{+}25\%\), \(L_{d,q}{-}25\%\)). As shown in Fig.~\ref{fig:M2PCNL_HE_ParamVariation}, the phase-current THD is 4.6\%, notably lower than the 8.7\% obtained by the \emph{basic} MMPC under the same bias (cf. Fig.~\ref{fig:M2PCNL_ParamVariation}). The fixed-frequency SVM and per-sample voltage optimization preserve the closed-loop cutoff, but the harmonic-extraction stage is model-referenced; the parameter bias shifts the phase/amplitude of the dominant low-order distortion, so the template is imperfect and cancellation is incomplete—hence reduced (but nonzero) residual harmonics.
-
-% Requires in preamble:
-% \usepackage{graphicx}
-
-\begin{figure}[h]
-  \centering
-  % Replace with your exported composite plot (e.g., speed, dq currents, phase currents, THD)
-  \includegraphics[width=0.7\linewidth]{MPCParameterVariation}
-  \caption{Proposed MMPC-HE under parameter variation
-  at 5\% rated speed (100 rpm) with inverter non-linearities (dead time, device drops).
-  The prediction model is biased with \(R_s{+}25\%\) and \(L_{d,q}{-}25\%\).
-  The composite plot reports \(d\)- and \(q\)-axis currents, phase currents, and the THD result.}
-  \label{fig:M2PCNL_HE_ParamVariation}
-\end{figure}
-
-\subsection{Load Variation}
-With dead time and device drops enabled, the motor was held at 1000 rpm while the load torque stepped from 10\% to 100\% of rated in 20\% increments. As shown in Fig.~\ref{fig:M2PCNL_HE_LoadVariation}, the proposed MMPC with harmonic extraction maintains the commanded speed without droop; \(i_q\) increases in clean, proportional steps, and the phase currents remain smooth. Transient metrics—rise time, settling, and damping—are essentially unchanged relative to the baseline MMPC (cf. Fig.~\ref{fig:M2PCNL_LoadVariation}), confirming that the harmonic-extraction stage does not penalize dynamics while preserving (and slightly improving) ripple performance under load changes.
-
-% Requires in preamble:
-% \usepackage{graphicx}
-
-\begin{figure}[H]
-  \centering
-  % Replace with your exported composite plot:
-  % (left) speed response, (middle) q-axis current, (right) phase currents
-  \includegraphics[width=0.6\linewidth]{MPCLoadVariation}
-  \caption{Proposed MMPC-HE under load variation at 50\% rated speed
-  (1000 rpm) with inverter non-linearities (dead time, device drops). The composite figure shows motor speed,
-  \(i_q\), and phase currents during torque steps from 10\% to 100\% of rated in 20\% increments.}
-  \label{fig:M2PCNL_HE_LoadVariation}
-\end{figure}
-
-\section{Experimental Validation}
-This section presents the experimental validation of the proposed (MMPC-HE) for mitigating inverter non-linearities in a motor drive system. The experiments assess steady-state and dynamic performance under low-load conditions at a low speed and a higher speed. The MMPC-HE is compared against (MMPC), and a conventional proportional-integral (PI) controller at the higher speed, as the PI controller was unstable at the low speed due to its sensitivity to non-linearities. Performance is evaluated using phase current waveforms, d-q axis currents ($i_d$ and $i_q$), and total harmonic distortion (THD) to quantify harmonic suppression and control accuracy.
-
-The experiments were conducted on a \SI{1}{kW} PMSM test bench, powered by a three-phase voltage source inverter (VSI) operating at a switching frequency of \SI{10}{kHz}. A generator was coupled to the motor to apply controlled load conditions, emphasizing inverter-induced non-linearities. The control algorithms were implemented on a Texas Instruments C2000 digital signal processor (DSP) with a control cycle update of \SI{100}{\micro\second}. Phase current measurements were obtained using two high-precision Hall-effect sensors.
-
-Performance metrics include phase current waveforms, d-q axis currents ($i_d$ and $i_q$), and total harmonic distortion (THD).
-\subsection{Steady-State Performance}
-% Outlining the steady-state test design and evaluation metrics
-Steady-state tests were conducted at the low and higher speeds to evaluate harmonic suppression and control accuracy at low loads, 10\% of the rated load. At the low speed, MMPC-HE and MMPC were compared, while at the higher speed, the PI controller was included as a baseline. The evaluation metrics included phase current waveforms to visually inspect harmonic distortions, d-q axis currents to assess control accuracy in the synchronous reference frame, and THD, defined as the percentage ratio of harmonic amplitudes to the fundamental component. 
-
-% Presenting and analyzing steady-state results
-The steady-state results are summarized in Table~\ref{tab:steady_state_results} and illustrated in Figures~\ref{fig:steady_state_100rpm}and~\ref{fig:steady_state_200rpm}. At the low speed, MMPC-HE exhibited significantly lower THD compared to MMPC, indicating effective harmonic suppression. At the higher speed, MMPC-HE outperformed both MMPC and the PI controller in THD reduction. Phase current waveforms for MMPC-HE showed smoother profiles with minimal distortions, and d-q axis currents displayed reduced oscillations, confirming superior tracking accuracy. The THD improvement of MMPC-HE was statistically significant, MMPC-HE demonstrated enhanced harmonic suppression under similar conditions.
-
-\begin{table}[h]
-\centering
-\caption{Steady-State THD Comparison at Low Load}
-\label{tab:steady_state_results}
-\begin{tabular}{l c c}
-\hline
-Method & THD (100 RPM) & THD (200 RPM) \\
-\hline
-PI Controller & -- & 12.3\% \\
-MMPC & 5.2\% & 3.1\% \\
-MMPC-HE (Proposed) & 4.2\% & 2.3\% \\
-\hline
-\end{tabular}
+The IOPC literature identified by Li et al. includes synchronous, hybrid, and stationary implementations~\cite{ch5-suh2002pesc,ch5-suh2002ias,ch5-suh2006hybrid,ch5-suh2006model,wu2008,ch5-wu2008repetitive,ch5-stankovic2001}. Their common motivation is to account for filter power when controlling the DC-side energy transfer. The proposed chapter uses Li et al.'s stationary formulation rather than reconstructing these other implementations.
+
+The input power is permitted to oscillate as required to supply the filter energy variation while maintaining constant converter-terminal power. Li et al. describe the zero-average-reactive condition as unity power factor in an average sense. Under unbalance this wording must be interpreted narrowly: $\overline q_{\mathrm{in}}^{\mathrm Q}=0$ does not prove unity true three-phase power factor, balanced currents, or zero instantaneous reactive power. It also need not imply zero mean cross-product reactive power under the convention used in Chapter~4.
+
+IOPC is selected because its objectives address average grid power and the principal low-frequency source of DC-link ripple together. Its additional dependence on converter-terminal voltages makes reference calculation and implementation more involved. Its suitability remains conditional on matrix conditioning, current limits, and the available converter voltage.
+
+\subsection{Comparative Assessment}
+Table~\ref{tab:ch5-comparison} compares the ideal fundamental objectives. It does not rank measured performance or assign numerical harmonic improvements. Li et al.'s experimental comparison supports distinctions between the three reference generators in their apparatus; those results are not validation of the predictive controller proposed here.
+\begin{table}[p]
+\centering\small
+\caption{Comparison of power-reference strategies under unbalanced voltage. Reactive quantities use the quadrature-voltage convention.}
+\label{tab:ch5-comparison}
+\renewcommand{\arraystretch}{1.22}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{.19\textwidth}*{3}{>{\raggedright\arraybackslash}X}@{}}
+\toprule
+Criterion & IPC & OPC & IOPC\\\midrule
+Primary target & Constant input active power & Constant output active power & Input average powers and constant output active power\\
+Average input active power & Prescribed & Determined by output demand and losses & Prescribed\\
+Average output active power & Input demand minus mean losses & Prescribed & Input demand minus mean losses\\
+Mean input reactive power & Zero & Not independently constrained & Zero\\
+Input active-power ripple & Suppressed & Generally present & Generally present; supplies filter ripple\\
+Output active-power ripple & Generally remains & Suppressed & Suppressed\\
+Low-frequency DC ripple & May remain through filter power & Corresponding forced ripple removed ideally & Corresponding forced ripple removed ideally\\
+Grid-side power factor & Zero mean quadrature reactive power; true unity PF not assured & Input unity PF not imposed & Zero mean quadrature reactive power; true unity PF not assured\\
+Current quality & Fundamental references possible; closed-loop distortion is implementation-dependent & Fundamental references possible; balance not guaranteed & Fundamental references possible; balance not guaranteed\\
+Reference calculation & Grid-voltage information & Converter-voltage information & Both grid and converter voltage information\\
+Relative calculation burden & Simple closed-form reference & Simple closed-form reference plus terminal-voltage estimates & Coupled four-variable solve plus terminal-voltage estimates\\
+Main advantage & Direct grid-power regulation & Direct DC-side ripple objective & Combines input average-power and output ripple objectives\\
+Main limitation & Ignores filter contribution to output ripple if used alone & Does not enforce zero mean input reactive power & Conditioning, estimation, and feasibility requirements\\\bottomrule
+\end{tabularx}
+\par\smallskip\footnotesize
+Ripple suppression refers to the fundamental steady-state model, exact current tracking, feasible references, and the stated terminal voltages. Constant DC voltage additionally requires average power balance and compatible load dynamics.
 \end{table}
 
-\begin{figure}[H]
+\section{Mathematical Formulation of IOPC in the Stationary Frame}
+\label{sec:ch5-iopc}
+\subsection{Notation, Scaling, and Instantaneous Powers}
+Chapter~4 uses $v_{\mathrm{s}\alpha},v_{\mathrm{s}\beta}$ for grid quantities and $v_{\mathrm{conv}\alpha},v_{\mathrm{conv}\beta}$ for converter quantities. To reproduce the original paper transparently, this chapter uses the shorter aliases
+\begin{equation}
+\mathbf e=\begin{bmatrix}e_\alpha\\e_\beta\end{bmatrix}
+=\begin{bmatrix}v_{\mathrm{s}\alpha}\\v_{\mathrm{s}\beta}\end{bmatrix},\qquad
+\mathbf v=\begin{bmatrix}v_\alpha\\v_\beta\end{bmatrix}
+=\begin{bmatrix}v_{\mathrm{conv}\alpha}\\v_{\mathrm{conv}\beta}\end{bmatrix}.
+\label{eq:ch5-aliases}
+\end{equation}
+Thus an unsubscripted $v_\alpha$ in this chapter denotes converter voltage, not grid voltage. The amplitude-invariant Clarke map in Chapter~4, \eqref{eq:ch4-clarke}, is retained:
+\begin{equation}
+\mathbf x_{\alpha\beta}=\mathbf T_{\mathrm C}\mathbf x_{abc},\qquad
+\mathbf T_{\mathrm C}=\frac23
+\begin{bmatrix}1&-1/2&-1/2\\0&\sqrt3/2&-\sqrt3/2\end{bmatrix}.
+\label{eq:ch5-clarke}
+\end{equation}
+The converter is three-phase and three-wire, so $i_a+i_b+i_c=0$. Equal phase-filter inductances and resistances are assumed. The power scaling is consequently $3/2$, rather than unity.
+
+For a fundamental sinusoid $x(t)=X\cos(\omega t+\phi)$, define its lagging quadrature as
+\begin{equation}
+x'(t)=x\!\left(t-\frac{\pi}{2\omega}\right)=X\sin(\omega t+\phi),\qquad
+\dot x=-\omega x',\quad \dot x'=\omega x.
+\label{eq:ch5-quadrature-definition}
+\end{equation}
+A prime is a quadrature operator, not a time derivative. These identities assume constant frequency and fixed sinusoidal coefficients. They are not exact identities during amplitude steps or arbitrary waveform distortion.
+
+The powers corresponding to Li et al.'s equations (9)--(12) are
+\begin{align}
+p_{\mathrm{in}}&=\frac32\mathbf e^T\mathbf i,&
+q_{\mathrm{in}}^{\mathrm Q}&=\frac32\mathbf e'^T\mathbf i,
+\label{eq:ch5-input-powers}\\
+p_{\mathrm{out}}&=\frac32\mathbf v^T\mathbf i,&
+q_{\mathrm{out}}^{\mathrm Q}&=\frac32\mathbf v'^T\mathbf i.
+\label{eq:ch5-output-powers}
+\end{align}
+In contrast, the cross-product quantity in Chapter~4, \eqref{eq:pq}, is
+\begin{equation}
+q_{\mathrm{in}}^{\times}=\frac32(e_\beta i_\alpha-e_\alpha i_\beta).
+\label{eq:ch5-cross-q}
+\end{equation}
+For a balanced positive-sequence voltage with $e_\alpha=E\cos\omega t$ and $e_\beta=E\sin\omega t$, $\mathbf e'=[e_\beta\ -e_\alpha]^T$, so the definitions coincide. For a negative-sequence voltage the quadrature vector has the opposite relationship. With both sequences present, neither the instantaneous quantities nor their averages can be silently interchanged. Superscript $\mathrm Q$ therefore identifies every reactive-power objective inherited from Li et al.
+
+\subsection{Average and Oscillating Power Components}
+For two fundamental scalar sinusoids $x,y$, the identities
+\begin{equation}
+xy+x'y'=XY\cos(\phi_x-\phi_y),\qquad
+xy-x'y'=XY\cos(2\omega t+\phi_x+\phi_y)
+\label{eq:ch5-products}
+\end{equation}
+separate the constant and double-frequency terms. Applying them componentwise gives
+\begin{align}
+\overline p_{\mathrm{in}}&=\frac34(\mathbf e^T\mathbf i+\mathbf e'^T\mathbf i'),&
+\widetilde p_{\mathrm{in}}&=\frac34(\mathbf e^T\mathbf i-\mathbf e'^T\mathbf i'),
+\label{eq:ch5-input-decomposition}\\
+\overline q_{\mathrm{in}}^{\mathrm Q}&=\frac34(\mathbf e'^T\mathbf i-\mathbf e^T\mathbf i'),&
+\widetilde q_{\mathrm{in}}^{\mathrm Q}&=\frac34(\mathbf e'^T\mathbf i+\mathbf e^T\mathbf i'),
+\label{eq:ch5-q-decomposition}\\
+\overline p_{\mathrm{out}}&=\frac34(\mathbf v^T\mathbf i+\mathbf v'^T\mathbf i'),&
+\widetilde p_{\mathrm{out}}&=\frac34(\mathbf v^T\mathbf i-\mathbf v'^T\mathbf i').
+\label{eq:ch5-output-decomposition}
+\end{align}
+The factors $3/4$ result from the $3/2$ Clarke power factor and the half-angle product identity. These expressions reproduce the content of Li et al.'s equations (14), (16), and (17), using a compact vector notation.
+
+For output-ripple cancellation define
+\begin{equation}
+\kappa_1=\mathbf v^T\mathbf i-\mathbf v'^T\mathbf i',\qquad
+\kappa_2=\mathbf v'^T\mathbf i+\mathbf v^T\mathbf i'.
+\label{eq:ch5-kappa}
+\end{equation}
+For fixed fundamental coefficients, $\kappa_1$ and $\kappa_2$ are the cosine and sine quadratures of the same double-frequency waveform. Their simultaneous vanishing sets both independent ripple coefficients to zero. This is the stationary-frame counterpart of the double-frequency power analysis in Chapter~4; no sequence extraction is needed to evaluate it. Higher harmonics, estimator transients, and time-varying coefficients fall outside this two-coefficient description.
+
+\subsection{Power-Condition Matrix and Its Solution}
+Combining \eqref{eq:ch5-iopc-objectives} with \eqref{eq:ch5-input-decomposition}--\eqref{eq:ch5-kappa} gives the original IOPC matrix:
+\begin{equation}
+\begin{bmatrix}P_{\mathrm{ref}}\\0\\0\\0\end{bmatrix}
+=\frac34\underbrace{\begin{bmatrix}
+e_\alpha&e_\beta&e'_\alpha&e'_\beta\\
+e'_\alpha&e'_\beta&-e_\alpha&-e_\beta\\
+v_\alpha&v_\beta&-v'_\alpha&-v'_\beta\\
+v'_\alpha&v'_\beta&v_\alpha&v_\beta
+\end{bmatrix}}_{\mathbf M}
+\begin{bmatrix}i_\alpha^\ast\\i_\beta^\ast\\i_\alpha^{\prime\ast}\\i_\beta^{\prime\ast}\end{bmatrix}.
+\label{eq:ch5-iopc-matrix}
+\end{equation}
+The first row specifies mean input active power. The second sets mean input quadrature reactive power to zero. The third and fourth remove the two output active-power ripple coefficients. The four unknowns are the two current components and their fundamental quadratures, corresponding to four real sinusoidal coefficients rather than four independently measured currents.
+
+When $\det\mathbf M\ne0$, the mathematical solution is
+\begin{equation}
+\mathbf z^\ast=\frac{4P_{\mathrm{ref}}}{3}\mathbf M^{-1}\mathbf e_1,\qquad
+\mathbf z^\ast=[i_\alpha^\ast\ i_\beta^\ast\ i_\alpha^{\prime\ast}\ i_\beta^{\prime\ast}]^T,
+\quad \mathbf e_1=[1\ 0\ 0\ 0]^T.
+\label{eq:ch5-matrix-solution}
+\end{equation}
+In software, a pivoted linear solve or QR factorization is preferable to explicitly forming an inverse. Expanding the determinant gives
+\begin{align}
+D_{\mathrm{IOPC}}={}&(e_\alpha^2+e_\alpha'^2)(v_\beta^2+v_\beta'^2)
+ +(e_\beta^2+e_\beta'^2)(v_\alpha^2+v_\alpha'^2)\notag\\
+&+2(v_\alpha v'_\beta-v'_\alpha v_\beta)
+       (e_\alpha e'_\beta-e'_\alpha e_\beta)\notag\\
+&-2(e_\alpha e_\beta+e'_\alpha e'_\beta)
+       (v_\alpha v_\beta+v'_\alpha v'_\beta)
+=\det\mathbf M.
+\label{eq:ch5-iopc-denominator}
+\end{align}
+The first two cofactors in the first row are
+\begin{align}
+N_\alpha={}&(e'_\beta v'_\beta-e_\beta v_\beta)v_\alpha
+ -(e_\beta v'_\beta+e'_\beta v_\beta)v'_\alpha
+ +(v_\beta^2+v_\beta'^2)e_\alpha,
+\label{eq:ch5-nalpha}\\
+N_\beta={}&(e'_\alpha v'_\alpha-e_\alpha v_\alpha)v_\beta
+ -(e_\alpha v'_\alpha+e'_\alpha v_\alpha)v'_\beta
+ +(v_\alpha^2+v_\alpha'^2)e_\beta.
+\label{eq:ch5-nbeta}
+\end{align}
+Cramer's rule therefore yields
+\begin{equation}
+\boxed{i_\alpha^\ast=\frac{4P_{\mathrm{ref}}N_\alpha}{3D_{\mathrm{IOPC}}},\qquad
+i_\beta^\ast=\frac{4P_{\mathrm{ref}}N_\beta}{3D_{\mathrm{IOPC}}}.}
+\label{eq:ch5-explicit-references}
+\end{equation}
+Equations~\eqref{eq:ch5-iopc-matrix}, \eqref{eq:ch5-iopc-denominator}, and \eqref{eq:ch5-explicit-references} are Li et al.'s equations (24)--(26), with current-reference notation made explicit. The numerator cofactors have units of voltage cubed and the determinant voltage to the fourth power; multiplying their ratio by power gives current, as required.
+
+An independent factorization useful for checking the determinant is
+\begin{align}
+D_{\mathrm{IOPC}}&=U^2+Z^2,\notag\\
+U&=e_\alpha v_\beta-e_\beta v_\alpha+e'_\alpha v'_\beta-e'_\beta v'_\alpha,\notag\\
+Z&=e'_\alpha v_\beta-e'_\beta v_\alpha-e_\alpha v'_\beta+e_\beta v'_\alpha.
+\label{eq:ch5-det-factorization}
+\end{align}
+For real variables, singularity is equivalent to $U=Z=0$. The determinant can become small relative to the signal scales during severe dips or unfavorable voltage relationships. A nonzero determinant alone is not an adequate numerical test: row scaling and a condition estimate are needed. As a limiting check, when $\mathbf v=\mathbf e$ the determinant becomes $4(e_\alpha e'_\beta-e'_\alpha e_\beta)^2$. It vanishes when the voltage trajectory collapses to a line, illustrating the loss of independent control information.
+
+The matrix solution assumes the converter voltage is known. In the actual closed loop, converter voltage and current are coupled by the filter model, so the reference solve is not an independent proof that every requested operating point exists. Section~\ref{sec:ch5-architecture} supplies a causal estimate; convergence to the intended steady state remains a closed-loop question.
+
+\subsection{Quadrature Variables and Converter-Voltage Estimation}
+For a fixed fundamental waveform, applying the lagging quadrature operation to $\mathbf e=R\mathbf i+L\dot{\mathbf i}+\mathbf v$ gives
+\begin{equation}
+\mathbf v'=\mathbf e'-R\mathbf i'-\omega L\mathbf i.
+\label{eq:ch5-resistive-quadrature}
+\end{equation}
+This follows because the quadrature of $\dot{\mathbf i}$ is $\omega\mathbf i$. Neglecting $R$ recovers Li et al.'s equation (28):
+\begin{equation}
+v'_\alpha\simeq e'_\alpha-\omega L i_\alpha,\qquad
+v'_\beta\simeq e'_\beta-\omega L i_\beta.
+\label{eq:ch5-li-substitution}
+\end{equation}
+The approximation removes the need to extract delayed current or converter-voltage variables in the original implementation. It is a fundamental steady-state substitution, not an exact transient model. Retaining $R$ requires $\mathbf i'$ as well, and neither expression justifies applying the fundamental identity to raw switching ripple.
+
+A stored quarter-period delay is straightforward at a fixed frequency when the sampling ratio is suitable. Fractional delays are needed otherwise. It also delays disturbance information and acts differently on harmonics, so its output is not automatically the quadrature of the fundamental alone. Resonant-based extraction can provide an in-phase fundamental estimate and its lagging quadrature, at the cost of estimator settling dynamics and sensitivity to frequency tuning.
+
+For the proposed implementation, paired stationary signal generators are used on the measured grid voltage and reconstructed converter average voltage. A concrete continuous-time signal generator for each scalar input $x$ is
+\begin{align}
+\dot{\widehat x}&=k_g\widehat\omega(x-\widehat x)-\widehat\omega\widehat x',&
+\dot{\widehat x}'&=\widehat\omega\widehat x,\notag\\
+\frac{\widehat X(s)}{X(s)}&=\frac{k_g\widehat\omega s}{s^2+k_g\widehat\omega s+\widehat\omega^2},&
+\frac{\widehat X'(s)}{X(s)}&=\frac{k_g\widehat\omega^2}{s^2+k_g\widehat\omega s+\widehat\omega^2}.
+\label{eq:ch5-qsg}
+\end{align}
+Here $k_g>0$ controls estimator damping. At $s=j\widehat\omega$, the two transfer functions are $1$ and $-j$, respectively, giving the required lagging quadrature. A bilinear discretization with prewarping at the nominal grid frequency is one suitable realization. DC offsets require removal; the quadrature channel is not intrinsically DC rejecting. Frequency may be supplied by a stationary frequency estimator or set to the known nominal value when its variation is negligible. No electrical angle or Park transformation is required.
+
+The IOPC matrix is formed from these fundamental estimates. The predictive plant model uses the sampled grid voltage, with the forecast described below. Thus the power-reference calculation targets fundamental power oscillations; it does not assert cancellation of all harmonic power. The explicit reconstructed-voltage estimator is selected as the baseline because it retains filter resistance in the plant and avoids making \eqref{eq:ch5-li-substitution} an assumed transient identity. This introduces additional estimator dynamics compared with Li et al.'s substitution. Its bandwidth, noise response, and phase error must be included in validation.
+
+\section{Proposed Stationary-Frame IOPC--MMPCC Architecture}
+\label{sec:ch5-architecture}
+\subsection{Overall Operating Principle and DC-Link Regulation}
+The outer controller regulates DC-link energy indirectly through the input active-power reference. The IOPC stage determines the current waveform needed to realize that reference while targeting zero mean input quadrature reactive power and zero fundamental output-power ripple. The MMPCC stage controls how the available switching states reproduce the required current. Figure~\ref{fig:ch5-architecture} separates these functions and identifies the historical converter-voltage path.
+
+Let $\overline V_{\mathrm{dc}}[k]$ be a filtered DC-link measurement used by the outer loop and let $\varepsilon_v[k]=V_{\mathrm{dc}}^\ast-\overline V_{\mathrm{dc}}[k]$. A PI regulator whose output has units of power is
+\begin{align}
+P_u[k]&=K_{p,v}\varepsilon_v[k]+\xi[k],\notag\\
+P_b[k]&=\operatorname{sat}_{[P_{\min},P_{\max}]}(P_u[k]),\notag\\
+\xi[k+1]&=\xi[k]+T_s\{K_{i,v}\varepsilon_v[k]+K_{\mathrm{aw}}(P_{\mathrm{ref}}[k]-P_u[k])\}.
+\label{eq:ch5-pi}
+\end{align}
+$P_b$ is the bounded request before the current-envelope limiter; $P_{\mathrm{ref}}$ is the final accepted request. The gains have units $K_{p,v}$ in W/V, $K_{i,v}$ in W/(V\,s), and $K_{\mathrm{aw}}$ in $\mathrm{s}^{-1}$. This power-output PI is a deliberate implementation choice. It does not require treating the original paper's PI output as power if that output is instead a DC current command multiplied by the measured DC voltage.
+
+At steady state, the integrator supplies the mean filter and bridge losses as well as load power. From Chapter~4, \eqref{eq:dc}, zero output-power ripple prevents the corresponding forced voltage ripple only when the load power and losses are compatible. The outer loop should regulate the average voltage rather than command a large double-frequency modulation of $P_{\mathrm{ref}}$. Its bandwidth and any measurement notch or low-pass filter must be designed jointly with the reference generator; no numerical tuning is asserted without the plant parameters.
+
+\begin{figure}[p]
 \centering
-\includegraphics[width=0.8\textwidth]{./SteadyState100Rpm.pdf}
-\caption{Experimental results of stator currents, $dz-qz$ axes currents, THD in low-speed (100 RPM) light load condition. (a) MMPC, (b) MMPC-HE.}
-\label{fig:steady_state_100rpm}
+\begin{tikzpicture}[font=\small,
+ b/.style={draw,rounded corners=2pt,align=center,text width=4.15cm,minimum height=12mm,fill=black!3},
+ main/.style={b,fill=blue!6,draw=blue!45!black},
+ arr/.style={-{Stealth[length=2mm]},thick},
+ fb/.style={arr,dashed},node distance=8mm]
+\node[b] (measure) {Measurements\\$\mathbf e_{abc},\mathbf i_{abc},V_{\mathrm{dc}}$};
+\node[b,right=14mm of measure] (history) {Stored applied duties and $V_{\mathrm{dc}}$\\Reconstruct $\mathbf u[k-1]$};
+\node[b,below=of measure] (clarke) {Clarke transformation\\$\mathbf e[k],\mathbf i[k]$};
+\node[b,below=of history] (qsg) {Stationary quadrature estimators\\$\widehat{\mathbf e},\widehat{\mathbf e}',\widehat{\mathbf v},\widehat{\mathbf v}'$};
+\node[b,below=of clarke] (pi) {DC-link PI and power bounds\\$P_b[k]$};
+\node[main,below=of qsg] (iopc) {IOPC matrix solve\\Condition check and common limiter};
+\node[main,below=of iopc] (ref) {Future current reference\\$\mathbf r[k+2]$};
+\node[b,below=of pi] (predict) {Applied-voltage delay prediction\\$\widehat{\mathbf i}[k+1]$};
+\node[main,below=18mm of predict,xshift=28mm,text width=7cm] (opt) {Six adjacent vector pairs\\Constrained duties; evaluate global cost\\Select $m^\ast,d_0^\ast,d_1^\ast,d_2^\ast$};
+\node[main,below=of opt,text width=7cm] (svm) {Symmetric SVM and one-period scheduling\\Command for interval $[t_{k+1},t_{k+2})$};
+\node[b,below=of svm,text width=7cm] (plant) {AFE rectifier, AC filter, DC link and load};
+\draw[arr] (measure)--(clarke);
+\draw[arr] (history)--(qsg);
+\draw[arr] (clarke.east)--(qsg.west);
+\draw[arr] (measure.west)--++(-.45,0)|-(pi.west);
+\draw[arr] (pi)--(iopc);
+\draw[arr] (qsg)--(iopc);
+\draw[arr] (iopc)--(ref);
+\draw[arr] (clarke.west)--++(-.85,0)|-(predict.west);
+\draw[arr] (predict.south)--++(0,-.7)-|([xshift=-20mm]opt.north);
+\draw[arr] (ref.south)--++(0,-.7)-|([xshift=20mm]opt.north);
+\draw[arr] (opt)--(svm);
+\draw[arr] (svm)--(plant);
+\draw[fb] (svm.east)--++(2.8,0)|-(history.east);
+\draw[fb] (plant.west)--++(-3.0,0)|-(measure.west);
+\end{tikzpicture}
+\caption{Proposed stationary-frame IOPC--MMPCC architecture. The stored scheduled voltage also enters the delay predictor; all paths are causal. Dashed paths denote stored-command and plant feedback.}
+\label{fig:ch5-architecture}
 \end{figure}
 
-\begin{figure}
+\subsection{Causal Converter-Voltage Feedback and Sampling Timing}
+Let $t_k=kT_s$ and let $\mathbf u[k]$ denote the average converter voltage scheduled for $[t_k,t_{k+1})$. With a one-period computation delay, $\mathbf u[k]$ is already committed when measurements are acquired at $t_k$. The command calculated at $t_k$ is $\mathbf u[k+1]$, to be applied during the following interval. This convention is used consistently in every prediction below.
+
+The average voltage actually applied in the most recently completed interval can be reconstructed from the stored duty fractions and DC-link voltage:
+\begin{equation}
+\mathbf u_{\mathrm{rec}}[k-1]=\overline V_{\mathrm{dc}}^{\mathrm{sw}}[k-1]
+\left(d_1[k-1]\mathbf s_{m[k-1]}+d_2[k-1]\mathbf s_{j[k-1]}\right),
+\label{eq:ch5-reconstruction}
+\end{equation}
+where $\mathbf s_m$ is the dimensionless Clarke switching vector and $\overline V_{\mathrm{dc}}^{\mathrm{sw}}$ is the measured interval voltage estimate used for reconstruction, not necessarily the slow outer-loop filtered value. Dead time and device drops can be included in a calibrated reconstruction.
+
+At $t_k$, the converter-voltage signal-generator state is advanced causally using the completed-interval data. Its outputs $\widehat{\mathbf v}[k],\widehat{\mathbf v}'[k]$ are estimates of the fundamental terminal waveform at the current sampling time. They are not measurements of an unknown future optimized voltage. The grid signal generator is timestamped consistently. Fundamental estimator lag, interval averaging, and reconstruction error must be assessed; calling the outputs current-time estimates does not make those errors vanish.
+
+The reference generator then forms \eqref{eq:ch5-iopc-matrix} from these estimates and the accepted power request. Its output is frozen during the six-pair predictive optimization. The optimizer is therefore not feeding a same-sample unknown voltage back into the IOPC solve. The one-period delayed feedback makes the implementation causal but changes the transient system relative to an ideal algebraic steady-state solution. Ripple cancellation follows only to the extent that the estimators, tracked references, and eventual converter fundamental voltage become mutually consistent.
+
+\subsection{Reference Limiting and Future-Reference Evaluation}
+The full four-component solve supplies both $\mathbf i^\ast$ and $\mathbf i^{\prime\ast}$. To limit the fundamental phase-current envelope, define the inverse Clarke matrix
+\begin{equation}
+\mathbf F=\begin{bmatrix}1&0\\-1/2&\sqrt3/2\\-1/2&-\sqrt3/2\end{bmatrix},\quad
+\mathbf a=\mathbf F\mathbf i^\ast,\quad\mathbf a'=\mathbf F\mathbf i^{\prime\ast}.
+\label{eq:ch5-inverse-clarke}
+\end{equation}
+Solve first with $P_b$, then use
+\begin{equation}
+I_{\mathrm{env}}=\max_{\ell\in\{a,b,c\}}\sqrt{a_\ell^2+a_\ell'^2},\quad
+\gamma=\min\!\left(1,\frac{I_{\mathrm{ref,max}}}{I_{\mathrm{env}}}\right),\quad
+P_{\mathrm{ref}}=\gamma P_b,\quad\mathbf z_{\mathrm{lim}}^\ast=\gamma\mathbf z^\ast.
+\label{eq:ch5-reference-limiter}
+\end{equation}
+Set $\gamma=1$ if $I_{\mathrm{env}}=0$. A common scalar preserves the waveform shape and, for the frozen voltage matrix, scales its active-power row while keeping the three homogeneous rows zero. Independent clipping of phase or axis references does not preserve those conditions. Variation of $\gamma$ during transients introduces extra spectral content; exact steady-state power cancellation is not claimed during limiting changes.
+
+For a fixed fundamental waveform, the future reference is obtained without a rotating coordinate transform:
+\begin{equation}
+\mathbf r[k+h]=\mathbf i_{\mathrm{lim}}^\ast[k]\cos(h\widehat\omega T_s)
+-\mathbf i_{\mathrm{lim}}^{\prime\ast}[k]\sin(h\widehat\omega T_s),\qquad h=1,2.
+\label{eq:ch5-reference-forecast}
+\end{equation}
+The minus sign follows from the lagging quadrature definition. This operation advances each scalar waveform in time; it does not rotate the $\alpha\beta$ axes. In particular, it works for an unbalanced fundamental waveform without imposing a single positive-sequence space-vector rotation. During power-reference changes it is a frozen-envelope forecast, not an exact prediction. Rate limiting and estimator-validity checks are therefore required. The grid fundamental is forecast analogously for $\widehat{\mathbf e}[k+1]$; a sample-and-hold forecast is an alternative when its prediction error is acceptable.
+
+\section{Stationary-Frame Model and Modulated Predictive Current Control}
+\label{sec:ch5-mmpcc}
+\subsection{Continuous-Time Model and Forward-Euler Discretization}
+With equal filter parameters and current directed into the rectifier, Chapter~4, \eqref{eq:model}, becomes
+\begin{equation}
+L\dot{\mathbf i}=\mathbf e-R\mathbf i-\mathbf v,
+\qquad
+\begin{cases}
+L\dot i_\alpha=e_\alpha-Ri_\alpha-v_\alpha,\\
+L\dot i_\beta=e_\beta-Ri_\beta-v_\beta.
+\end{cases}
+\label{eq:ch5-plant}
+\end{equation}
+The grid voltage drives the current, while the resistive drop and converter counter-voltage reduce its rate of increase. There are no frame-rotation cross-coupling terms. This equation is the direct stationary plant model, not a relabeling of a synchronous-frame predictor.
+
+Integrating over one short sampling interval and holding its right-hand side at the sampling instant yields
+\begin{align}
+\mathbf i[k+1]&\simeq a\mathbf i[k]+b(\mathbf e[k]-\mathbf u[k]),\notag\\
+a&=1-\frac{RT_s}{L},\qquad b=\frac{T_s}{L},
+\label{eq:ch5-fe}\\
+i_\alpha[k+1]&\simeq\left(1-\frac{RT_s}{L}\right)i_\alpha[k]
++\frac{T_s}{L}(e_\alpha[k]-u_\alpha[k]),\notag\\
+i_\beta[k+1]&\simeq\left(1-\frac{RT_s}{L}\right)i_\beta[k]
++\frac{T_s}{L}(e_\beta[k]-u_\beta[k]).
+\label{eq:ch5-fe-components}
+\end{align}
+Here $a$ is dimensionless and $b$ has units A/V. Forward Euler has local truncation error of order $T_s^2$ for smooth averaged dynamics. For the isolated resistive current pole, numerical stability requires $0<RT_s/L<2$ when $R>0$; useful prediction accuracy normally requires a much smaller ratio and $\omega T_s\ll1$. This numerical condition is not a stability proof for the complete controller. The switching-average approximation also neglects the exact ordering of subinterval voltages within the PWM period.
+
+\subsection{Voltage Vectors of the Two-Level AFE}
+For $\mathbf S=[S_a\ S_b\ S_c]^T\in\{0,1\}^3$, removing common mode and applying \eqref{eq:ch5-clarke} gives
+\begin{equation}
+\mathbf v(\mathbf S)=V_{\mathrm{dc}}\begin{bmatrix}(2S_a-S_b-S_c)/3\\(S_b-S_c)/\sqrt3\end{bmatrix}.
+\label{eq:ch5-switching-map}
+\end{equation}
+The six active vectors have magnitude $2V_{\mathrm{dc}}/3$ and are separated by $\pi/3$. The states $000$ and $111$ both give zero stationary voltage, although their switching transitions and common-mode behavior differ. Table~\ref{tab:ch5-vectors} fixes the indexing used throughout.
+\begin{table}[htbp]
 \centering
-\includegraphics[width=0.8\textwidth]{./SteadyState200Rpm.pdf}
-\caption{Experimental results of stator currents, $dz-qz$ axes currents, THD in low-speed (200 RPM) light load condition. (a) PI-Controller (b) MMPC, (c) MMPC-HE.}
-\label{fig:steady_state_200rpm}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=8cm]{./hardware_setup}
-\caption{Hardware setup}
-\label{fig:hardware_setup}
-\end{figure}
-
-\subsection{Dynamic Response}
-Dynamic response tests assessed the transient performance of the control methods under two speed step conditions. The first test evaluated MMPC-HE alone for a speed step from \SI{100}{rpm} to \SI{500}{rpm} to assess its transient response at higher speeds. The second test evaluated MMPC-HE, MMPC, and the PI controller for a speed step from \SI{500}{rpm} to \SI{100}{rpm} to compare their performance at lower speeds. The metrics included speed response, defined as the time taken for the motor speed to stabilize within a small percentage of the target speed, overshoot in the quadrature-axis current ($i_q$), and stator current waveforms to assess transient harmonic content.
-
-The dynamic response results are presented in Figures~\ref{fig:DynamicHE_response}, and \ref{fig:DynamicAll_response}. For the speed step from \SI{100}{rpm} to \SI{500}{rpm}, MMPC-HE exhibited rapid speed response, minimal $i_q$ overshoot, and stator current waveforms with low harmonic distortion, demonstrating robust transient performance. For the speed step from \SI{500}{rpm} to \SI{100}{rpm}, MMPC-HE achieved a speed response comparable to MMPC-NHE but with significantly reduced $i_q$ undershoot, indicating stable control and rapid response unaffected by the harmonic extraction and elimination correction factor. while the PI controller exhibited an unstable response due to its inability to mitigate non-linearities at low speeds, resulting in pronounced stator current distortions.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.6\textwidth]{./DynamicResponseHE.pdf}
-\caption{Experimental results of stator currents, $qz$ axis current, and the speed response.}
-\label{fig:DynamicHE_response}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.6\textwidth]{./DynamicResponseAll.pdf}
-\caption{Experimental results of stator currents, $qz$ axis current, and the speed response. (a) PI-Controller (b) MMPC, (c) MMPC-HE.}
-\label{fig:DynamicAll_response}
-\end{figure}
-
-
-\subsection{Parameter Variation}
-To evaluate the robustness of the proposed controller, a motor parameter variation test was conducted. In this test, key parameters of the permanent magnet synchronous motor (PMSM)—such as stator resistance, and inductance—were intentionally varied within a predefined range to emulate real-world operating conditions, including temperature fluctuations, aging effects, and manufacturing tolerances. The controller’s performance was assessed under these parameter deviations by monitoring current regulation, and overall stability. This procedure allowed for quantifying the sensitivity of the control algorithm to parameter uncertainties and verifying its capability to maintain reliable operation despite motor model mismatches.
-
-The results of the motor parameter variation test, illustrated in Figure \ref{fig:ParameterVariation}, highlight the superior performance of the proposed hybrid modulated model predictive current controller in terms of current quality. When subjected to parameter deviations, the conventional PI current controller exhibited a significant degradation in performance, with the total harmonic distortion (THD) increasing by approximately 7\%. In comparison, the modulated model predictive current controller demonstrated improved robustness, showing only a 0.6\% increase in THD under the same conditions. The proposed hybrid approach achieved the best performance, limiting the THD increase to just 0.2\%, thereby confirming its enhanced capability to handle parameter variations while maintaining high-quality current waveforms
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.6\textwidth]{./ParameterVariation.pdf}
-\caption{Experimental results of stator currents, $dz-qz$ axes currents, THD in low-speed (200 RPM) light load condition with motor parameters Variation. (a) PI-Controller (b) MMPC, (c) MMPC-HE.}
-\label{fig:ParameterVariation}
-\end{figure}
-
-\subsection{CPU Load Consumption}
-% Outlining the CPU load test design and evaluation metrics
-CPU load consumption tests were conducted to evaluate the computational burden of the control methods, particularly due to the extensive use of sine and cosine operations in MMPC-HE. The tests measured the execution time of each control algorithm on the C2000 DSP under steady-state conditions at the low and higher speeds. The evaluation metric was the percentage of the \SI{100}{\micro\second} control cycle consumed by the algorithm, reflecting the computational load relative to the available processing time.
-
-% Presenting and analyzing CPU load consumption results
-The CPU load consumption results are summarized in Table~\ref{tab:cpu_load_results}. At both the low and higher steady state speeds, MMPC-HE exhibited a higher computational load compared to MMPC and the PI controller, attributed to the additional sine and cosine operations required for harmonic extraction and elimination. However, the execution time of MMPC-HE remained within the \SI{100}{\micro\second} control cycle, indicating feasibility for real-time implementation on the C2000 DSP. In contrast, MMPC and the PI controller required less computational time, with the PI controller showing the lowest CPU load due to its simpler control structure. These results highlight a trade-off between the enhanced harmonic suppression of MMPC-HE and its increased computational demand, which warrants further optimization in future work.
-
-\begin{table}[h]
-\centering
-\caption{CPU Load Consumption Comparison}
-\label{tab:cpu_load_results}
-\begin{tabular}{l c}
-\hline
-Method & CPU Load (\%) \\
-\hline
-PI Controller & 3.5  \\
-MMPC & 34\\
-MMPC-HE (Proposed) & 45 \\
-\hline
+\caption{Switching-state convention and stationary voltage vectors.}
+\label{tab:ch5-vectors}
+\begin{tabular}{@{}cccc@{}}\toprule
+Vector & State $S_aS_bS_c$ & $v_\alpha/V_{\mathrm{dc}}$ & $v_\beta/V_{\mathrm{dc}}$\\\midrule
+$\mathbf v_0$ & 000 & 0 & 0\\
+$\mathbf v_1$ & 100 & $2/3$ & 0\\
+$\mathbf v_2$ & 110 & $1/3$ & $1/\sqrt3$\\
+$\mathbf v_3$ & 010 & $-1/3$ & $1/\sqrt3$\\
+$\mathbf v_4$ & 011 & $-2/3$ & 0\\
+$\mathbf v_5$ & 001 & $-1/3$ & $-1/\sqrt3$\\
+$\mathbf v_6$ & 101 & $1/3$ & $-1/\sqrt3$\\
+$\mathbf v_7$ & 111 & 0 & 0\\\bottomrule
 \end{tabular}
 \end{table}
 
 \begin{figure}[htbp]
-    \centering
-    \begin{minipage}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{./CPU_Load_PI}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{./CPU_Load_MPC_NHE}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{./CPU_Load_MPC_HE}
-    \end{minipage}
-    \caption{Experimental results for each controller execution time (a) PI-Controller (b) MMPC, (c) MMPC-HE.}
-    \label{fig:minipage_example}
+\centering
+\begin{tikzpicture}[scale=1.05,>=Stealth,font=\small]
+\fill[blue!8] (0,0)--(0:2.8)--(60:2.8)--cycle;
+\draw[thick] (0:2.8)--(60:2.8)--(120:2.8)--(180:2.8)--(240:2.8)--(300:2.8)--cycle;
+\draw[dashed,gray] (0,0) circle (2.4249);
+\draw[->] (-3.4,0)--(3.8,0) node[right]{$\alpha$};
+\draw[->] (0,-3.2)--(0,3.3) node[above]{$\beta$};
+\foreach \n/\ang/\st in {1/0/100,2/60/110,3/120/010,4/180/011,5/240/001,6/300/101}{
+\draw[->,blue!55!black] (0,0)--(\ang:2.8);
+\node[fill=white,inner sep=2pt] at (\ang:3.15) {$\mathbf v_{\n}$ (\st)};}
+\node[below left,fill=white] at (0,0) {$000,111$};
+\node[align=center] at (1.35,.62) {Pair $(1,2)$\\feasible triangle};
+\end{tikzpicture}
+\caption{Stationary voltage hexagon and one adjacent-vector triangle. The dashed circle is the inscribed circle of radius $V_{\mathrm{dc}}/\sqrt3$; the active-vector radius is $2V_{\mathrm{dc}}/3$.}
+\label{fig:ch5-hexagon}
 \end{figure}
+
+\subsection{Delay-Compensated Current Prediction}
+If a command could be applied immediately, its one-step candidate prediction would be
+\begin{equation}
+\widehat{\mathbf i}^{\,m}[k+1]=a\mathbf i[k]+b(\mathbf e[k]-\mathbf v_m[k]),
+\label{eq:ch5-one-step}
+\end{equation}
+and it would be compared with $\mathbf r[k+1]$. Under the selected one-period scheduling delay, the first step instead uses the already committed voltage:
+\begin{equation}
+\widehat{\mathbf i}_1=\widehat{\mathbf i}[k+1]
+=a\mathbf i[k]+b(\mathbf e[k]-\mathbf u_{\mathrm{ap}}[k]).
+\label{eq:ch5-delay-step}
+\end{equation}
+$\mathbf u_{\mathrm{ap}}[k]$ is reconstructed from the committed duty pattern using the latest DC-link voltage estimate. It is not the newly optimized command. The second step uses the candidate for $[t_{k+1},t_{k+2})$:
+\begin{equation}
+\widehat{\mathbf i}^{\,m}[k+2]
+=a\widehat{\mathbf i}_1+b(\widehat{\mathbf e}[k+1]-\mathbf v_m[k+1])
+=\mathbf c-b\mathbf v_m[k+1],
+\label{eq:ch5-two-step}
+\end{equation}
+where
+\begin{equation}
+\mathbf c=a\widehat{\mathbf i}_1+b\widehat{\mathbf e}[k+1],\qquad
+\mathbf v_m[k+1]=\widehat V_{\mathrm{dc}}[k+1]\mathbf s_m.
+\label{eq:ch5-base-prediction}
+\end{equation}
+The baseline DC-voltage forecast is $\widehat V_{\mathrm{dc}}[k+1]=V_{\mathrm{dc}}[k]$. A better forecast may be introduced if its extra uncertainty is justified. Every candidate is evaluated against the same target $\mathbf r[k+2]$ from \eqref{eq:ch5-reference-forecast}. Holding a stationary current reference unchanged would produce a phase error even in a balanced steady state; matching the prediction and reference horizons avoids that indexing error.
+
+\subsection{Modulated Prediction and Required Average Voltage}
+For pair $m$, let $j=m+1$ for $m=1,\ldots,5$ and $j=1$ for $m=6$. Define $\mathbf B_m=[\mathbf v_m\ \mathbf v_j]$ at the forecast DC voltage. With $d_0=1-d_1-d_2$, the average converter voltage is
+\begin{equation}
+\overline{\mathbf v}_m=\mathbf B_m\mathbf d,\qquad
+\mathbf d=[d_1\ d_2]^T,\qquad d_1\ge0,\ d_2\ge0,\ d_1+d_2\le1.
+\label{eq:ch5-average-voltage}
+\end{equation}
+Using the zero-vector prediction $\widehat{\mathbf i}^{\,0}=mathbf c$, the modulated endpoint prediction is
+\begin{align}
+\widehat{\mathbf i}_m[k+2;\mathbf d]
+&=d_0\widehat{\mathbf i}^{\,0}+d_1\widehat{\mathbf i}^{\,m}+d_2\widehat{\mathbf i}^{\,j}\notag\\
+&=\mathbf c-b\mathbf B_m\mathbf d.
+\label{eq:ch5-modulated-prediction}
+\end{align}
+This duty-weighted identity is exact for the affine Forward-Euler averaged predictor. It is not an exact switched-waveform solution with finite subinterval dynamics.
+
+Setting this prediction equal to the target gives the unconstrained required voltage
+\begin{equation}
+\boxed{\mathbf v_{\mathrm{db}}[k+1]
+=\frac{\mathbf c-\mathbf r[k+2]}{b}
+=\widehat{\mathbf e}[k+1]+\frac{L}{T_s}
+\left(a\widehat{\mathbf i}_1-\mathbf r[k+2]\right).}
+\label{eq:ch5-deadbeat-voltage}
+\end{equation}
+A converter voltage larger than this value decreases the predicted grid current because converter voltage enters \eqref{eq:ch5-plant} with a negative sign. In the no-delay case, replace $\widehat{\mathbf i}_1,\widehat{\mathbf e}[k+1],\mathbf r[k+2]$ with $\mathbf i[k],\mathbf e[k],\mathbf r[k+1]$. The resulting deadbeat equality is a nominal one-step property, not a claim of exact closed-loop tracking with model mismatch.
+
+\subsection{Explicit Duty Cycles and Feasibility}
+For a nonsingular adjacent pair, $\mathbf B_m\mathbf d=\mathbf v_{\mathrm{db}}$ gives
+\begin{align}
+\Delta_m&=v_{\alpha m}v_{\beta j}-v_{\alpha j}v_{\beta m}
+=\frac{2\sqrt3}{9}\widehat V_{\mathrm{dc}}^2>0,\label{eq:ch5-pair-determinant}\\
+d_1^{u}&=\frac{v_{\mathrm{db},\alpha}v_{\beta j}-v_{\alpha j}v_{\mathrm{db},\beta}}{\Delta_m},\qquad
+ d_2^{u}=\frac{v_{\alpha m}v_{\mathrm{db},\beta}-v_{\mathrm{db},\alpha}v_{\beta m}}{\Delta_m},\label{eq:ch5-unconstrained-duties}\\
+d_0^{u}&=1-d_1^{u}-d_2^{u}.\label{eq:ch5-zero-duty}
+\end{align}
+The determinant sign follows the counterclockwise indexing, including pair $(6,1)$. The numerators and denominator both have units of voltage squared, so the duties are dimensionless. No absolute values are taken: a negative duty identifies a voltage outside that pair's triangle and is essential feasibility information.
+
+The union of the six triangles is the available voltage hexagon. Its inscribed circle has radius $\widehat V_{\mathrm{dc}}/\sqrt3$, a sufficient bound for a rotating reference at every angle. The hexagon is the exact average-voltage feasible set under the ideal two-level model. The active-vector radius $2\widehat V_{\mathrm{dc}}/3$ is not an all-angle linear-modulation limit. References outside a triangle, or outside the hexagon, require constrained optimization rather than taking absolute duties or independently clipping and renormalizing them.
+
+\subsection{Current-Tracking Objective and Hard Constraints}
+For each pair, minimize the predicted endpoint error:
+\begin{equation}
+J_m(\mathbf d)=
+\left(\mathbf r[k+2]-\widehat{\mathbf i}_m[k+2;\mathbf d]\right)^T
+\mathbf W
+\left(\mathbf r[k+2]-\widehat{\mathbf i}_m[k+2;\mathbf d]\right),
+\quad \mathbf W=\frac{1}{I_b^2}\mathbf I_2.
+\label{eq:ch5-cost}
+\end{equation}
+$I_b>0$ is a current normalization base. Equal axis weights avoid an arbitrary orientation preference; a specified positive diagonal matrix is possible if unequal errors have a physical justification. No switching penalty is required to obtain the prescribed PWM update period.
+
+A weighted sum of separate full-period vector costs generally differs from the cost of their modulated current. For squared errors, convexity gives $J(\sum d_\ell\widehat{\mathbf i}^{\,\ell})\le\sum d_\ell J(\widehat{\mathbf i}^{\,\ell})$. The two expressions can rank pairs differently. Equation~\eqref{eq:ch5-cost} therefore evaluates the actual averaged predictor, rather than importing a heuristic sum of local errors from another formulation.
+
+The sampled phase-current constraint is
+\begin{equation}
+-I_{\mathrm{lim}}\mathbf1\ \le\ \mathbf F(\mathbf c-b\mathbf B_m\mathbf d)
+\ \le\ I_{\mathrm{lim}}\mathbf1.
+\label{eq:ch5-phase-constraint}
+\end{equation}
+Together with the three duty inequalities, it defines a convex polygon $\mathcal P_m$ in the $(d_1,d_2)$ plane. $I_{\mathrm{lim}}$ is chosen below the hardware trip limit to allow for model uncertainty and PWM ripple. These are hard constraints on the predicted sampled endpoint, not proof that the current remains bounded at every instant inside the switching period. The already committed interval must also be checked through $\mathbf F\widehat{\mathbf i}_1$; a new command cannot correct a violation that occurs before it is applied.
+
+\subsection{Exact Two-Variable Constrained Optimization}
+Because $\mathbf B_m$ is nonsingular at a valid DC voltage, the unconstrained solution is $\mathbf d^u=\mathbf B_m^{-1}\mathbf v_{\mathrm{db}}$. Substituting \eqref{eq:ch5-deadbeat-voltage} into the cost gives
+\begin{equation}
+J_m(\mathbf d)=(\mathbf d-\mathbf d^u)^T\mathbf H_m(\mathbf d-\mathbf d^u),\qquad
+\mathbf H_m=b^2\mathbf B_m^T\mathbf W\mathbf B_m\succ0.
+\label{eq:ch5-hessian}
+\end{equation}
+Start with the duty triangle and clip it by the six half-planes in \eqref{eq:ch5-phase-constraint}. If the resulting polygon is empty, reject the pair. If $\mathbf d^u\in\mathcal P_m$, it is the solution. Otherwise, the unique minimizer lies on the polygon boundary. For every edge from vertex $\mathbf p$ to $\mathbf q$, set $\mathbf g=\mathbf q-\mathbf p$ and calculate
+\begin{equation}
+\eta^\ast=\operatorname{clip}_{[0,1]}
+\frac{\mathbf g^T\mathbf H_m(\mathbf d^u-\mathbf p)}{\mathbf g^T\mathbf H_m\mathbf g},\qquad
+\mathbf d_{\mathrm{edge}}=\mathbf p+\eta^\ast\mathbf g.
+\label{eq:ch5-edge-projection}
+\end{equation}
+Evaluate the cost at these edge candidates and vertices, retaining the minimum. Repeated vertices and zero-length edges are removed. A polygon reduced to one vertex or one segment is handled directly. This construction solves the convex pair problem globally under the stated averaged model and constraints; it also provides a deterministic treatment of an infeasible voltage demand. A small two-variable quadratic-program solver is an equivalent implementation.
+
+The current limit and the duty constraints have distinct roles. The former bounds predicted current, while the latter enforces achievable average voltage. A current-reference limiter does not replace either constraint. If every pair is infeasible, no admissible command exists for that endpoint within the model. The controller must signal its protection supervisor and use a prequalified hardware-specific response; choosing a zero vector is not automatically safe because the grid may continue to drive current through the filter and diodes.
+
+\subsection{Global Pair Selection and Symmetric SVM}
+After solving all nonempty pair problems, select
+\begin{equation}
+m^\ast\in\underset{m:\mathcal P_m\ne\varnothing}{\arg\min}\ J_m(\mathbf d_m^\ast),\qquad
+\mathbf u[k+1]=\mathbf B_{m^\ast}\mathbf d_{m^\ast}^\ast,\quad
+ d_0^\ast=1-d_1^\ast-d_2^\ast.
+\label{eq:ch5-global-selection}
+\end{equation}
+Since the six triangles cover the hexagon, this is a global optimum of the single-endpoint current-tracking problem over that hexagon and the sampled-current constraints. It is not an optimum over arbitrary multi-step switching sequences. At a sector boundary, two pairs can represent the same voltage and cost; a deterministic tie rule may retain the preceding sector without changing the minimum.
+
+The duties are converted to a symmetric seven-segment switching sequence. To ensure one-leg transitions, call the active state with one high switch $\mathbf S_A$ and that with two high switches $\mathbf S_B$, regardless of the pair's counterclockwise order. Associate their respective duties $d_A,d_B$ with the optimized vectors. The sequence and segment durations are
+\begin{equation}
+\begin{array}{c|ccccccc}
+\text{state}&000&\mathbf S_A&\mathbf S_B&111&\mathbf S_B&\mathbf S_A&000\\
+\text{duration}/T_s&d_0/4&d_A/2&d_B/2&d_0/2&d_B/2&d_A/2&d_0/4
+\end{array}
+\label{eq:ch5-svm-sequence}
+\end{equation}
+Their sum is one and their average voltage is \eqref{eq:ch5-average-voltage}. The PWM frame repeats at $1/T_s$ under the assumed single-rate implementation. Individual devices can have missing transitions at zero duty, saturation, or sector boundaries; fixed PWM timing does not mean an identical number of transitions for every device at every operating point. Minimum pulse widths, dead time, and timer quantization perturb the requested duties and must be reflected in the stored applied command and reconstruction.
+
+\section{Complete Proposed IOPC--MMPCC Algorithm}
+\label{sec:ch5-algorithm}
+The following sequence implements the one-period delayed controller. The signal-generator states, stored PWM commands, and PI integrator are persistent variables. All electrical control calculations remain in stationary coordinates.
+\begin{enumerate}
+\item Initialize $T_s,R,L$, DC-voltage and power bounds, $I_b$, $I_{\mathrm{ref,max}}$, $I_{\mathrm{lim}}$, PI gains, signal-generator parameters, conditioning thresholds, and the switching-state table. Establish valid sensor offsets and a prequalified startup/protection sequence.
+\item At $t_k$, acquire the three grid voltages, three grid currents, and DC-link voltage using synchronized sampling. Check sensor validity, DC-voltage range, and hardware fault status.
+\item Apply \eqref{eq:ch5-clarke} to obtain $\mathbf e[k]$ and $\mathbf i[k]$. Check the three-wire current residual against the measurement tolerance.
+\item Reconstruct the completed interval's converter voltage from the applied duties using \eqref{eq:ch5-reconstruction}. Advance the stationary signal generators and the frequency estimate, if one is used. Do not use a yet-unknown optimized voltage.
+\item Calculate $P_u$ and $P_b$ from the filtered DC-link voltage using \eqref{eq:ch5-pi}. Defer the integrator update until the accepted power reference is known.
+\item Assemble the IOPC matrix from timestamp-consistent fundamental voltage estimates. Check the row-scaled condition estimate and estimator validity. If invalid, suppress the new power request and invoke the specified supervisory response rather than dividing by a small determinant.
+\item Solve \eqref{eq:ch5-iopc-matrix} with $P_b$ for both current components and their quadratures. Apply the common envelope limiter \eqref{eq:ch5-reference-limiter}; obtain $P_{\mathrm{ref}}$ and complete the anti-windup update in \eqref{eq:ch5-pi}.
+\item Forecast $\mathbf r[k+2]$ using \eqref{eq:ch5-reference-forecast}. Forecast $\widehat{\mathbf e}[k+1]$ and $\widehat V_{\mathrm{dc}}[k+1]$ according to the selected signal models.
+\item Reconstruct the already committed voltage for the present interval and compute $\widehat{\mathbf i}_1$ with \eqref{eq:ch5-delay-step}. Check whether the committed interval already requires a protection response. Compute $\mathbf c$ and $\mathbf v_{\mathrm{db}}$.
+\item Initialize the best cost to infinity. For $m=1,\ldots,6$, form pair $(m,j)$ with $j=m+1$ and wrap $j=1$ when $m=6$.
+\item Calculate the two active-vector predictions and the zero-vector prediction using \eqref{eq:ch5-two-step}. Form $\mathbf B_m$, its determinant, and the unconstrained duties in \eqref{eq:ch5-unconstrained-duties}.
+\item Construct $\mathcal P_m$ from the duty triangle and sampled phase-current inequalities. Reject an empty polygon. Otherwise solve its constrained duty problem using \eqref{eq:ch5-hessian} and \eqref{eq:ch5-edge-projection}.
+\item Verify the nonnegative duties, their unit sum including $d_0$, and the predicted phase-current bounds within numerical tolerance. Evaluate \eqref{eq:ch5-cost} at the resulting modulated current and update the best pair if its cost is smaller.
+\item After all six pairs, select the minimum-cost feasible pair using \eqref{eq:ch5-global-selection}. Resolve numerical ties deterministically. If none is feasible, signal the protection supervisor; do not apply an unverified fallback vector.
+\item Convert the chosen duties into the symmetric SVM sequence \eqref{eq:ch5-svm-sequence}, accounting for timer resolution and permitted minimum pulse widths. Schedule the resulting sequence for $[t_{k+1},t_{k+2})$.
+\item Store the scheduled states, realized duties, DC-voltage estimate, signal-generator states, limiter state, and accepted power request. Monitor persistent voltage saturation to curtail the outer-loop demand when necessary. Repeat at $t_{k+1}$.
+\end{enumerate}
+Figure~\ref{fig:ch5-flowchart} summarizes the same sequence. Protection decisions are shown explicitly because the existence of an algebraic reference does not establish the existence of a feasible switching command.
+
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[font=\small,
+ p/.style={draw,rounded corners=2pt,text width=7.8cm,align=center,minimum height=10mm,fill=black!3},
+ a/.style={p,fill=blue!6,draw=blue!45!black},
+ dec/.style={diamond,aspect=3,draw,align=center,text width=3.3cm,inner sep=1pt},
+ flow/.style={-{Stealth[length=2mm]},thick},node distance=5mm]
+\node[a] (start) {Sample $\mathbf e_{abc},\mathbf i_{abc},V_{\mathrm{dc}}$; Clarke map};
+\node[p,below=of start] (qsg) {Reconstruct applied voltage; advance stationary signal generators};
+\node[a,below=of qsg] (power) {IOPC stage: DC-link PI; assemble and check voltage matrix};
+\node[dec,below=of power] (valid) {Estimates and matrix valid?};
+\node[p,below=of valid] (future) {Solve IOPC; limit and forecast $\mathbf r[k+2]$;\\ predict $\widehat{\mathbf i}[k+1]$ using committed voltage};
+\node[a,below=of future] (init) {MMPCC stage: set $m=1$ and $J_{\mathrm{best}}=\infty$};
+\node[p,below=of init] (pair) {Form adjacent pair; predict active and zero-vector currents};
+\node[p,below=of pair] (duty) {Build feasible duty polygon; solve constrained duty problem};
+\node[p,below=of duty] (cost) {If feasible, evaluate modulated-current cost and update best pair};
+\node[dec,below=of cost] (more) {All six pairs evaluated?};
+\node[dec,below=of more] (found) {Any feasible pair?};
+\node[a,below=of found] (svm) {Select best pair; schedule symmetric SVM for next interval};
+\node[p,below=of svm] (store) {Store realized duties, PI and estimator states; next sample};
+\node[draw,rounded corners,align=center,text width=2cm,fill=red!4] (protect) at (6.4,0 |- valid) {Supervisory\\protection /\\power curtailment};
+\draw[flow] (start)--(qsg);\draw[flow] (qsg)--(power);\draw[flow] (power)--(valid);
+\draw[flow] (valid)--node[right]{Yes}(future);
+\draw[flow] (future)--(init);\draw[flow] (init)--(pair);\draw[flow] (pair)--(duty);
+\draw[flow] (duty)--(cost);\draw[flow] (cost)--(more);
+\draw[flow] (more)--node[right]{Yes}(found);
+\draw[flow] (found)--node[right]{Yes}(svm);\draw[flow] (svm)--(store);
+\draw[flow] (valid.east)--node[above]{No}(protect.west);
+\draw[flow] (more.west)--node[above]{No}++(-1.6,0) |- node[pos=.25,left,align=center]{$m\leftarrow m+1$}(pair.west);
+\draw[flow] (found.east)--node[above]{No}(protect.south |- found.east)--(protect.south);
+\draw[flow,dashed] (store.west)--++(-3.2,0)|-(start.west);
+\end{tikzpicture}
+\caption{Complete sampled IOPC--MMPCC algorithm. The normal sampling loop is dashed; invalid estimation and infeasible optimization leave the nominal control path for the supervisory response.}
+\label{fig:ch5-flowchart}
+\end{figure}
+
+\section{Practical Design Considerations and Limitations}
+\label{sec:ch5-limitations}
+\subsection{Current and Voltage Constraints}
+The converter voltage is limited by the measured DC voltage and the switching hexagon, not by an unlimited continuous voltage command. The fundamental current envelope limiter reduces $P_{\mathrm{ref}}$ when a requested current exceeds the allowed phase amplitude. The pair optimization then imposes endpoint current limits and voltage feasibility simultaneously. Persistent nonzero tracking error caused by voltage saturation should trigger a reduction in the allowable power request or DC-side load demand. The required supervisory law depends on the actual load and protection scheme and cannot be selected from the supplied chapter fragments alone.
+
+Neither the envelope limiter nor a sampled prediction is a substitute for hardware overcurrent protection. Intersample ripple, saturation of the filter inductors, dead time, and measurement uncertainty require margin. If current is already outside the safe operating region, a complete protection design must account for the uncontrolled diode conduction paths and grid energy. The normal control algorithm is not a fault-isolation design.
+
+\subsection{Matrix Conditioning and Severe Voltage Dips}
+The sum-of-squares form in \eqref{eq:ch5-det-factorization} identifies exact singularity but has units of voltage to the fourth power. A fixed dimensional determinant threshold is therefore not portable across voltage ratings. Scale each nonzero row of $\mathbf M$ by a voltage magnitude and evaluate a dimensionless condition estimate; reject rows below a minimum voltage threshold before normalizing. Use a threshold based on sensor accuracy and the numerical precision of the target processor.
+
+Near singularity, small voltage-estimation errors can produce large current-reference errors. Scaling the active-power request can reduce current magnitude, but it does not restore rank or eliminate poor conditioning. A pseudoinverse or regularized solve would change the exact IOPC objectives and would need to be identified as a separate degraded operating mode. The baseline design instead detects the condition and transfers control to the supervisor. Recovery requires valid estimator states and a gradual reintroduction of power demand.
+
+\subsection{DC-Link Regulation and Anti-Windup}
+The power command must be compatible with both the AC converter limits and the DC-side energy balance. The anti-windup feedback in \eqref{eq:ch5-pi} uses the accepted, current-limited power request rather than only the first saturation output. Persistent voltage saturation is an additional reason to curtail demand; it should not be hidden by indefinite PI integration. During a deep dip, the available AC power may be lower than the load power, so maintaining the DC voltage may be physically impossible even with perfect current control.
+
+The outer-loop filter should attenuate the double-frequency component enough to avoid reintroducing it into the reference envelope. Excessive filtering slows response to load changes. The appropriate bandwidth separation depends on the DC-link capacitance, operating voltage, load model, signal-generator dynamics, and inner-loop sampling. These parameters must be supplied before selecting gains or claiming a stability margin.
+
+\subsection{Predictive-Model Accuracy}
+Errors in $L$ change the predicted effect of an applied voltage; errors in $R$ bias the resistive-drop prediction. The two-step horizon accumulates both measurement and modeling errors. Grid-voltage forecast errors become particularly important at dip inception and during waveform distortion. Changes in $V_{\mathrm{dc}}$ modify every active-vector amplitude, while dead time and device drops cause the realized converter voltage to differ from the ideal vector average.
+
+The committed present-interval command must be distinguished from the historical completed-interval command used to update the voltage estimator. Confusing these indices can introduce an additional delay. Synchronized measurements, calibrated reconstruction, and consistent timestamps are therefore part of the mathematical implementation, not merely software details. More accurate discretization or parameter adaptation may be added, but their effects must be assessed within the same delayed closed loop.
+
+\subsection{Digital Implementation and Computational Budget}
+The principal operations per sample are four scalar quadrature generators, a small four-variable reference solve, one delay-compensation prediction, and six two-variable constrained optimizations. Polygon clipping uses a fixed number of half-planes, so the maximum problem size is bounded. Matrix conditioning and protective checks must be included when measuring the worst-case execution time. Completing an average iteration within $T_s$ is insufficient if a difficult saturation case exceeds the available PWM update deadline.
+
+Li et al. discuss sequence-extraction and frequency-processing approaches in \cite{ch5-santos2009,ch5-yazdani2009,ch5-timbus2006}, and feedforward control under more general unbalance in \cite{ch5-stankovic2009}. These references identify relevant extensions, rather than providing a validation of the present implementation. Their related digital-control publications~\cite{ch5-li2008gpu,ch5-li2010gpu} concern a different power-converter application and do not establish execution time or tuning for this AFE controller.
+
+The nominal switching pattern should be translated into timer counts, checked for minimum pulse widths, and stored as actually scheduled. If pulse suppression changes the duty fractions, the applied voltage should be reconstructed from those modified fractions. A controller that stores the requested rather than realized command will systematically mispredict its next interval.
+
+\subsection{Control-Objective Trade-Offs and Scope of the Proposal}
+A three-wire fundamental current waveform contains four real coefficients. IOPC uses them to impose one average active-power target, one average quadrature reactive-power target, and two output ripple conditions. Balanced currents, zero input active-power ripple, zero output active-power ripple, zero instantaneous reactive power, and constant DC voltage cannot be independently imposed under arbitrary unbalance using these same degrees of freedom.
+
+The current-reference equations are exact algebraic statements for the specified fundamental voltage waveforms. Their causal implementation uses estimated historical converter voltage, while the predictive regulator operates with a finite sampling period and a constrained average-voltage model. Consequently, this chapter establishes an implementable nominal control law and the conditions under which its intended steady-state power objectives are consistent. It does not establish global closed-loop stability, convergence of the estimator--IOPC feedback, fault ride-through compliance, or a numerical harmonic-performance improvement.
+
+Subsequent validation should examine feasible steady-state equilibria, estimator convergence, frequency deviation, voltage dips, load changes, parameter mismatch, pulse constraints, and worst-case execution time. Validation should also measure both reactive-power definitions and a clearly specified true power-factor metric. These checks are required to distinguish successful current tracking from successful realization of the selected power objectives.
