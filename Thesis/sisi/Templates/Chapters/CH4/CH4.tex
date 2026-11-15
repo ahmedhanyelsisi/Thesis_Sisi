@@ -40,25 +40,229 @@ For \(s=+1\) or \(-1\), the positive or negative Park transformation is
 \end{equation}
 The inverse is \(\underline x=e^{js\theta}\underline x_{dq}^s\). In the positive frame, \eqref{eq:seq} becomes \(\underline X^++\underline X^-e^{-j2\theta}\); in the negative frame it becomes \(\underline X^-+\underline X^+e^{j2\theta}\). Hence each sequence is constant in its own frame and the opposite sequence appears at twice the fundamental frequency. This property underlies dual-frame current control \cite{song1999}.
 
-\section{Rectifier and DC-link models}
+\section{Model of AFE Rectifier and DC-link}
 \begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[>=stealth,thick]
-\draw (0,0) rectangle (2.0,1.0);
-\node[align=center] at (1,0.5) {Three-phase\\grid};
-\draw (3.1,0) rectangle (5.1,1.0);
-\node[align=center] at (4.1,0.5) {Filter\\\(R,L\)};
-\draw (6.2,0) rectangle (8.2,1.0);
-\node[align=center] at (7.2,0.5) {PWM\\rectifier};
-\draw (9.3,0) rectangle (11.3,1.0);
-\node[align=center] at (10.3,0.5) {DC link\\and load};
-\draw[->] (2,0.5)--node[above] {\(p_{\mathrm{in}}\)} (3.1,0.5);
-\draw[->] (5.1,0.5)--node[above] {\(p_{\mathrm{out}}\)} (6.2,0.5);
-\draw[->] (8.2,0.5)--(9.3,0.5);
-\end{tikzpicture}
-\caption{Power-flow convention for the AFE and AC filter. Filter losses and stored-energy change separate \(p_{\mathrm{in}}\) from \(p_{\mathrm{out}}\).}
-\label{fig:powerflow}
+    \centering
+
+    \resizebox{\textwidth}{!}{%
+    \begin{circuitikz}[american, thick]
+
+        % ==========================================
+        % COORDINATES
+        % ==========================================
+
+        % Vertical coordinates
+        \def\yTop{7}
+        \def\yBot{0}
+
+        \def\yA{5}
+        \def\yB{3.5}
+        \def\yC{2}
+
+        \def\ySwTop{6}
+        \def\ySwBot{1}
+
+        % Horizontal coordinates
+        \def\xNeu{0}
+        \def\xSrc{1}
+        \def\xR{2.5}
+        \def\xL{4.5}
+        \def\xEndL{6.5}
+
+        % Converter legs
+        \def\xLegA{9.5}
+        \def\xLegB{12}
+        \def\xLegC{14.5}
+
+        % DC-link components
+        \def\xCap{17}
+        \def\xLoad{19.5}
+
+        % Power-flow indicator positions
+        \def\xPin{2.35}
+        \def\xPout{7.7}
+
+        % ==========================================
+        % 1. LINE SIDE: SOURCES AND IMPEDANCES
+        % ==========================================
+
+        % Common neutral
+        \draw (\xNeu,\yA) -- (\xNeu,\yC);
+
+        % Phase A
+        \draw (\xNeu,\yA) -- (\xSrc,\yA)
+            to[sV, l=$V_a$] (\xR,\yA)
+            to[R, l=$R_s$] (\xL,\yA)
+            to[L, l=$L_s$] (\xEndL,\yA)
+            -- (\xLegA,\yA) node[circ]{};
+
+        % Phase B
+        \draw (\xNeu,\yB) -- (\xSrc,\yB)
+            to[sV, l=$V_b$] (\xR,\yB)
+            to[R, l=$R_s$] (\xL,\yB)
+            to[L, l=$L_s$] (\xEndL,\yB)
+            -- (\xLegB,\yB) node[circ]{};
+
+        % Phase C
+        \draw (\xNeu,\yC) -- (\xSrc,\yC)
+            to[sV, l=$V_c$] (\xR,\yC)
+            to[R, l=$R_s$] (\xL,\yC)
+            to[L, l=$L_s$] (\xEndL,\yC)
+            -- (\xLegC,\yC) node[circ]{};
+
+        % ==========================================
+        % 2. PHASE-CURRENT ARROWS
+        % ==========================================
+
+        \draw[-latex, line width=1.1pt]
+            (\xEndL+0.05,\yA+0.28)
+            -- (\xEndL+0.75,\yA+0.28)
+            node[midway, above] {$i_a$};
+
+        \draw[-latex, line width=1.1pt]
+            (\xEndL+0.05,\yB+0.28)
+            -- (\xEndL+0.75,\yB+0.28)
+            node[midway, above] {$i_b$};
+
+        \draw[-latex, line width=1.1pt]
+            (\xEndL+0.05,\yC+0.28)
+            -- (\xEndL+0.75,\yC+0.28)
+            node[midway, above] {$i_c$};
+
+        % ==========================================
+        % 3. POWER-FLOW INDICATORS
+        % ==========================================
+
+        % Input power: before the line impedances
+        \draw[densely dotted, line width=0.8pt]
+            (\xPin,\yC-0.7)
+            -- (\xPin,\yA+0.7);
+
+        \draw[-latex, line width=1pt]
+            (\xPin,\yA+0.7)
+            -- ++(0.65,0)
+            node[midway, above] {$p_{\mathrm{in}}$};
+
+        \draw[-latex, line width=1pt]
+            (\xPin,\yC-0.7)
+            -- ++(0.65,0);
+
+        % Output power: after the line impedances
+        \draw[densely dotted, line width=0.8pt]
+            (\xPout,\yC-0.7)
+            -- (\xPout,\yA+0.7);
+
+        \draw[-latex, line width=1pt]
+            (\xPout,\yA+0.7)
+            -- ++(0.65,0)
+            node[midway, above] {$p_{\mathrm{out}}$};
+
+        \draw[-latex, line width=1pt]
+            (\xPout,\yC-0.7)
+            -- ++(0.65,0);
+
+        % ==========================================
+        % 4. ACTIVE RECTIFIER BRIDGE
+        % ==========================================
+
+        % Upper and lower DC buses
+        \draw (\xLegA,\yTop) -- (\xLoad,\yTop);
+        \draw (\xLegA,\yBot) -- (\xLoad,\yBot);
+
+        % Upper IGBTs
+        \node[nigbt, bodydiode] (S1)
+            at (\xLegA,\ySwTop) {};
+
+        \node[nigbt, bodydiode] (S3)
+            at (\xLegB,\ySwTop) {};
+
+        \node[nigbt, bodydiode] (S5)
+            at (\xLegC,\ySwTop) {};
+
+        % Lower IGBTs
+        \node[nigbt, bodydiode] (S4)
+            at (\xLegA,\ySwBot) {};
+
+        \node[nigbt, bodydiode] (S6)
+            at (\xLegB,\ySwBot) {};
+
+        \node[nigbt, bodydiode] (S2)
+            at (\xLegC,\ySwBot) {};
+
+        % Phase A leg
+        \draw (S1.C) -- (\xLegA,\yTop);
+        \draw (S1.E) -- (S4.C);
+        \draw (S4.E) -- (\xLegA,\yBot);
+
+        % Phase B leg
+        \draw (S3.C) -- (\xLegB,\yTop);
+        \draw (S3.E) -- (S6.C);
+        \draw (S6.E) -- (\xLegB,\yBot);
+
+        % Phase C leg
+        \draw (S5.C) -- (\xLegC,\yTop);
+        \draw (S5.E) -- (S2.C);
+        \draw (S2.E) -- (\xLegC,\yBot);
+
+        % Upper-switch labels
+        \node at (\xLegA+0.8,\ySwTop) {$\mathbf{S_1}$};
+        \node at (\xLegB+0.8,\ySwTop) {$\mathbf{S_3}$};
+        \node at (\xLegC+0.8,\ySwTop) {$\mathbf{S_5}$};
+
+        % Lower-switch labels
+        \node at (\xLegA+0.8,\ySwBot) {$\mathbf{S_4}$};
+        \node at (\xLegB+0.8,\ySwBot) {$\mathbf{S_6}$};
+        \node at (\xLegC+0.8,\ySwBot) {$\mathbf{S_2}$};
+
+        % ==========================================
+        % 5. DC LINK AND LOAD
+        % ==========================================
+
+        % DC-link capacitor
+        \draw (\xCap,\yTop)
+            to[C, l_=$C$] (\xCap,\yBot);
+
+        % Resistive load
+        \draw (\xLoad,\yTop)
+            to[R, l_=$R_{\mathrm{load}}$] (\xLoad,\yBot);
+
+        % Capacitor junctions
+        \node[circ] at (\xCap,\yTop) {};
+        \node[circ] at (\xCap,\yBot) {};
+
+        % DC output current
+        \draw[-latex, line width=1.1pt]
+            (\xLegC+0.6,\yTop)
+            -- (\xCap-0.35,\yTop)
+            node[midway, above] {$i_{dc}$};
+
+        % Load current
+        \draw[-latex, line width=1.1pt]
+            (\xCap+0.4,\yTop)
+            -- (\xLoad-0.4,\yTop)
+            node[midway, above] {$i_L$};
+
+        % DC voltage polarity
+        \node[font=\Large]
+            at (\xLoad+0.4,\yTop-0.8) {$+$};
+
+        \node[font=\Large]
+            at (\xLoad+0.4,\yBot+0.8) {$-$};
+
+        % DC voltage arrow
+        \draw[-latex, line width=1.1pt]
+            (\xLoad+1.2,\yBot+1.5)
+            -- (\xLoad+1.2,\yTop-1.5)
+            node[midway, right] {$V_{dc}$};
+
+    \end{circuitikz}%
+    }
+
+    \caption{Three-phase active front-end rectifier with input and
+    output power-flow indicators.}
+    \label{fig:afe_schematic_powerflow}
 \end{figure}
+
 Assume equal filter inductances \(L\), resistances \(R\), and averaged converter phase voltages. The phase equations, with current toward the rectifier, are
 \begin{equation}\label{eq:abc}
 L\frac{di_k}{dt}=v_k-Ri_k-v_{\mathrm{conv}k},\qquad k\in\{a,b,c\}.
@@ -129,7 +333,7 @@ b_-&-a_-&b_+&-a_+\\
 
 The four real current components cannot generally impose six independent power coefficients. Selecting four independent rows permits a solution when the resulting matrix is nonsingular, subject to current and converter-voltage constraints.
 
-\section{DC-link ripple}
+\section{DC-link ripple under unbalanced conditions}
 Suppose the net converter-terminal power has a small double-frequency component \(\widehat P_2\cos(2\omega t+\phi)\), with approximately constant load power. Write \(V_{\mathrm{dc}}=V_0+\widetilde v\), where \(|\widetilde v|\ll V_0\). Linearizing \eqref{eq:dc} gives
 \begin{equation}\label{eq:ripple}
 CV_0\frac{d\widetilde v}{dt}=\widehat P_2\cos(2\omega t+\phi),\qquad
@@ -137,7 +341,7 @@ CV_0\frac{d\widetilde v}{dt}=\widehat P_2\cos(2\omega t+\phi),\qquad
 \end{equation}
 The amplitudes are peak values; the ripple frequency is \(100\) Hz for a \(50\)-Hz supply and \(120\) Hz for a \(60\)-Hz supply. This approximation excludes switching ripple and assumes a nearly constant DC-side load. From \eqref{eq:energy}, eliminating grid active-power ripple does not necessarily eliminate converter-terminal power ripple, because filter magnetic energy and resistive loss may still oscillate.
 
-\section{Current-reference objectives}
+\section{Current-reference control objectives}
 Four fundamental current components allow a choice such as prescribed \(P_0,Q_0\) and \(P_c=P_s=0\), prescribed \(P_0,Q_0\) and \(Q_c=Q_s=0\), or prescribed average powers with zero negative-sequence current. In practice the demands must also respect phase-current and converter-voltage limits.
 
 For example, when \(Q_0=0\), \(\Delta=|\underline V_{\mathrm{s}}^+|^2-|\underline V_{\mathrm{s}}^-|^2\ne0\), and \(P^\star\) is the desired average grid power, the references
@@ -194,7 +398,7 @@ The direction of \(i_{\rm rec}\) is positive into the DC-link node. Multiplying 
 \end{equation}
 The bridge is assumed lossless in \eqref{eq:li_dc_power_ct}. The formula remains valid for a time-varying \(V_{\mathrm{dc}}\), provided \(v_{\mathrm{conv}\alpha}=V_{\mathrm{dc}}s_\alpha\) and \(v_{\mathrm{conv}\beta}=V_{\mathrm{dc}}s_\beta\) are evaluated at the same instant. It makes clear that a constant converter power alone does not produce constant voltage if the load power varies at the same time.
 
-\subsection{Positive- and negative-sequence \(dq\) dynamics}
+\subsection{Positive- and negative-sequence in \(dq\) frame}
 For a steady fundamental voltage and current, write the individual sequence components in real form. For any stationary-frame vector \((x_\alpha,x_\beta)\),
 \begin{equation}\label{eq:li_real_sequence}
 \begin{aligned}
@@ -217,7 +421,7 @@ L\frac{di_q^-}{dt}&=v_{\mathrm{s}q}^--Ri_q^--v_{\mathrm{conv}q}^-+\omega Li_d^- 
 \end{equation}
 The opposite signs of the cross-coupling terms follow from opposite frame rotation. The equations describe the dynamics of separately identified sequence components; expressing the total measured current in either frame still includes the opposite-sequence \(2\omega\) term. If the grid frequency changes, \(\omega\) in the frame equations is replaced by \(d\theta/dt\), and the validity of any fixed \(T/4\) delay must be reconsidered.
 
-\subsection{Grid active and reactive powers in \(dq\) variables}
+\subsection{Grid active and reactive powers in \(dq\) frame}
 With amplitude-invariant scaling, the grid-side power definitions in \eqref{eq:pq} are
 \begin{equation}\label{eq:li_pq_real}
 p_{\mathrm{in}}=\frac32(v_\alpha i_\alpha+v_\beta i_\beta),\qquad
@@ -256,7 +460,7 @@ Q_{\mathrm{in},s}&=\frac32(-v_{\mathrm{s}d}^-i_d^+-v_{\mathrm{s}q}^-i_q^+
 \end{equation}
 These equations are the expanded real form of \eqref{eq:matrix}. They do not add independent control degrees of freedom: the four fundamental current variables remain \(i_d^+,i_q^+,i_d^-,i_q^-\). With two prescribed average powers, only two further independent scalar constraints can generally be imposed without changing topology or adding other current components.
 
-\subsection{Filter and converter-terminal power components}
+\subsection{Converter-terminal power components in \(dq\) frame}
 it is emphasized that the instantaneous input, filter and output powers must satisfy the same energy balance \cite{wu2008}. In stationary coordinates the resistance and inductor powers are
 \begin{equation}\label{eq:li_wu_filter_ct}
 \begin{aligned}
@@ -300,7 +504,7 @@ These three equations connect the input-power coefficients to the converter-term
 \end{equation}
 Equations \eqref{eq:li_wu_filter_2w}--\eqref{eq:li_wu_output_amplitude} assume constant fundamental sequence-current coefficients. During transients, \eqref{eq:li_wu_filter_ct} remains the appropriate starting point because derivatives of the changing sequence components contribute to the inductor power.
 
-\subsection{DC-link voltage: exact differential equation and harmonic response}
+\subsection{Harmonic response of DC-link voltage}
 Under the assumption of a resistive DC load, it is shown how oscillating converter output current leads to DC-link voltage ripple \cite{wu2008}. For a load resistance \(R_l\), define \(G=1/R_l\). Equation \eqref{eq:li_dc_current} becomes
 \begin{equation}\label{eq:wu_resistive_ode}
 C\frac{dV_{\mathrm{dc}}}{dt}+GV_{\mathrm{dc}}=i_{\rm rec}(t).
@@ -381,7 +585,7 @@ More generally, if the output current has components at \(2\omega,4\omega,\ldots
 %\end{equation}
 %These are derived representations of the harmonic coupling described by Wu et al., written in the chapter's frame convention. They apply to the specified assumed switching and current spectra and a constant resistive load; they are not a claim that the cited paper used exactly the same symbols or truncation.
 
-\subsection{AC current harmonics and their coupling to power}
+\subsection{AC current harmonics and their coupling to power components}
 The fundamental-sequence model gives a particularly compact \(0\) and \(2\omega\) power decomposition. To include current harmonics without assuming a particular controller, write the stationary current as a sum of rotating components
 \begin{equation}\label{eq:wu_harmonic_general}
 \begin{aligned}
