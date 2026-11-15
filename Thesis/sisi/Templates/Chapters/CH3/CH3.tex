@@ -358,73 +358,117 @@ These are rotated into the synchronous frame using the estimated electrical angl
 \end{bmatrix}
 \begin{bmatrix} v_\alpha \\[2pt] v_\beta \end{bmatrix}.
 \end{equation}
-The grid currents are predicted due to the applied voltage vector for full period one sample later. For AFE rectifier, holding coefficients at $k$ instant and defining $\gamma=T_s/L_s$, the discretization using Forward–Euler one-step prediction is
+The grid currents are predicted one sample ahead for each candidate switching state $\mathbf S_i$ applied for the full period. Using the AFE rectifier model and freezing the quantities at time $k$, the Forward–Euler prediction is
 \begin{equation}
 \label{eq:m2pc-fe-vector}
-\hat{\mathbf i^{i}}[k{+}1]
+\hat{\mathbf i}^{i}[k{+}1]
 =
 \mathbf i[k]
-+\gamma\left(
++\frac{T_s}{L}\left(
 \begin{bmatrix}
-- R_s & \ \ \omega_e[k] L_s\\[2pt]
-- \omega_e[k] L_s & - R_s
+- R & \ \ \omega[k] L\\[2pt]
+- \omega[k] L & - R
 \end{bmatrix}\mathbf i[k]
 +
-\begin{bmatrix} v^{i}_d[k] \\[2pt] v^{i}_q[k] \end{bmatrix}
-+
-\begin{bmatrix} 0 \\[2pt] -\,\omega_e[k]\lambda_f \end{bmatrix}
+\begin{bmatrix} v_{\mathrm{s}d}[k] \\[2pt] v_{\mathrm{s}q}[k] \end{bmatrix}
+-
+\begin{bmatrix} v_{\mathrm{conv}d}(\mathbf S_i) \\[2pt] v_{\mathrm{conv}q}(\mathbf S_i) \end{bmatrix}
 \right),
 \end{equation}
 that is, componentwise,
 \begin{align}
 \label{eq:m2pc-fe-id}
-\hat i_d^{i}[k{+}1] &= i_d[k] + \gamma\left(-R_s i_d[k] + \omega_e[k]L_s i_q[k] + v^{i}_d[k]\right),\\
+\hat i_d^{i}[k{+}1] &= i_d[k] + \frac{T_s}{L}\left(-R i_d[k] + \omega[k]L i_q[k] + v_{\mathrm{s}d}[k] - v_{\mathrm{conv}d}(\mathbf S_i)\right),\\
 \label{eq:m2pc-fe-iq}
-\hat i_q^{i}[k{+}1] &= i_q[k] + \gamma\left(-\omega_e[k]L_s i_d[k] - R_s i_q[k] + v^{i}_q[k] - \omega_e[k]\lambda_f\right).
+\hat i_q^{i}[k{+}1] &= i_q[k] + \frac{T_s}{L}\left(-\omega[k]L i_d[k] - R i_q[k] + v_{\mathrm{s}q}[k] - v_{\mathrm{conv}q}(\mathbf S_i)\right).
 \end{align}
-After calculations of one step prediction for every possible voltage vector, first current prediction is computed then extended to the second step based on equation \eqref{eq:fcs-delay-2} to compute the local cost function. The grid reference currents at the prediction instant can be specified as
+After calculations of one step prediction for every possible voltage vector, first current prediction is computed then extended to the second step based on equation \eqref{eq:fcs-delay-2} to compute the local cost function. 
+
+A two-step prediction horizon can be used to compensate for
+computational delay. The second-step grid current predictions in the
+synchronous \(d\)-\(q\) reference frame are given by equations
+(\ref{eq:SecondID}) and (\ref{eq:SecondIQ}):
+
+\begin{equation}
+    i_d(k+2) = \frac{T_s}{L}[V_{sd}(k) - v_{\mathrm{conv}d}(k+1)]
+    + \frac{1 - R T_s}{L}i_d(k+1) + \omega T_s i_q(k+1)
+    \label{eq:SecondID}
+\end{equation}
+
+\begin{equation}
+    i_q(k+2) = \frac{T_s}{L}[V_{sq}(k) - v_{\mathrm{conv}q}(k+1)]
+    + \frac{1 - R T_s}{L}i_q(k+1) - \omega T_s i_d(k+1)
+    \label{eq:SecondIQ}
+\end{equation}
+
+\noindent Where:
+\begin{itemize}
+  \item $v_{\mathrm{conv}d}(k+1)$ and $v_{\mathrm{conv}q}(k+1)$: One Step Predicted converter terminal voltages in the $d$ and $q$ axes.
+	\item $i_d(k+2)$: Two Step Predicted Grid current in the $d$ axis.
+	\item $i_q(k+2)$: Two Step Predicted Grid current in the  $q$ axis.
+\end{itemize}
+
+% Start SISI
+Unlike FCS-MPC, which selects one switching state from a finite set and
+typically operates at a variable switching frequency, M2PC selects two
+active voltage vectors, \(V_1\) and \(V_2\), from the available pairs.
+The cost function is modified to account for their application times
+within the sampling period \(T_s\). These times are expressed as duty
+cycles: \(d_0\) for the zero voltage vector and \(d_1\) and \(d_2\)
+for the two active vectors selected from the six available active vectors.
+
+The two-step-ahead predicted grid currents in the \(d\) and \(q\) axes,
+\(i^{i}_{d}(k+2)\), \(i^{i}_{q}(k+2)\), \(i^{j}_{d}(k+2)\), and
+\(i^{j}_{q}(k+2)\), are calculated for each possible pair of adjacent
+voltage vectors. The first and second vectors in these pairs follow the
+sequences \([V_1,V_2,V_3,V_4,V_5,V_6]\) and
+\([V_2,V_3,V_4,V_5,V_6,V_1]\), respectively. The corresponding currents
+are obtained using equations (\ref{eq:SecondID}) and
+(\ref{eq:SecondIQ}).
+
+The grid reference currents at the prediction instant can be specified as
 \begin{equation}
 \label{eq:m2pc-target}
 \mathbf i^{\ast}[k{+}1]=\begin{bmatrix} i_d^{\ast}[k{+}1]\\[2pt] i_q^{\ast}[k{+}1]\end{bmatrix}.
 \end{equation}
 
-% Start SISI
-Unlike FCS-MPC, which selects from a finite set of switching states and typically results in variable switching frequencies, M2PC uses two active voltage vectors (V1,V2) from all the available voltage vector pairs. The cost function is modified and minimized by using the two chosen voltage vectors for certain amount of time with the sampling period Ts which can be defined as the duty cycles $d_0$, $d_1$ and $d_2$ for the zero voltage vector and the two active voltage vectors from all the six possible voltage vectors respectively.
-
-\par\vspace{10pt}
-
-The two step predicted grid currents in the $d$ and $q$ axes $i^{i}_{d}(k+2)$, $i^{i}_{q}(k+2)$, $i^{j}_{d}(k+2)$ and $i^{j}_{q}(k+2)$ are the grid currents that will be due to the application of any of two possible adjacent voltage vector pairs in the order [V1,V2,V3,V4,V5,V6] and [V2,V3,V4,V5,V6,V1] respectively using equations (\ref{eq:SecondID}) and (\ref{eq:SecondIQ}).
-
-\par\vspace{10pt}
-
-The one step predicted grid currents $i^{0}_{d}(k+1)$ and $i^{0}_{q}(k+1)$ are calculated due to the application of zero vectors. Space Vector Modulation (SVM) can be used with M2PC which will lead to voltage reference equations in the synchronous reference frame ($d$-$q$ frame) according to equations (\ref{eq:FirstVd}) and (\ref{eq:FirstVq}):
+The one-step-ahead predicted grid currents \(i^{0}_{d}(k+1)\) and
+\(i^{0}_{q}(k+1)\) are calculated for the application of a zero vector.
+When space vector modulation (SVM) is used with M2PC, the voltage
+references in the synchronous \(d\)-\(q\) reference frame are given by
+equations (\ref{eq:FirstVd}) and (\ref{eq:FirstVq}):
 
 \begin{equation}
-	V^{*}_d(k+1) = V_d{}_{c}(k) [d_1 S^{i}_d(k) + d_2 S^{j}_d(k)] \\
-	\label{eq:FirstVd}
+    v^{*}_{\mathrm{conv}d}(k+1)
+    = V_{\mathrm{dc}}(k)
+    \left[d_1 S^{i}_d(k) + d_2 S^{j}_d(k)\right]
+    \label{eq:FirstVd}
 \end{equation}
+
 \begin{equation}
-	V^{*}_q(k+1) = V_d{}_{c}(k) [d_1 S^{j}_q(k) + d_2 S^{j}_q(k)] \\
-	\label{eq:FirstVq}
+    v^{*}_{\mathrm{conv}q}(k+1)
+    = V_{\mathrm{dc}}(k)
+    \left[d_1 S^{j}_q(k) + d_2 S^{j}_q(k)\right]
+    \label{eq:FirstVq}
 \end{equation}
 
 \noindent Where:
 \begin{itemize}
 	\item $S^{i}_d(k)$ and $S^{i}_q(k)$: Switching function in the $d$ and $q$ axes due to first active voltage vector i.
-    \item $S^{j}_d(k)$ and $S^{j}_q(k)$: Switching function in the $d$ and $q$ axes due to second active voltage vector j.
+  \item $S^{j}_d(k)$ and $S^{j}_q(k)$: Switching function in the $d$ and $q$ axes due to second active voltage vector j.
+  \item $v^{*}_{\mathrm{conv}d}(k+1)$ and $v^{*}_{\mathrm{conv}q}(k+1)$: One Step Predicted converter terminal reference voltages in the $d$ and $q$ axes
 \end{itemize}
 
 Equations (\ref{eq:FirstVd}) and (\ref{eq:FirstVq}) can be grouped and solved simultaneously to derive the expressions of the duty cycles $d_1$ and $d_2$ for the two active voltage vectors according to equations (\ref{eq:dutyd1}) and (\ref{eq:dutyd2}):
 
 \begin{equation}
-	d_1 = \left| \frac{V^{*}_q(k+1)S^{j}_d(k) - V^{*}_d(k+1)S^{j}_q(k) }{V_d{}_{c}(k)[S^{j}_d(k)S^{i}_q(k) - S^{i}_d(k)S^{j}_q(k)]}  \\ \right|
+	d_1 = \left| \frac{v^{*}_{\mathrm{conv}q}(k+1)S^{j}_d(k) - v^{*}_{\mathrm{conv}d}(k+1)S^{j}_q(k) }{V_{\mathrm{dc}}(k)[S^{j}_d(k)S^{i}_q(k) - S^{i}_d(k)S^{j}_q(k)]}  \\ \right|
 	\label{eq:dutyd1}
 \end{equation}
 \begin{equation}
-	d_2 = \left| \frac{V^{*}_q(k+1)S^{i}_d(k) - V^{*}_d(k+1)S^{i}_q(k) }{V_d{}_{c}(k)[S^{i}_d(k)S^{j}_q(k) - S^{j}_d(k)S^{i}_q(k)]}  \\ \right|
+	d_2 = \left| \frac{v^{*}_{\mathrm{conv}q}(k+1)S^{i}_d(k) - v^{*}_{\mathrm{conv}d}(k+1)S^{i}_q(k) }{V_{\mathrm{dc}}(k)[S^{j}_q(k) - S^{j}_d(k)S^{i}_q(k)]}  \\ \right|
 	\label{eq:dutyd2}
 \end{equation}
-
 
 To solve for the duty cycle $d_0$ of the zero voltage vector, the obtained duty cycles $d_1$ and $d_2$ can be used according to equation (\ref{eq:dutyd0}):
 
@@ -438,11 +482,11 @@ The switching function can be found in the synchronous reference frame ($d$-$q$ 
 The voltage reference equations in the synchronous reference frame ($d$-$q$ frame) can be obtained according to equations (\ref{eq:FirstrefVd}) and (\ref{eq:FirstrefVq}):
 
 \begin{equation}
-	V^{*}_d(k+1) =  \frac{[i_d{}_{ref} - i^{0}_d(k+1)]*L}{Ts}  \\
+	v^{*}_{\mathrm{conv}d}(k+1) =  \frac{[i_d{}_{ref} - i^{0}_d(k+1)]*L}{Ts}  \\
 	\label{eq:FirstrefVd}
 \end{equation}
 \begin{equation}
-	V^{*}_q(k+1) =  \frac{[i_q{}_{ref} - i^{0}_q(k+1)]*L}{Ts}  \\
+	v^{*}_{\mathrm{conv}q}(k+1) =  \frac{[i_q{}_{ref} - i^{0}_q(k+1)]*L}{Ts}  \\
 	\label{eq:FirstrefVq}
 \end{equation}
 
@@ -452,32 +496,28 @@ The voltage reference equations in the synchronous reference frame ($d$-$q$ fram
 	\item $i^{0}_{q}(k+1)$ : One step predicted grid current in $q$ axis due to zero voltage vector.
 \end{itemize}
 
-$i^{0}_{d}(k+1)$ and $i^{0}_{q}(k+1)$ are the one step predicted grid currents in the synchronous reference frame ($d$-$q$ frame) due to application of zero voltage vectors which can be calculated from equations (\ref{eq:firstID}) and (\ref{eq:firstIQ}).
-
-\par\vspace{10pt}
+$i^{0}_{d}(k+1)$ and $i^{0}_{q}(k+1)$ are the one step predicted grid currents in the synchronous reference frame ($d$-$q$ frame) due to application of zero voltage vectors which can be calculated from equation (\ref{eq:m2pc-fe-vector}).
 
 The two step predicted grid currents in the $d$ and $q$ axes $i^{i}_{d}(k+2)$, $i^{i}_{q}(k+2)$, $i^{j}_{d}(k+2)$ and $i^{j}_{q}(k+2)$ are the grid currents that will be due to the application of any of two possible adjacent voltage vectors. 
-
-\par\vspace{10pt}
 
 The duty cycles shall reduce the ripples due to the predicted currents used. Those predicted currents are compared with the reference currents in the synchronous reference frame ($d$-$q$ frame) through two local cost functions which are calculated 
 due to the application of the two active voltage vectors according to equations (\ref{eq:CostFunctioni}) and (\ref{eq:CostFunctionj}):
 
 \begin{equation}
 	\begin{split}
-		g_i &= [\left| i_d{}_{ref} - i^{i}_{d}(k+2) \right| + \left| i_q{}_{ref} - i^{i}_{q}(k+2) 
+		g_i &= \left| i_d{}_{ref} - i^{i}_{d}(k+2) \right| + \left| i_q{}_{ref} - i^{i}_{q}(k+2) 
 	    \right| \\ 	    	
 	    &+ \left| i_d(k) - i^{i}_{d}(k+2) \right|
-	    + \left| i_d(k) - i^{i}_{d}(k+2) \right|]
+	    + \left| i_d(k) - i^{i}_{d}(k+2) \right|
     \end{split}
     \label{eq:CostFunctioni}
 \end{equation}
 \begin{equation}
 	\begin{split}
-		g_j &= [\left| i_d{}_{ref} - i^{j}_{d}(k+2) \right| + \left| i_q{}_{ref} - i^{j}_{q}(k+2) 
+		g_j &= \left| i_d{}_{ref} - i^{j}_{d}(k+2) \right| + \left| i_q{}_{ref} - i^{j}_{q}(k+2) 
 		\right| \\ 	    	
 		&+ \left| i_d(k) - i^{j}_{d}(k+2) \right|
-		+ \left| i_q(k) - i^{j}_{q}(k+2) \right|]
+		+ \left| i_q(k) - i^{j}_{q}(k+2) \right|
 	\end{split}
 	\label{eq:CostFunctionj}
 \end{equation}
@@ -488,123 +528,152 @@ due to the application of the two active voltage vectors according to equations 
 	\item $i$ and $j$: First Active and Second Active voltage vector respectively.
 \end{itemize}
 
-\par\vspace{10pt}
-
 The two local cost functions $g_i$ and $g_j$ will be used to formulate the global cost function $J$ in order to include the effect of the weighted minimization due to the duty cycles $d_1$ and $d_2$ of the two active voltage vectors according to equation (\ref{eq:GlobalCostFunction}):
-
 
 \begin{equation}
 	J = \left| d_1 g_i \right| + \left| d_2 g_j \right|   \\
 	\label{eq:GlobalCostFunction}
 \end{equation}
 
-The Global cost function provides the smallest tracking error for the grid currents using the two most suitable active voltage vectors with their duty cycles to provide the best current tracking with fast response in a weighted manner to minimize any current ripples.
+The Global cost function provides the smallest tracking error for the grid currents using the two most suitable active voltage vectors with their duty cycles to provide the best current tracking with fast response in a weighted manner to minimize any current ripples according to [15].
 
 %end SISI
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-For each $\mathbf S^{i}$, compute the errors and quadratic score
-\begin{equation}
-\label{eq:m2pc-rank}
-E_d^{i}[k+1]=i_d^{\ast}[k{+}1]-\hat i^{i}_d[k+1],\qquad
-E_q^{i}[k+1]=i_q^{\ast}[k{+}1]-\hat i^{i}_q[k+1],\\
-J^{i}[k+1]=(E_d^{i}[k+1])^2+(E_q^{i}[k+1])^2.
-\end{equation}
-The best active vector $v_{\mathrm{opt}}$ minimizes $J$; the second-best $v'_{\mathrm{opt}}$ is its neighbor on the SVM hexagon (a geometric fact routinely observed in practice). Using only these two and a zero vector $v_0$, we synthesize an average voltage over the next period whose mean current error is zero in both axes. Let the dwell times be $\tau_0,\tau_1,\tau_2$ for $\{v_0,\,v_{\mathrm{opt}},\,v'_{\mathrm{opt}}\}$ with $\tau_0+\tau_1+\tau_2=T_s$. Enforcing zero average error yields the linear conditions
-\begin{equation}
-\label{eq:m2pc-avg-err}
-\begin{bmatrix}
-E_d(v_0) & E_d(v_{\mathrm{opt}}) & E_d(v'_{\mathrm{opt}})\\[2pt]
-E_q(v_0) & E_q(v_{\mathrm{opt}}) & E_q(v'_{\mathrm{opt}})\\[2pt]
-1 & 1 & 1
-\end{bmatrix}
-\begin{bmatrix}\tau_0\\[2pt]\tau_1\\[2pt]\tau_2\end{bmatrix}
-=
-\begin{bmatrix}0\\[2pt]0\\[2pt]T_s\end{bmatrix},
-\end{equation}
-whose closed-form solution in terms of the error components is
-\begin{align}
-\label{eq:m2pc-tau0}
-\tau_0 &= \frac{T_s\big(E_d(v_{\mathrm{opt}})\,E_q(v'_{\mathrm{opt}})-E_d(v'_{\mathrm{opt}})\,E_q(v_{\mathrm{opt}})\big)}{D},\\[2pt]
-\label{eq:m2pc-tau1}
-\tau_1 &= \frac{T_s\big(E_d(v'_{\mathrm{opt}})\,E_q(v_0)-E_d(v_0)\,E_q(v'_{\mathrm{opt}})\big)}{D},\\[2pt]
-\label{eq:m2pc-tau2}
-\tau_2 &= \frac{T_s\big(E_d(v_0)\,E_q(v_{\mathrm{opt}})-E_d(v_{\mathrm{opt}})\,E_q(v_0)\big)}{D},
-\end{align}
-with common denominator
-\begin{equation}
-\label{eq:m2pc-D}
-D \;=\;
-E_d(v_0)\!\big(E_q(v_{\mathrm{opt}})-E_q(v'_{\mathrm{opt}})\big)
-+E_d(v_{\mathrm{opt}})\!\big(E_q(v'_{\mathrm{opt}})-E_q(v_0)\big)
-+E_d(v'_{\mathrm{opt}})\!\big(E_q(v_0)-E_q(v_{\mathrm{opt}})\big).
-\end{equation}
-When all three $\tau_j$ are nonnegative and sum to $T_s$, the origin lies in the triangle spanned by the error vectors $\{[E_d\ E_q]^T\}$, and the synthesized average is feasible inside the linear SVM region. If any $\tau_j<0$, a simple, robust fallback is to clip the negative time to zero, renormalize the remainder to $T_s$, or reselect the second vector from the adjacent sector.
-
-The translation from dwell times to per-leg duty cycles is the usual centered SVM construction. If the sector ordering within the period is chosen in the standard way (zero–active–active–zero), the generic duty template reads
-\begin{equation}
-\label{eq:m2pc-duties}
-\begin{bmatrix} d_{\mathrm{high}} \\[2pt] d_{\mathrm{mid}} \\[2pt] d_{\mathrm{low}} \end{bmatrix}
-=
-\frac{1}{T_s}
-\begin{bmatrix}
-\tau_1 + \tau_2 + \tfrac{1}{2}\tau_0 \\[4pt]
-\tau_2 + \tfrac{1}{2}\tau_0 \\[4pt]
-\tfrac{1}{2}\tau_0
-\end{bmatrix},
-\end{equation}
-followed by the usual sector-dependent permutation into $[d_a\ d_b\ d_c]^T$. Feasibility in linear modulation corresponds to $\tau_j\in[0,T_s]$ and $\tau_0+\tau_1+\tau_2=T_s$, equivalently to the stationary average satisfying
+ Feasibility in linear modulation corresponds to $\tau_j\in[0,T_s]$ and $\tau_0+\tau_1+\tau_2=T_s$, equivalently to the stationary average satisfying
 \begin{equation}
 \label{eq:m2pc-vlimit}
 \sqrt{\big(\bar v_\alpha^\ast\big)^2+\big(\bar v_\beta^\ast\big)^2}\ \le\ \tfrac{1}{2}\,V_{\mathrm{dc}}.
 \end{equation}
 
+\noindent Where:
+\begin{itemize}
+	\item $\tau_0$: Dwell time of the zero voltage vector.
+  \item $\tau_1$: Dwell time of the first active voltage vector.
+  \item $\tau_2$: Dwell time of the second active voltage vector. 
+\end{itemize}
 
-In summary, the modulated predictive controller evaluates the effect of all inverter vectors through the light Forward–Euler map \eqref{eq:m2pc-fe-vector}–\eqref{eq:m2pc-fe-iq}, ranks them against the one-step target \eqref{eq:m2pc-rank}, and replaces “apply one vector” with the SVM dwell synthesis \eqref{eq:m2pc-avg-err}–\eqref{eq:m2pc-duties}. The result is a fixed-frequency, low-ripple inner loop that remains fully model-based, integrates naturally with the observer and speed loop, and provides a fair baseline for later comparisons against PI–FOC and non-ideal inverter compensation.
+In summary, the modulated model predictive control calculates the tracking error due to all possible voltae vectors through the Forward–Euler discretization \eqref{eq:m2pc-fe-vector}–\eqref{eq:CostFunctionj}. The weighted nature of applying the most two optimal voltage vectors leads to a fixed switching frequency, smooth control action, low ripples for inner current loop with the outer DC-Link voltage loop to show a competitive performance for compared to the basic controller structure of PI–VOC used in the control of AFE rectifiers.
 
+\newpage
 \subsection{Algorithm Summary}
-TBD 
+% M2PC in dq-frame — Summarized Steps (paste-ready)
+\begin{enumerate}
+  \item Acquire the three-phase grid currents $I_{abc}(k)$, grid voltages $V_{sabc}(k)$, and DC-link voltage $V_{\mathrm{dc}}(k)$.
+  \item Calculate $i^{0}_{d}(k+1)$, $i^{0}_{q}(k+1)$ and the electrical angle $\theta(k+1)$.
+  \item Determine $v^{*}_{\mathrm{conv}d}(k+1)$ and $v^{*}_{\mathrm{conv}q}(k+1)$.
+  \item Calculate $I_d(k+1)$ and $I_q(k+1)$.
+  \item Set the candidate vector indices to $i=1$ and $j=2$.
+  \item Determine $d_i(k)$, $d_j(k)$, and $d_0(k)$ for the selected voltage vectors.
+  \item Calculate $i^{i}_{d}(k+2)$, $i^{i}_{q}(k+2)$, $i^{j}_{d}(k+2)$ and $i^{j}_{q}(k+2)$
+  \item Compute $g_i$ and $g_j$ for the candidate voltage vectors.
+  \item Increment $i=i+1$ and $j=j+1$, repeating the evaluation until $i>6$.
+  \item Calculate the overall cost function $J$ and identify the vector combination that minimizes $J$.
+  \item Use the optimal duty cycles $d_i$ and $d_j$ to update $v_{\mathrm{conv}d}(k+1)$ and $v_{\mathrm{conv}d}(k+1)$.
+  \item Apply the selected $d_i$, $d_j$, and $d_0$, and update $v^{*}_{\mathrm{conv}d}(k+1)$ and $v^{*}_{\mathrm{conv}q}(k+1)$ through the unit-delay block $Z^{-1}$ for the subsequent control cycle.
+\end{enumerate}
 
+%
+
+\par\noindent\makebox[\linewidth][c]{%
+\begingroup
+\definecolor{mTwoPcAccent}{RGB}{34,66,96}
+\begin{tikzpicture}[
+    font=\small,
+    line width=0.65pt,
+    process/.style={
+        draw=black!65, fill=black!3, rounded corners=1.5pt,
+        text width=6.9cm, minimum height=9mm,
+        inner xsep=5pt, inner ysep=3pt, align=center
+    },
+    highlighted/.style={process, draw=mTwoPcAccent, fill=mTwoPcAccent!8},
+    decision/.style={
+        diamond, aspect=2, draw=mTwoPcAccent, fill=mTwoPcAccent!8,
+        inner sep=1.1pt, minimum width=19mm, minimum height=10mm
+    },
+    delay/.style={highlighted, text width=20mm, minimum height=10mm},
+    flow/.style={-{Stealth[length=2mm,width=1.4mm]}, draw=black!80},
+    feedback/.style={flow, densely dashed, draw=mTwoPcAccent},
+    branch/.style={font=\footnotesize, inner sep=1.5pt}
+]
+    % Reserve equal space on either side of the main column at x = 0.
+    \path (-6.62,0) (6.62,0);
+
+    % Measurement and one-step calculations
+    \node[highlighted] (measure) at (0,0)
+        {Measure \(I_{abc}(k)\), \(V_{sabc}(k)\), and \(V_{\mathrm{dc}}(k)\)};
+    \node[process] (initial) at (0,-1.34)
+        {Calculate \(I_{d0}(k+1)\), \(I_{q0}(k+1)\),\\
+         and \(\theta(k+1)\)};
+    \node[process] (reference) at (0,-2.68)
+        {Calculate \(V_d^*(k+1)\) and \(V_q^*(k+1)\)};
+    \node[process] (current) at (0,-4.02)
+        {Calculate \(I_d(k+1)\) and \(I_q(k+1)\)};
+
+    % Candidate-vector loop
+    \node[process] (initialize) at (0,-5.36)
+        {Initialize vector indices \(i \to 1\) and \(j \to 2\)};
+    \node[process] (duties) at (0,-6.70)
+        {Calculate \(d_i(k)\), \(d_j(k)\), and \(d_0(k)\)};
+    \node[process] (predict) at (0,-8.10)
+        {Calculate \(I_{di}(k+2)\), \(I_{qi}(k+2)\),\\
+         \(I_{dj}(k+2)\), and \(I_{qj}(k+2)\)};
+    \node[process] (costs) at (0,-9.50)
+        {Calculate \(g_i\) and \(g_j\)};
+    \node[process] (increment) at (0,-10.84)
+        {Increment \(i \to i+1\) and \(j \to j+1\)};
+    \node[decision] (test) at (0,-12.22) {\(i>6\)?};
+
+    % Cost minimization, voltage update, and actuation
+    \node[process] (minimize) at (0,-13.68)
+        {Calculate \(J\) and select its minimum};
+    \node[process] (update) at (0,-15.08)
+        {Use the selected \(d_i\) and \(d_j\) to update\\
+         \(V_d(k+1)\) and \(V_q(k+1)\)};
+    \node[highlighted] (apply) at (0,-16.48)
+        {Apply the selected \(d_i\), \(d_j\), and \(d_0\)};
+    \node[delay] (unit-delay) at (5.13,-16.48)
+        {\mbox{Unit delay}\\\(z^{-1}\)};
+
+    \draw[flow] (measure) -- (initial);
+    \draw[flow] (initial) -- (reference);
+    \draw[flow] (reference) -- (current);
+    \draw[flow] (current) -- (initialize);
+    \draw[flow] (initialize) -- (duties);
+    \draw[flow] (duties) -- (predict);
+    \draw[flow] (predict) -- (costs);
+    \draw[flow] (costs) -- (increment);
+    \draw[flow] (increment) -- (test);
+    \draw[flow] (test.south) -- node[branch,right] {Yes} (minimize.north);
+    \draw[flow] (minimize) -- (update);
+    \draw[flow] (update) -- (apply);
+
+    % Separate paths for vector iteration and delayed voltage feedback.
+    \coordinate (retry-lane) at (4.31,0);
+    \draw[flow, rounded corners=3pt]
+        (test.east) -- node[branch,above] {No}
+        (retry-lane |- test.east) |- (duties.east);
+    \coordinate (feedback-lane) at (6.60,0);
+    \coordinate (feedback-input) at ([yshift=2.8mm]duties.east);
+    \draw[feedback, rounded corners=3pt] (update.east) -| (unit-delay.north);
+    \draw[feedback, rounded corners=3pt]
+        (unit-delay.east) -- (feedback-lane |- unit-delay.east)
+        |- (feedback-input);
+\end{tikzpicture}%
+\endgroup
+}%
+\par
+\captionof{figure}{Flowchart of the Modulated MPC Algorithm.}
+\label{fig:m2pc-flowchart}
+%
+
+\par\vspace{20pt}
+
+In Fig.~\ref{fig:m2pc-flowchart}, the flowchart summarizes the modulated MPC algorithm. The main loop iterates through all candidate voltage vector pairs, calculating their predicted currents, duty cycles, and associated costs. 
+
+\par\vspace{10pt}
+
+Once all pairs are evaluated, the algorithm selects the pair that minimizes the global cost function \(J\) and applies the corresponding duty cycles to generate the desired average voltage for the next control period. The unit delay block ensures that the updated voltages are used in the subsequent iteration, maintaining a consistent control cycle.
+
+\newpage
 \subsection{Modeling and Simulations}
 This section validates the complete drive model and controllers through a focused suite of studies: (i) steady-state operation to verify ripple, losses, and harmonic content; (ii) low-speed operation to probe back-EMF limits and non-idealities; (iii)  dynamic performance under speed/current steps; (iv) parameter variation to gauge robustness against model mismatch; and (v) load variation to assess torque disturbance rejection.
 \subsubsection{Steady State Operation}
